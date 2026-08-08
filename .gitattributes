@@ -1,0 +1,8 @@
+# append-only measurement ledgers: keep rows from both sides on merge/rebase;
+# readers de-duplicate by row identity (`run_id` in the shared telemetry
+# envelope — see the main repo's `dev/compile_telemetry_schema.md`).
+#
+# Two agents measuring concurrently in two worktrees is an ordinary case here,
+# and the default text merge turns two independent appends into a conflict in a
+# file nobody edits by hand.
+*.jsonl merge=union
