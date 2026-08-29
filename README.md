@@ -317,3 +317,32 @@ gameplay phase moves by at most 4 MICROseconds. ⇒ making the simulation cheape
 cannot remove the spikes. It remains correct for throughput (the sim is 0.84ms of
 a 4.2ms frame) and is worth approximately nothing for responsiveness. What the
 spike actually is stays open, and needs a host with a GPU to answer.
+
+## `ladder_scenarios.jsonl` — the CPU ladder's placement fixtures, 45 seeds
+
+`ladder_rig --scenarios --seeds 45`, 60s bouts, 20 rows (5 fixtures x 4 rung
+pairs). Recorded 2026-08-29 to settle whether three "vacuous" rows were noise.
+
+**They are not.** At 3x the seed count the same 3 of 16 recovery rows come back:
+`recovery_right` 3v1, `recovery_below` 3v1, `recovery_below` 6v5. A vacuous row is
+one where BOTH seats end at **0.0% peak damage** — neither fighter was ever
+touched, because neither recovered from the fixture's drop.
+
+⭐ **What the fixture measures is not what its name suggests.** It places SELF past
+a blastzone and the FOE at mid-height — which is mid-AIR — so every row is a
+two-fighter recovery stress test. 13 of 16 rows have both fighters recover and
+fight on to 130–160%.
+
+⛔ **Two readings of this data are refuted by the data itself**, and both are worth
+not repeating:
+
+- *"a skill effect — weak CPUs fail"*: `recovery_below` is **non-monotonic in
+  rung** (vacuous at 3v1, engaging at 5v3, vacuous at 6v5, engaging at 9v6). No
+  skill gradient does that.
+- *"a left/right asymmetry"*: `recovery_right` dies at 3v1 but reaches 151%/129%
+  at 5v3 **from the identical placement**, so geometry is not it either.
+
+⚠ The three vacuous rows kill both seats within a hair of the same times —
+7.6/12.1, 7.3/11.8, 7.1/11.6 s. Why those particular rung pairings is open; the
+brain's steering direction is symmetric by unit test, so it is not a simple
+mirroring bug.
