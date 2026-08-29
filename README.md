@@ -146,6 +146,26 @@ that moves a frame shaped like this is retiring a WHOLE CLASS at once**, which i
 why the campaign's one measured win hoisted a condition that gated a whole set
 (83 evaluations per run to 1) rather than optimising any system.
 
+⭐⭐ **AND THE ONE THING THAT SCALES WITH A PLAYER'S CHOICE: FIGHTER COUNT.** Every
+other number in this campaign came back flat. 1200-tick arms, both keeping their
+cast, frame **4.58 → 4.83ms** for 2 → 4 fighters:
+
+| phase | delta | share of the delta |
+|---|---|---|
+| `PreUpdate` | +0.104ms | 42% |
+| `PostUpdate` | +0.078ms | 31% |
+| `Update` | +0.066ms | 26% |
+
+The gameplay sim accounts for +0.086ms of it. ⇒ **a fighter costs about a third in
+simulation, a third in presentation, a quarter in `Update`** — which is what a
+fighter is: a sprite rig plus a brain plus combat state. ⛔ **Optimising only the
+sim addresses a third of a fighter.** And a fighter is NOT "a body": at ~125us it
+is roughly 10x the ~16us/body constant, so do not price one with the other.
+
+⇒ **the cost sheet, for pricing a feature before building it:** ~4.5ms baseline
+(2-fighter match, ~630 systems, no hot one) · **~125us per fighter** · ~16us per
+body · ~1.4us per visible sprite · a tail spike of +3.6ms that is **not** the sim.
+
 ⚠ **A caveat that cost a retracted finding:** these splits are valid ONLY from a
 run with no render backend. `[census] phases` attributes wall time between
 schedule markers, so GPU blocking lands in whichever phase brackets it — raising
