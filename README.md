@@ -123,6 +123,35 @@ It is a design constant, not a defect.
 — 2048 where the live population is 1599. The census now prints `live=` beside
 it. Do not read this column as a population.
 
+⭐ **The frame, fully attributed** (4.45ms, 2 fighters, windowless, same host).
+Worth having because it prices each direction BEFORE anyone funds one:
+
+| block | ms | share |
+|---|---|---|
+| marked gameplay sim (17 phases) | 0.83 | 19% |
+| GGRS rollback driver overhead | **0.21** | 5% |
+| `PreUpdate` outside the driver | **0.93** | 21% |
+| `Update` | 1.23 | 28% |
+| `PostUpdate` | 0.51 | 11% |
+| `RunFixedMainLoop` | 0.31 | 7% |
+| First / StateTransition / SpawnScene / Last | 0.31 | 7% |
+
+Two things fall out. **The rollback driver is cheap** — 0.21ms, because
+`check_distance: 0` skips saving entirely; do not go hunting rollback cost here.
+And **`PreUpdate` is not "the simulation tick"**: the sim is 0.83 of its 1.98ms.
+But the 0.93ms remainder is BREADTH, not a hot spot — 0.93ms over ~135 systems is
+**6.9us each**, and `Update` is 1.23ms over 521 systems (**2.4us each**), both
+inside the independently measured 2.9-15.6us per-system band. ⇒ **the only lever
+that moves a frame shaped like this is retiring a WHOLE CLASS at once**, which is
+why the campaign's one measured win hoisted a condition that gated a whole set
+(83 evaluations per run to 1) rather than optimising any system.
+
+⚠ **A caveat that cost a retracted finding:** these splits are valid ONLY from a
+run with no render backend. `[census] phases` attributes wall time between
+schedule markers, so GPU blocking lands in whichever phase brackets it — raising
+a render target 320x240 to 1280x960 once took `StateTransition` from 0.169 to
+1.822ms, a phase full of state machinery scaling with PIXELS.
+
 ⭐⭐ **And the finding most likely to redirect architecture work: Smash's frame
 spikes are not in the simulation.** A 4000-tick match, 340 intervals split into
 quartiles by worst frame, gives a sim total of 0.837ms (calm) vs 0.849ms (spiky)
