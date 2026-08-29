@@ -68,6 +68,26 @@ of the same early session rather than three independent play-throughs.
 - MSAA is Bevy's default 4x, which adds a whole `msaa_writeback` pass over all
   5.76M pixels.
 
+### And what it cost to fix, same day
+
+| | baseline (median of 3) | after the raster budget | speedup |
+|---|---|---|---|
+| p50 | 51.045ms | **18.467ms** | **2.76x** |
+| p95 | 82.65ms | 30.31ms | 2.73x |
+| mean | 53.33ms | 20.08ms | 2.66x |
+
+**~19.6 FPS to ~54 FPS**, with the first 100 seconds of per-second windows at
+**16.6–17.0ms — vsync-capped 60.** Run `desktop-timeline-run-20260829T223455Z`,
+same comparability key as the three baselines, so the ledger treats all four as
+one series. The effect is 176% against a ~7% floor.
+
+⭐ The mechanism was confirmed by exact counts before any timing was read:
+`render/upscaling/fragment_shader_invocations` went **5,760,000 → 1,440,000**
+(3200x1800 → 1600x900) and the `render/msaa_writeback` rows went to **zero**.
+
+Full campaign, including what this does NOT establish:
+`journal/2026-08-29-the-laptop-frame.md`.
+
 ⭐⭐ **`calculex` IS THE MACHINE THIS FILE HAS BEEN ASKING FOR.** The caveat
 below — that a budget comfortable on a 3090 and an i9 is not evidence about a
 laptop — has never had a laptop to check against. It does now, and the laptop is
