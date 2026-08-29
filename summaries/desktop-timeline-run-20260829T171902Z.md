@@ -410,6 +410,8 @@ Top native symbols:
 Decode counts only ever rise. A rise with no new room is the same asset
 being decoded again; `image_decodes.csv` names which.
 
+- Busiest arrival window: **126 images (93.5 MP)** at 5.0s. Each is extracted into the render world once, so this is what a frame spike is made of.
+
 ✔ 31 decode(s) landed before the first `room-loaded` (93.8 MP) — boot. Not a gameplay hitch.
 
 ⚠ 7 decode(s) landed WITHIN 3s of a `room-loaded` — a room still arriving. Expected, and the reason "during gameplay" alone is not the contract.
@@ -474,6 +476,7 @@ Textures decoded more than once:
 | `portal_activity.csv` | portal capture rigs and the budget bounding them | yes |
 | `asset_activity.csv` | cumulative decode work and resident images | yes |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
+| `image_arrivals.csv` | images reaching Assets<Image> per census window | yes |
 | `schedule_census.csv` | registered system counts per sample | yes |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | yes |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | yes |
