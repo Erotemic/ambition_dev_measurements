@@ -159,8 +159,8 @@ cast, frame **4.58 → 4.83ms** for 2 → 4 fighters:
 The gameplay sim accounts for +0.086ms of it. ⇒ **a fighter costs about a third in
 simulation, a third in presentation, a quarter in `Update`** — which is what a
 fighter is: a sprite rig plus a brain plus combat state. ⛔ **Optimising only the
-sim addresses a third of a fighter.** And a fighter is NOT "a body": at ~125us it
-is roughly 10x the ~16us/body constant, so do not price one with the other.
+sim addresses a third of a fighter.** And a fighter is NOT "a body": at ~125-240us it
+is several times the ~16us/body constant, so do not price one with the other.
 
 ⭐ **AND A FIGHTER IS ALREADY LEAN: 8 ENTITIES AND 1 SPRITE.** Measured at the
 instant the round goes live, before any combat — `entities_at_go_live` 1297 at two
@@ -178,7 +178,7 @@ fewer components, less change-detection churn) inside a pipeline this repo does
 not author.
 
 ⇒ **the cost sheet, for pricing a feature before building it:** ~4.5ms baseline
-(2-fighter match, ~630 systems, no hot one) · **~125us per fighter** · ~16us per
+(2-fighter match, ~630 systems, no hot one) · **~125-240us per fighter** · ~16us per
 body · ~1.4us per visible sprite · a tail spike of +3.6ms that is **not** the sim.
 
 ⭐⭐ **WHO OWNS THE SIMULATION — the datum for a decomposition.** The sim schedule
