@@ -242,6 +242,38 @@ schedule markers, so GPU blocking lands in whichever phase brackets it — raisi
 a render target 320x240 to 1280x960 once took `StateTransition` from 0.169 to
 1.822ms, a phase full of state machinery scaling with PIXELS.
 
+⭐⭐⭐ **A FIGHT COSTS PHYSICS, NOT COMBAT LOGIC — and this is the cleanest
+measurement in the set.** It uses the only strong design available on a noisy host:
+an INTERLEAVED within-run A/B. Combat VFX make the entity population rise and fall
+repeatedly (137 rises, 166 falls over 433 samples), so quiet and busy frames can be
+compared inside ONE process — immune to both the ±20% single-run outliers and the
+~5% drift between measurement blocks.
+
+Quartile-split by population, n=401 intervals:
+
+| phase | quiet | combat | delta |
+|---|---|---|---|
+| **`RunFixedMainLoop`** (fixed-step / physics) | 0.321 | 0.409 | **+0.088 — 58%** |
+| `PostUpdate` | 0.519 | 0.546 | +0.027 |
+| `Update` | 1.244 | 1.269 | +0.025 |
+| `PreUpdate` | 1.964 | 1.974 | +0.010 |
+| **whole gameplay sim** | 0.837 | 0.840 | **+0.003** |
+| of which `Combat` | 0.191 | 0.195 | **+0.004** |
+
+⇒ **combat costs ~4 MICROSECONDS in the phase named after it, while costing ~150us
+in the frame.** What a fight actually costs is collision and physics work.
+
+⛔ **AND DO NOT DIVIDE THE FRAME DELTA BY THE ENTITY COUNT.** +251us over +24
+entities gives "10.3us per VFX entity" — 3x the whole-frame average — because the
+entities are a SYMPTOM of combat, not its cause. Entity count is a proxy for
+combat activity here. (Fourth time in this campaign that dividing by an entity
+count produced a wrong answer.)
+
+⭐ This is the third independent route to the same conclusion — the spikes are not
+in the sim, a fighter is only a third sim, and now a fight moves the sim by 0.4%.
+**Optimising gameplay systems is not where this engine's frame lives, even when
+gameplay is the busiest thing on screen.**
+
 ⭐⭐ **And the finding most likely to redirect architecture work: Smash's frame
 spikes are not in the simulation.** A 4000-tick match, 340 intervals split into
 quartiles by worst frame, gives a sim total of 0.837ms (calm) vs 0.849ms (spiky)
