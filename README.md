@@ -61,3 +61,73 @@ because the bundle they describe was deleted before this ledger existed. They
 record the same commit and scenario under Tracy (13.6ms) and without it (1.52ms),
 in two deliberately different comparability groups. Their `provenance.caveats`
 list what the prose could not supply and where it contradicts itself.
+
+## room_population.jsonl
+
+**All 72 shipped rooms, booted and counted** — one row per room, written
+2026-08-29 from `capture_scene <room> player <out> 320x240 --warmup 180` with the
+runtime census on. Counts only, deliberately: this host has no GPU and software-
+rasterizes, so every wall-time number it produces is suspect, but **a COUNT cannot
+be contaminated by rasterization**. That is what made the question answerable here
+at all.
+
+⭐ **What it settled.** A runtime-efficiency campaign had recorded, from a
+four-room sample, that *"no shipped room exceeds 46-87 visible sprites"* and
+concluded the game's founding performance premise — *a room with hundreds of
+sprites chugs* — was false. Sweeping all 72 rooms shows the room exists:
+`mockingbird_arena` reaches **283 sprites / 277 visible**, 3x the next room.
+Four rooms were not the population.
+
+⭐⭐ **But the peak is an EVENT, not a room, and that is the transferable part.**
+Sampled at 20Hz, `mockingbird_arena` sits at 34-35 visible sprites, ramps to
+**295 visible**, and collapses back to 35 — the whole excursion lasts about one
+second. Every earlier sample missed it because they all photographed rooms AT
+REST. A steady-state census cannot see a one-second barrage, and the rows in this
+file (warmup 180) catch some rooms mid-spawn for the same reason: **treat the
+sprite columns as an upper bound sampled at one moment, not as a steady state.**
+
+**What the burst costs** (same run, same resolution, arms straddling the event,
+intervals with `frames>=5` only):
+
+| | visible sprites | mean | p95 | worst frame |
+|---|---|---|---|---|
+| baseline | 35 | 7.42ms | 8.46ms | 11.66ms |
+| burst | 277-295 | 7.78ms | 9.50ms | **17.30ms** |
+
+8x the sprites for **+0.36ms of mean (4.9%)** — 1.40us per visible sprite, which
+independently matches a +36-sprite probe's 3.89us. ⇒ **the sprites are real and
+cheap, and the damage is in the TAIL** (worst frame past the 16.67ms budget at
+60Hz), not in throughput.
+
+⭐ **The one room that is genuinely expensive is expensive in SIMULATION.**
+Measured on the sim-tick census, which the GPU-contamination caveat does not
+reach:
+
+| room | bodies | live entities | WorldPrep |
+|---|---|---|---|
+| `goblin_encounter` | 1 | 1919 | 0.269ms |
+| `basement_npcs` | 4 | 2238 | 0.353ms |
+| `duel_arena` | 4 | **1732** | 0.354ms |
+| `basement_enemies` | 9 | 2524 | 0.431ms |
+| `hall_of_characters` | **130** | 3858 | **2.373ms** |
+
+**`WorldPrep` scales with BODIES, not entities, and the matched pair proves it:**
+`duel_arena` and `basement_npcs` both have 4 bodies, differ 30% in live entity
+count, and agree to **one microsecond**. ⇒ **budget ~16us of simulation per
+body.** `hall_of_characters` is a gallery showing every character at once; no
+gameplay room exceeds 9 bodies, so at 16us/body this funds no optimisation work.
+It is a design constant, not a defect.
+
+⛔ **A caution about the `entities_allocated` column.** It is Bevy's
+`Entities::len()`, which counts ALLOCATED slots and lands on exact powers of two
+— 2048 where the live population is 1599. The census now prints `live=` beside
+it. Do not read this column as a population.
+
+⭐⭐ **And the finding most likely to redirect architecture work: Smash's frame
+spikes are not in the simulation.** A 4000-tick match, 340 intervals split into
+quartiles by worst frame, gives a sim total of 0.837ms (calm) vs 0.849ms (spiky)
+— **+1.4%** — while the frame max moves **4.64 -> 8.28ms**. Every individual
+gameplay phase moves by at most 4 MICROseconds. ⇒ making the simulation cheaper
+cannot remove the spikes. It remains correct for throughput (the sim is 0.84ms of
+a 4.2ms frame) and is worth approximately nothing for responsiveness. What the
+spike actually is stays open, and needs a host with a GPU to answer.
