@@ -21,7 +21,7 @@ had stopped being true.
 |---|---|---|---|---|---|---|---|
 | `toothbrush` | `5776eb09…` | bare metal, Jon's desk | i9-11900K @ 3.50GHz | 16 | 131.7 GB | RTX 3090, driver 595.84, Vulkan | **windowed** profiling; the only host that has produced a real frame |
 | `aivm-2404` **@toothbrush** | `ec9af5ee…` | a VM guest on `toothbrush` | i9-11900K @ 3.50GHz (same silicon) | 12 | 65.8 GB | none | ⚠ **RETIRED / not currently reachable.** Produced the overnight headless series |
-| `calculex` | *(pending a run)* | bare metal, Jon's **laptop** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **8** | 32.4 GB | **Intel HD Graphics 630 (KBL GT2)**, Mesa 23.2.1, Vulkan 1.3 — ⚠ **integrated**; an NVIDIA ICD is listed but `nvidia-smi` fails, so there is no working discrete GPU | **windowed** profiling on slow hardware. Ubuntu 22.04, Wayland |
+| `calculex` | `087907b3…` | bare metal, Jon's **laptop** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **8** | 32.4 GB | **Intel HD Graphics 630 (KBL GT2)**, Mesa 23.2.1, Vulkan 1.3 — ⚠ **integrated**; an NVIDIA ICD is listed but `nvidia-smi` fails, so there is no working discrete GPU | **windowed** profiling on slow hardware. Ubuntu 22.04, Wayland |
 | `aivm-2404` **@calculex** | `716a275c…` | a KVM guest **on `calculex`** | i7-7700HQ @ 2.80GHz (same silicon) | **6** of its 8 | **15.6 GB** of its 32.4 | none | agent work as of 2026-08-29; **headless** benchmarks only |
 
 ⛔ **THE HEADLESS VM IS NO LONGER THE SAME SILICON AS THE DESK.** The claim this
@@ -36,6 +36,37 @@ inherits the desk's numbers, in either direction.
 baseline the current VM can continue: re-running that scenario here and putting
 the result next to those three numbers would be a machine-crossing comparison
 wearing the shape of a trend. Start a new series, and say which host it is on.
+
+### The `calculex` baseline, measured 2026-08-29
+
+Three windowed runs of the shipped route, Tracy compiled in but never connected
+(so the ledger classes them `no-tracy`), same comparability key
+`windowed:default@v1/profiling/hardware/no-tracy/087907b3…`:
+
+| run | p50 | p95 | mean |
+|---|---|---|---|
+| `desktop-timeline-run-20260829T214154Z` | 51.045ms | 82.65 | 53.33 |
+| `desktop-timeline-run-20260829T215121Z` | 49.050ms | 71.02 | 51.96 |
+| `desktop-timeline-run-20260829T220508Z` | 52.624ms | 83.15 | 56.52 |
+
+**Median p50 = 51.0ms — about 19.6 FPS.** The three reps span 49.0–52.6ms, so the
+run-to-run spread here is roughly **±3.5%**, or ~7% end to end. ⭐ That is a
+MEASURED noise floor for this host, not an inherited one: anything claiming less
+than ~7% on p50 needs more reps before it is a result.
+
+⚠ All three crashed (SIGSEGV) between 25s and 32s in, so each is a short sample
+of the same early session rather than three independent play-throughs.
+
+**What the frame is spent on** — counts, which survive what timings cannot:
+
+- The window is 1600x900 logical and rasterises at **3200x1800**: every
+  full-screen pass reports exactly **5,760,000** fragment invocations. That is
+  **4x the pixels of the window**, from a 2x Wayland scale factor.
+- `main_transparent_pass_2d` runs **2.8x** that count on average and **5.4x** at
+  peak, from ~21 visible sprites — a handful of very large stacked transparent
+  layers, not many small ones.
+- MSAA is Bevy's default 4x, which adds a whole `msaa_writeback` pass over all
+  5.76M pixels.
 
 ⭐⭐ **`calculex` IS THE MACHINE THIS FILE HAS BEEN ASKING FOR.** The caveat
 below — that a budget comfortable on a 3090 and an i9 is not evidence about a
