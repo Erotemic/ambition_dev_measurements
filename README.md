@@ -209,6 +209,25 @@ campaign and moved **neither frame time nor startup registration**. ⇒ they alr
 pay proportionally to what they do. A system COUNT is an ownership fact; this
 campaign's repeated result is that counts do not predict cost.
 
+⭐⭐ **WHAT EFFECT SIZE IS EVEN DETECTABLE HERE — measure this before designing a
+probe.** Five back-to-back 2000-tick 2-fighter runs, same binary, same host:
+4.42 / 4.52 / 4.55 / 4.62 / 4.43ms — mean **4.508ms**, range **4.4% of the mean**.
+
+⇒ **the smallest defensible single-arm win on this host is ~0.2ms**, which at the
+measured 6.9us/system is about **30 systems' worth of work**. ⛔ A two-arm A/B
+carries roughly DOUBLE that uncertainty, because subtracting two noisy quantities
+amplifies relative error — a ±0.04ms wobble on a 0.53ms phase is 8%, and on the
+0.08ms DIFFERENCE of two such phases it is 50%. **An absolute measurement here
+needs one careful run; a DELTA needs at least three per arm.**
+
+⚠ This corrected a rule the campaign had been applying: a "~15% noise floor" had
+been used to derive "no group of fewer than ~500 systems can produce a measurable
+win". At the measured floor that threshold is ~30 systems — too pessimistic by
+more than an order of magnitude. ⭐ Re-checking every candidate group against the
+tighter bar resurrected NONE of them (falling sand's plugin removal moved nothing;
+asset trackers are <=0.145ms; ui focus + picking is 0.00) — but the rule itself
+would have wrongly dismissed a 30-system gate proposed later.
+
 ⚠ **A caveat that cost a retracted finding:** these splits are valid ONLY from a
 run with no render backend. `[census] phases` attributes wall time between
 schedule markers, so GPU blocking lands in whichever phase brackets it — raising
