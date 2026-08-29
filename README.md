@@ -162,6 +162,21 @@ fighter is: a sprite rig plus a brain plus combat state. ⛔ **Optimising only t
 sim addresses a third of a fighter.** And a fighter is NOT "a body": at ~125us it
 is roughly 10x the ~16us/body constant, so do not price one with the other.
 
+⭐ **AND A FIGHTER IS ALREADY LEAN: 8 ENTITIES AND 1 SPRITE.** Measured at the
+instant the round goes live, before any combat — `entities_at_go_live` 1297 at two
+fighters vs 1313 at four, and `sprites_at_go_live` 25 vs 27, both with ZERO
+variance across reps. (Later in the same run combat VFX swing the entity count by
+±40, which is larger than the whole fighter delta; ⭐ **when the noise is an
+ACTIVITY, sample before the activity starts.**)
+
+⇒ that closes the obvious lever before anyone funds it: **"give the pipeline fewer
+entities" has almost no room at 8, and "draw fewer sprites" has none at 1.** The
+~39us a fighter adds to `PostUpdate` is ~4.9us per fighter entity — an ordinary
+per-entity cost — so fighter entities are EXPENSIVE, not NUMEROUS, and the only
+remaining presentation lever is making each one cheaper (shallower hierarchy,
+fewer components, less change-detection churn) inside a pipeline this repo does
+not author.
+
 ⇒ **the cost sheet, for pricing a feature before building it:** ~4.5ms baseline
 (2-fighter match, ~630 systems, no hot one) · **~125us per fighter** · ~16us per
 body · ~1.4us per visible sprite · a tail spike of +3.6ms that is **not** the sim.
