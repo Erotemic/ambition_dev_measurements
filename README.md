@@ -171,7 +171,7 @@ ACTIVITY, sample before the activity starts.**)
 
 ⇒ that closes the obvious lever before anyone funds it: **"give the pipeline fewer
 entities" has almost no room at 8, and "draw fewer sprites" has none at 1.** The
-~39us a fighter adds to `PostUpdate` is ~4.9us per fighter entity — an ordinary
+~39-80us a fighter adds to `PostUpdate` is ~5-10us per fighter entity — an ordinary
 per-entity cost — so fighter entities are EXPENSIVE, not NUMEROUS, and the only
 remaining presentation lever is making each one cheaper (shallower hierarchy,
 fewer components, less change-detection churn) inside a pipeline this repo does
