@@ -211,10 +211,18 @@ campaign's repeated result is that counts do not predict cost.
 
 ⭐⭐ **WHAT EFFECT SIZE IS EVEN DETECTABLE HERE — measure this before designing a
 probe.** Five back-to-back 2000-tick 2-fighter runs, same binary, same host:
-4.42 / 4.52 / 4.55 / 4.62 / 4.43ms — mean **4.508ms**, range **4.4% of the mean**.
+4.42 / 4.52 / 4.55 / 4.62 / 4.43ms — mean **4.508ms**, range **4.4%**.
 
-⇒ **the smallest defensible single-arm win on this host is ~0.2ms**, which at the
-measured 6.9us/system is about **30 systems' worth of work**. ⛔ A two-arm A/B
+⛔⛔ **THAT SINGLE BLOCK WAS NOT ENOUGH, AND RE-RUNNING SAID SO.** Two more blocks
+the same hour, same binary: **22.6%** over 3 reps (one run at 5.24) and **7.4%**
+over 8. Typical spread is **4–7%** with occasional single runs ~20% above the
+median. ⇒ **use the MEDIAN of ≥5 reps; the defensible bar is ~7%, about 0.3ms**,
+which at 6.9us/system is roughly **45 systems' worth of work**.
+
+⛔⛔ **AND THE BLOCK MEAN ITSELF DRIFTS — 4.508ms vs 4.305ms minutes apart,
+nothing changed.** That 4.7% is as large as most effects worth finding, so **two
+arms measured in different blocks cannot be compared even with reps each.
+INTERLEAVE them.** ⛔ A two-arm A/B
 carries roughly DOUBLE that uncertainty, because subtracting two noisy quantities
 amplifies relative error — a ±0.04ms wobble on a 0.53ms phase is 8%, and on the
 0.08ms DIFFERENCE of two such phases it is 50%. **An absolute measurement here
