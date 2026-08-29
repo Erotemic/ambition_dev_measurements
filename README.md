@@ -166,6 +166,34 @@ is roughly 10x the ~16us/body constant, so do not price one with the other.
 (2-fighter match, ~630 systems, no hot one) · **~125us per fighter** · ~16us per
 body · ~1.4us per visible sprite · a tail spike of +3.6ms that is **not** the sim.
 
+⭐⭐ **WHO OWNS THE SIMULATION — the datum for a decomposition.** The sim schedule
+(`GgrsSchedule`) could not be enumerated at all until 2026-08-29, because the
+schedule census ran at `PreStartup` and the sim schedule does not exist until a
+session activates. Once sampled after activation: **545 systems across 29
+crates.**
+
+| crate | sim systems | share |
+|---|---|---|
+| **`ambition_platformer2d_actor_monolith`** | **162** | **30%** |
+| `ambition_content` | 62 | 11% |
+| `ambition_combat` | 52 | 10% |
+| `ambition_demo_mary_o` | 33 | 6% |
+| `ambition_sim_view` | 30 | 6% |
+| `ambition_demo_sanic` | 25 | 5% |
+| `ambition_platformer2d_runtime` | 25 | 5% |
+| `ambition_dev_tools` | 22 | 4% |
+
+**The monolith is 30% of the simulation** — "it is big" as a number a plan can be
+built against. For contrast `Update` spreads 497 systems over 46 crates, led by
+`ambition_render` at 99, so the sim is far more concentrated than the frame.
+
+⛔ **AND A WARNING FOR WHOEVER READS THIS AS A COST TABLE: IT IS NOT ONE.** 63 sim
+systems (12%) belong to experiences a Smash match is not — `mary_o`, `sanic`,
+`twintrack`. Removing FOUR whole experiences was measured directly in this
+campaign and moved **neither frame time nor startup registration**. ⇒ they already
+pay proportionally to what they do. A system COUNT is an ownership fact; this
+campaign's repeated result is that counts do not predict cost.
+
 ⚠ **A caveat that cost a retracted finding:** these splits are valid ONLY from a
 run with no render backend. `[census] phases` attributes wall time between
 schedule markers, so GPU blocking lands in whichever phase brackets it — raising
