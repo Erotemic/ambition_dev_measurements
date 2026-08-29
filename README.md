@@ -1,6 +1,16 @@
 # ambition_dev_measurements
 This is a repo that helps keep measurement bloat out of the main repo
 
+## Start here
+
+- **`hardware.md`** — the machines these numbers were taken on, and **which
+  conclusions travel to other hardware and which do not**. ⛔ Every number in this
+  repo belongs to a machine; read this before quoting one.
+- **`profiling-lessons.md`** — the measurement rules, each one bought with a
+  published number that turned out to be wrong. Read before designing a probe.
+- **`journal/`** — one file per campaign: what was chased, what was retracted, and
+  what is still open. `journal/README.md` says how to keep one.
+
 ## goal_check_cost.jsonl
 
 The goal guard used to run shell checks — in this repo, cargo builds and test
