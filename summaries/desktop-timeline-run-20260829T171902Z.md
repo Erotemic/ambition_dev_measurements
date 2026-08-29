@@ -477,6 +477,7 @@ Textures decoded more than once:
 | `asset_activity.csv` | cumulative decode work and resident images | yes |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
 | `image_arrivals.csv` | images reaching Assets<Image> per census window | yes |
+| `world_events.csv` | room loads and session starts/ends, with game time | yes |
 | `schedule_census.csv` | registered system counts per sample | yes |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | yes |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | yes |
