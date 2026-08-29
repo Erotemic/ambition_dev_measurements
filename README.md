@@ -274,6 +274,27 @@ in the sim, a fighter is only a third sim, and now a fight moves the sim by 0.4%
 **Optimising gameplay systems is not where this engine's frame lives, even when
 gameplay is the busiest thing on screen.**
 
+⭐⭐⭐ **AND THE SPIKES THEMSELVES ARE ANSWERED: THEY ARE CONTENTION, NOT THE
+ENGINE.** ~15,800 frames per arm, absolute thresholds (a "3x median" threshold is
+useless here — it MOVES when load raises the median):
+
+| arm | median | >8ms | >12ms | >16.67ms | worst |
+|---|---|---|---|---|---|
+| idle | 3.20ms | 9 (**1.1%**) | 2 (0.2%) | **0 (0.0%)** | 13.66ms |
+| 6x busy loop | 3.35ms | 87 (**9.5%**) | 7 (0.8%) | 1 (0.1%) | **34.86ms** |
+
+Frames over 8ms become **8.6x more common under CPU contention while the median
+moves 5%** — the signature of scheduling, since engine work would raise the median
+along with the tail. ⭐⭐ **On an idle machine, ZERO of 15,747 frames exceeded the
+16.67ms budget.**
+
+⛔⛔ **AND THE CAUTIONARY HALF: the "dropped frames" recorded earlier in this
+campaign were the measuring session's OWN concurrent builds and probes.** A 22.95ms
+worst frame and a noise-floor block that read 22.6% instead of ~5% both dissolve
+once the machine is quiet. ⇒ **RECORD MACHINE LOAD BESIDE EVERY FRAME NUMBER** —
+without it, a tail measurement is partly a measurement of whoever else is on the
+box.
+
 ⭐⭐ **And the finding most likely to redirect architecture work: Smash's frame
 spikes are not in the simulation.** A 4000-tick match, 340 intervals split into
 quartiles by worst frame, gives a sim total of 0.837ms (calm) vs 0.849ms (spiky)
