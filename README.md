@@ -342,7 +342,27 @@ not repeating:
 - *"a left/right asymmetry"*: `recovery_right` dies at 3v1 but reaches 151%/129%
   at 5v3 **from the identical placement**, so geometry is not it either.
 
-⚠ The three vacuous rows kill both seats within a hair of the same times —
-7.6/12.1, 7.3/11.8, 7.1/11.6 s. Why those particular rung pairings is open; the
-brain's steering direction is symmetric by unit test, so it is not a simple
-mirroring bug.
+⛔⛔ **SCHEMA 2, SAME DAY — AND IT CORRECTS THE PARAGRAPH THIS REPLACED.** The v1
+rows carried a `vacuous` flag derived from the rig's MEDIANS, and the outcome is
+BIMODAL: a bout either ends untouched or becomes a real fight, so a stable 50/50
+split gives a stable median too. `unfought_bouts` (both seats under 1% damage) is
+now recorded per row, and it splits one apparent defect into two:
+
+| fixture | 3v1 | 5v3 | 6v5 | 9v6 |
+|---|---|---|---|---|
+| `recovery_left` | 0/45 | 0/45 | 0/45 | 0/45 |
+| `recovery_right` | **23/45** | 0/45 | 0/45 | 0/45 |
+| `recovery_below` | **45/45** | 0/45 | **45/45** | 0/45 |
+| `recovery_above` | 0/45 | 0/45 | 0/45 | 0/45 |
+
+⇒ `recovery_right` 3v1 is a **coin flip** (51%) whose median fell on the unfought
+side by one bout. `recovery_below` is **45/45 or 0/45, never between** — a
+deterministic total failure at two rung pairs.
+
+⭐⭐ **REPRODUCIBILITY IS NOT DETERMINISM.** Re-running at 3x the seeds returned the
+same three rows and I read that as "not noise". It is not SAMPLING noise — but
+more seeds only sharpen the estimate of a 51% rate, and a 51% rate produces the
+same median every time. Only the DISTRIBUTION tells a coin flip from a certainty.
+
+⭐ The count also finds unfought bouts hiding inside rows that read as ordinary
+fights: `ledge_trap` 3v1 is 3/45 behind a 119%/103% median.
