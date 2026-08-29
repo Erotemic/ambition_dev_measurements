@@ -19,6 +19,23 @@ Schema 2 rows: `total_seconds`, `load_before`/`load_after`, `build_processes`,
 `foreign_builds` (null = the repo never declared what a build looks like), and
 per-check `name`/`ok`/`seconds`. Incidents: `docs/tools/goal-guard.md`.
 
+## `summaries/` and `profiles/` — how to read a row back
+
+⭐ **A ROW NAMING A BUNDLE NOBODY CAN FIND IS HALF A RECORD.** Every
+`runtime_frame_cost.jsonl` row carries a `record_id` and a `bundle.path`:
+
+- **`profiles/<record_id>/`** — the raw bundle: `perf.data`, `tracy.trace`, every
+  CSV. **UNTRACKED** (gigabytes; see `.gitignore`) and local to whichever machine
+  recorded it.
+- **`summaries/<record_id>.md`** — the readable half, a few KB, **TRACKED**. This
+  is what a reader on another machine actually gets, and it is written by
+  `scripts/profile_desktop.sh` on every run.
+
+⚠ **`tracy_zone_instances.csv` IS PRUNED AFTER INGEST** — it reached **90.6 GB** in
+one bundle and filled a 484 GB disk. Nothing reads it once
+`tracy_zone_report.py` has reduced it to per-window tables; regenerate with
+`tracy-csvexport --unwrap tracy.trace`. A `.removed` note in the bundle says so.
+
 ## runtime_frame_cost.jsonl
 
 **Runtime, not compile.** One row per profiling bundle, so a frame time survives
