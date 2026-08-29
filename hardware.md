@@ -21,7 +21,8 @@ had stopped being true.
 |---|---|---|---|---|---|---|---|
 | `toothbrush` | `5776eb09…` | bare metal, Jon's desk | i9-11900K @ 3.50GHz | 16 | 131.7 GB | RTX 3090, driver 595.84, Vulkan | **windowed** profiling; the only host that has produced a real frame |
 | `aivm-2404` **@toothbrush** | `ec9af5ee…` | a VM guest on `toothbrush` | i9-11900K @ 3.50GHz (same silicon) | 12 | 65.8 GB | none | ⚠ **RETIRED / not currently reachable.** Produced the overnight headless series |
-| `aivm-2404` **@kaby** | `716a275c…` | a KVM guest on a **different, laptop-class host** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **6** | **15.6 GB** | none | agent work as of 2026-08-29; **headless** benchmarks only |
+| `calculex` | *(pending a run)* | bare metal, Jon's **laptop** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **8** | 32.4 GB | **Intel HD Graphics 630 (KBL GT2)**, Mesa 23.2.1, Vulkan 1.3 — ⚠ **integrated**; an NVIDIA ICD is listed but `nvidia-smi` fails, so there is no working discrete GPU | **windowed** profiling on slow hardware. Ubuntu 22.04, Wayland |
+| `aivm-2404` **@calculex** | `716a275c…` | a KVM guest **on `calculex`** | i7-7700HQ @ 2.80GHz (same silicon) | **6** of its 8 | **15.6 GB** of its 32.4 | none | agent work as of 2026-08-29; **headless** benchmarks only |
 
 ⛔ **THE HEADLESS VM IS NO LONGER THE SAME SILICON AS THE DESK.** The claim this
 file used to lead with — that CPU-bound headless conclusions from the VM held up
@@ -36,9 +37,17 @@ baseline the current VM can continue: re-running that scenario here and putting
 the result next to those three numbers would be a machine-crossing comparison
 wearing the shape of a trend. Start a new series, and say which host it is on.
 
-⭐ **`@kaby` is the first slow-ish host in the registry, and that is USEFUL.**
-The caveat below — that a budget comfortable on `toothbrush` is not evidence
-about a laptop — has never had a laptop to check against. It does now.
+⭐⭐ **`calculex` IS THE MACHINE THIS FILE HAS BEEN ASKING FOR.** The caveat
+below — that a budget comfortable on a 3090 and an i9 is not evidence about a
+laptop — has never had a laptop to check against. It does now, and the laptop is
+a 2017 quad-core on **integrated Intel graphics**.
+
+⛔ **That makes one inherited conclusion actively untrustworthy here, and the
+file already says which one:** *"the GPU is not the problem — the transparent 2D
+pass is ~0.047ms."* That was a 3090. On HD 630 the CPU/GPU balance has to be
+re-established from scratch before any part of the desktop-hitch model is
+carried over. The decode-and-extract story may well hold; the reason it was safe
+to ignore the GPU does not.
 
 ⚠ **`toothbrush` IS A FAST DESKTOP CPU.** An i9-11900K at 3.5GHz with a 3090 is
 near the top of what this game will ever run on. **A frame budget that looks
