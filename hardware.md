@@ -9,16 +9,36 @@ other hardware and which do not.**
 
 ## The registry
 
-| name | what it is | CPU | logical CPUs | RAM | GPU | role |
-|---|---|---|---|---|---|---|
-| `toothbrush` | bare metal, Jon's desk | i9-11900K @ 3.50GHz | 16 | 131.7 GB | RTX 3090, driver 595.84, Vulkan | **windowed** profiling; the only host that has produced a real frame |
-| `aivm-2404` | a VM **guest on `toothbrush`**| i9-11900K @ 3.50GHz (same silicon) | 12 | 65.8 GB | none | agent work; **headless** benchmarks only |
+⛔⛔ **`aivm-2404` IS A GUEST NAME, NOT A MACHINE.** It has denoted at least two
+different physical hosts, on two different CPU generations, and the hostname did
+not change when the silicon did. **Identify a VM row by `host.machine_id`, never
+by the name.** The ledger's `comparable_key` already includes `machine_id`,
+`cpu_model` and `logical_cpus`, so the tooling will refuse to compare across
+them — but PROSE does not, and this file said "the same CPU" for a day after it
+had stopped being true.
 
-⭐ **THE TWO ARE THE SAME CPU.** `aivm-2404` is a guest on `toothbrush`, so it
-sees the same cores at the same clock, just twelve of the sixteen threads and
-half the RAM. That is why CPU-bound headless conclusions from the VM have held up
-on the desk — and it is exactly why they must stop being trusted the moment
-somebody runs this on a different chip.
+| name | `machine_id` | what it is | CPU | logical CPUs | RAM | GPU | role |
+|---|---|---|---|---|---|---|---|
+| `toothbrush` | `5776eb09…` | bare metal, Jon's desk | i9-11900K @ 3.50GHz | 16 | 131.7 GB | RTX 3090, driver 595.84, Vulkan | **windowed** profiling; the only host that has produced a real frame |
+| `aivm-2404` **@toothbrush** | `ec9af5ee…` | a VM guest on `toothbrush` | i9-11900K @ 3.50GHz (same silicon) | 12 | 65.8 GB | none | ⚠ **RETIRED / not currently reachable.** Produced the overnight headless series |
+| `aivm-2404` **@kaby** | `716a275c…` | a KVM guest on a **different, laptop-class host** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **6** | **15.6 GB** | none | agent work as of 2026-08-29; **headless** benchmarks only |
+
+⛔ **THE HEADLESS VM IS NO LONGER THE SAME SILICON AS THE DESK.** The claim this
+file used to lead with — that CPU-bound headless conclusions from the VM held up
+on `toothbrush` because it was the same chip — was true of `ec9af5ee…` and is
+**false of `716a275c…`**. A 6-thread i7-7700HQ at 2.8GHz is roughly half the
+threads and a slower core than an i9-11900K. Nothing measured on `@kaby`
+inherits the desk's numbers, in either direction.
+
+⚠ **The overnight headless series (3.185 → 2.866 → 2.816 ms) belongs to
+`ec9af5ee…`.** It is still a valid record of that machine. It is **not** a
+baseline the current VM can continue: re-running that scenario here and putting
+the result next to those three numbers would be a machine-crossing comparison
+wearing the shape of a trend. Start a new series, and say which host it is on.
+
+⭐ **`@kaby` is the first slow-ish host in the registry, and that is USEFUL.**
+The caveat below — that a budget comfortable on `toothbrush` is not evidence
+about a laptop — has never had a laptop to check against. It does now.
 
 ⚠ **`toothbrush` IS A FAST DESKTOP CPU.** An i9-11900K at 3.5GHz with a 3090 is
 near the top of what this game will ever run on. **A frame budget that looks
@@ -54,9 +74,11 @@ it is the single most load-bearing caveat in this file.
 - ⛔ **The CPU/GPU balance.** The transparent 2D pass measured ~0.047ms on a 3090.
   On integrated graphics the bottleneck may not be the CPU decode at all, and the
   conclusion "the GPU is not the problem" would have to be re-established.
-- ⛔ **Anything measured under a VM's core count.** `aivm-2404` has 12 threads
-  against `toothbrush`'s 16; parallel decode and the Bevy task pools scale with
-  that.
+- ⛔ **Anything measured under a VM's core count.** The current agent VM
+  (`716a275c…`) has **6** threads against `toothbrush`'s 16 — the retired one had
+  12. Parallel decode and the Bevy task pools scale with that, so the same
+  workload has three different amounts of parallelism across the three rows
+  above.
 
 ## If you are profiling on a NEW machine
 
