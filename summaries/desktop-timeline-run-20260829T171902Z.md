@@ -410,21 +410,25 @@ Top native symbols:
 Decode counts only ever rise. A rise with no new room is the same asset
 being decoded again; `image_decodes.csv` names which.
 
-⛔ **53 of 53 notable decodes happened DURING GAMEPLAY** (150.8 MP). Each one cost a frame.
+✔ 31 decode(s) landed before the first `room-loaded` (93.8 MP) — boot. Not a gameplay hitch.
+
+⚠ 7 decode(s) landed WITHIN 3s of a `room-loaded` — a room still arriving. Expected, and the reason "during gameplay" alone is not the contract.
+
+⛔ **15 of 53 notable decodes landed during SETTLED play** (20.9 MP) — more than 3s after the last room finished loading. Each one cost a frame.
 
 Worst offenders by megapixels:
 
 ```text
-  14.9MP  at 2.501s  sprites/gnu_ton_boss/giant_gnu_spritesheet.png
-   8.7MP  at 58.724s  sprites/carl_stargan_spritesheet.png
-   8.4MP  at 46.667s  sprites/author_spritesheet.png
-   7.8MP  at 2.501s  sprites/alice_spritesheet.png
-   7.6MP  at 2.197s  game://sprites/player_robot_v3_spritesheet.png
-   7.6MP  at 71.467s  sprites/player_robot_v3_spritesheet.png
-   7.5MP  at 58.650s  sprites/medic_spritesheet.png
-   7.4MP  at 2.501s  sprites/bob_spritesheet.png
-   5.1MP  at 2.501s  sprites/trex_enemy_spritesheet.png
-   4.8MP  at 2.501s  sprites/erdish_spritesheet.png
+   2.0MP  at 53.891s  sprites/noether_portraits.png
+   2.0MP  at 69.641s  sprites/noether_portraits.png
+   1.3MP  at 53.875s  sprites/player_robot_v3_portraits.png
+   1.3MP  at 53.875s  sprites/oiler_portraits.png
+   1.3MP  at 53.875s  sprites/perfect_cellular_automaton_portraits.png
+   1.3MP  at 53.875s  sprites/officer_portraits.png
+   1.3MP  at 53.891s  sprites/medic_portraits.png
+   1.3MP  at 53.891s  sprites/carl_stargan_portraits.png
+   1.3MP  at 53.891s  sprites/patent_clerk_portraits.png
+   1.3MP  at 69.616s  sprites/player_robot_v3_portraits.png
 ```
 
 Textures decoded more than once:
