@@ -366,3 +366,35 @@ same median every time. Only the DISTRIBUTION tells a coin flip from a certainty
 
 ⭐ The count also finds unfought bouts hiding inside rows that read as ordinary
 fights: `ledge_trap` 3v1 is 3/45 behind a 119%/103% median.
+
+## `ladder_recovery_sweep.jsonl` — rollout causes the l6 recovery regression
+
+`ladder_rig --sweep-below [--no-rollout] --seeds 45`. Only the level placed BELOW
+the stage varies; the partner is pinned at l5, so one variable moves.
+
+| level below | l1 | l3 | l5 | l6 | l9 |
+|---|---|---|---|---|---|
+| rollout ON (shipped) | 45/45 | 0/45 | 0/45 | **45/45** | 0/45 |
+| rollout OFF | 45/45 | 0/45 | 0/45 | **0/45** | 0/45 |
+
+⭐⭐ **Turning rollout off rescues l6 completely and changes nothing else.** l1
+still fails, which is what makes it a CONTROLLED result rather than a global
+perturbation — l1's failure is its reaction time and noise, and the flag does not
+touch that.
+
+⇒ `for_level` switches `rollout_depth`/`rollout_k` on at **level ≥ 6**. Rollout is
+not universally harmful — l9 carries the same depth-12 rollout and recovers — so
+it costs something a fighter can only afford once reaction and noise have
+improved, and at l6 it arrives too early.
+
+⛔ **A ladder where rung 6 survives worse than rung 5 is a real quality defect, and
+a win-rate ladder cannot see it:** l6 still beats l5 in an ordinary bout. It just
+dies to the stage.
+
+⚠ `unfought_bouts` counts bouts where BOTH seats ended under 1% damage. In the
+pairwise `--scenarios` table that conflates "both failed to recover" with "one
+failed, so there was no fight" — which is why the pairwise rows looked
+non-monotonic. Sweeping ONE level removes the ambiguity.
+
+⚠ Only levels **1/3/5/6/9** are published as `duelist_l{n}` policies; asking for
+`l2` refuses the seat and the rig's `placed` assert stops the run.
