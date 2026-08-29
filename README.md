@@ -64,6 +64,20 @@ list what the prose could not supply and where it contradicts itself.
 
 ## room_population.jsonl
 
+⭐⭐⭐ **THE HEADLINE, FOR ANYONE PRICING WORK AGAINST THIS DATA: SMASH IS NOT SLOW,
+AND ITS FRAME SPIKES ARE NOT THE ENGINE.** On a quiet machine a 2-fighter match
+runs a **4.31ms mean against a 16.67ms 60Hz budget** — nearly 4x headroom — with
+**ZERO of 5,164 match frames over budget** (worst 10.56ms). The tail is CONTENTION:
+six busy loops on the box take frames over 8ms from **0.9% to 11.8% (13x)** while
+the median moves 6.8%. ⛔ Several "dropped frame" readings taken during this
+campaign turned out to be the measuring session's own concurrent builds.
+
+⇒ **no fundable frame-time lever was found, and that is a measurement rather than a
+shrug** — a dozen-plus hypotheses were tested and the levers that exist sit below
+the noise floor or inside code this repo does not author. What the campaign
+produced instead is the COST MODEL, the OWNERSHIP MAP and the instrument rules
+below.
+
 **All 72 shipped rooms, booted and counted** — one row per room, written
 2026-08-29 from `capture_scene <room> player <out> 320x240 --warmup 180` with the
 runtime census on. Counts only, deliberately: this host has no GPU and software-
