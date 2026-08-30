@@ -69,9 +69,31 @@ it never raises a scale factor and does nothing at all on a 1x display.
 
 ## What this does NOT establish
 
-- ⚠ **n=1 against n=3.** One treated run against three baselines. A 176% effect
-  against a 7% floor does not need more reps to be believed, but the arms were
-  not interleaved and a second run costs a minute.
+- ✔ **n=1 against n=3 — CLOSED 2026-08-30 by two more treated runs**
+  (`…232350Z` p50 19.400, `…233357Z` p50 20.801). See the correction below.
+
+- ⛔ **THE HEADLINE COMPARISON HAD A CONFOUND, and the two new runs are what
+  removed it.** The three baselines were built `cargo_features=profile`; the
+  first treated run was `--no-tracy`, i.e. `cargo_features=<none>`. So it also
+  dropped Tracy's client from the binary, and the ledger did not catch it: the
+  comparability key records whether Tracy CAPTURED, not whether it was COMPILED
+  IN, so all four rows landed in one `no-tracy` class and looked directly
+  comparable.
+
+  With features matched, the result stands and is barely smaller:
+
+  | | runs | median p50 |
+  |---|---|---|
+  | baseline, `features=profile` | 51.045 / 49.050 / 52.624 | **51.045ms** |
+  | treated, `features=profile` | 19.400 / 20.801 | **20.101ms** |
+  | treated, `--no-tracy` | 18.467 | — |
+
+  **2.54x on matched builds, ~19.6 to ~49.7 FPS.** The `--no-tracy` run being
+  the fastest of the three is consistent with the Tracy client costing something
+  even when nothing is listening, which is its own reason not to link it for a
+  measurement.
+
+  ⚠ Treated spread across all three is 12%, wider than the ~7% baseline floor.
 - ⚠ **The two knobs moved TOGETHER.** The scale cap and MSAA-off were set in the
   same config, so nothing here says how the 2.76x splits between them. Both
   variables are individually settable precisely so that experiment can be run;
