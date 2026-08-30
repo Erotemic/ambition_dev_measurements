@@ -425,3 +425,26 @@ non-monotonic. Sweeping ONE level removes the ambiguity.
 
 ⚠ Only levels **1/3/5/6/9** are published as `duelist_l{n}` policies; asking for
 `l2` refuses the seat and the rig's `placed` assert stops the run.
+
+### ⛔⛔ RE-MEASURED 2026-08-30, AFTER `RecoveryLens` — NOTHING MOVED
+
+A GPT review asked for exactly this A/B before any further recovery change, on
+the grounds that the planning notes said the post-`RecoveryLens` ladder had never
+been run. It has now, at the same 45 seeds on `d2676664d`:
+
+| level below | l1 | l3 | l5 | l6 | l9 |
+|---|---|---|---|---|---|
+| rollout ON (shipped) | 45/45 | 0/45 | 0/45 | **45/45** | 0/45 |
+| rollout OFF | 45/45 | 0/45 | 0/45 | **0/45** | 0/45 |
+
+⇒ **Byte-identical to the 2026-08-29 recording above.** `RecoveryLens` widened the
+horizon the rollout searches; it did not change which bouts are fought. The l6
+regression is still open, still exactly the rung where `for_level` switches
+rollout on, and still completely rescued by turning rollout off — and l1 is still
+unaffected either way, which is what keeps this a CONTROLLED result rather than a
+global perturbation.
+
+⭐ **THE VALUE HERE IS THE NULL RESULT**, and it is the reason the review declined
+to raise the L3 rollout as a new bug: without this run, "the newer `RecoveryLens`
+is intended to address the too-short 12-tick horizon" was a plausible story that
+would have been quoted as a fix. It is not one, on this measurement.
