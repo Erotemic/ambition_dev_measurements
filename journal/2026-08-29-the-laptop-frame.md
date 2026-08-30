@@ -15,22 +15,22 @@ is ~0.047ms"* — was true there and is the first thing that had to go here.
 
 ## The result
 
-| | baseline (median of 3) | after | speedup |
+**n=3 against n=3, matched on build features** (both arms `cargo_features=profile`):
+
+| | baseline | treated | speedup |
 |---|---|---|---|
-| p50 | 51.045ms | **18.467ms** | **2.76x** |
-| p95 | 82.65ms | **30.31ms** | 2.73x |
-| mean | 53.33ms | **20.08ms** | 2.66x |
+| median p50 | 51.045ms | **20.101ms** | **2.54x** |
+| runs | 51.045 / 49.050 / 52.624 | 19.400 / 20.801 | |
 
-**About 19.6 FPS to about 54 FPS**, and for the first 100 seconds of the run the
-per-second windows sat at **16.6–17.0ms — vsync-capped 60 FPS.**
+**~19.6 FPS to ~49.7 FPS.** In the best run the first 100 seconds of per-second
+windows sat at **16.6–17.0ms — vsync-capped 60.**
 
-All four runs share one comparability key,
-`windowed:default@v1/profiling/hardware/no-tracy/087907b3…`, so the ledger
-itself treats them as one series. The measured run-to-run spread on this host is
-~7% end to end; the effect is 176%.
+⚠ A fourth treated run, `…223455Z`, is FASTER at 18.467ms and is quoted nowhere
+above: it was `--no-tracy`, so it also dropped Tracy's client from the binary and
+is not feature-matched to the baselines. See "what this does not establish".
 
-Runs: `desktop-timeline-run-20260829T214154Z`, `…215121Z`, `…220508Z` (baseline)
-and `…223455Z` (after).
+Baselines `…214154Z` `…215121Z` `…220508Z`; treated `…232350Z` `…233357Z`
+(and `…223455Z`, unmatched).
 
 ## What was wrong
 
@@ -114,14 +114,26 @@ it never raises a scale factor and does nothing at all on a 1x display.
   opaque and nothing can be depth-rejected. This is the largest remaining lever
   and the first one that is real engine work rather than a setting.
 - **Which knob earned the 2.76x.** One interleaved A/B, three reps each.
-- **The scaled asset variants are ~11 days stale** and
-  `backgrounds/parallax_layers_0_5x` did not exist at all, so Medium was not a
-  safe tier to test on this machine — the raster knobs were made independent of
-  the tier specifically to avoid that confound. Regeneration is in progress.
-- **Tracy crashes the game on this host.** Three Tracy-enabled runs segfaulted
-  between 25s and 32s (`perf-record.status=139`); the `--no-tracy` runs are
-  stable and one ran 12 minutes. Tracy is correctly installed and version-matched
-  and the CPU has an invariant TSC, so this is not a setup gap. Undiagnosed.
+- ✔ **The scaled asset variants were ~11 days stale** and the parallax tiers did
+  not exist at all. Regenerated 2026-08-29 (backgrounds 3.5s, 998 sprite sheets
+  175s); `check_quality_variants_are_fresh.py` now reports current, and
+  `run_developer_setup.sh` runs that check rather than assuming.
+
+- ✔⭐ **"Tracy crashes the game on this host" — RETRACTED, and the real cause is
+  worth more than the symptom.** Three Tracy-enabled runs segfaulted at 25–32s
+  (`perf-record.status=139`) while `--no-tracy` runs were stable, which looked
+  like a Tracy problem and was not. Every one of those crashing binaries was
+  compiled INCREMENTALLY at `release` optimization; `.cargo/config.toml` sets
+  `build.incremental = true` for every profile. The same profile later failed to
+  LINK with 164 then 330 `anon.<hash>.llvm.<hash>` undefined symbols, which is
+  the same defect louder. Since `run_game.sh` began exporting
+  `CARGO_INCREMENTAL=0` for optimized profiles (`143d37a96`), Tracy-compiled runs
+  complete — `…232350Z` and `…233357Z` are both `cargo_features=profile` and
+  neither crashed.
+  ⛔ SO THE EARLIER HYPOTHESIS — that the Tracy client was buffering a trace
+  nobody was capturing until it exhausted memory — was wrong, and plausible
+  enough to have been chased for a day. A binary that links and then misbehaves,
+  and a binary that fails to link, can be the same broken codegen.
 
 ## For whoever picks this up
 
