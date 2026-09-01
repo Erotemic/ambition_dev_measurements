@@ -66,3 +66,62 @@ worth in a real fight, and the hall cannot show the difference.
 
 The measurement that would: the same extent sweep in a room with a moving cast,
 watching `mean_remembered / mean_seen` climb above 1.
+
+## Addendum: the population term, decomposed cleanly
+
+Three arms, one binary, `WorldMemory` already fixed so it is no longer hiding
+inside the build bucket:
+
+```text
+term            65       130   growth   share of growth
+builds+use   0.0560    0.1687   3.01x        76%
+scan         0.0055    0.0230   4.18x        12%
+fixed        0.0200    0.0390   1.95x        13%
+```
+
+Every term now has a confirmed shape:
+
+```text
+fixed        x1.95   against population x2.00   -> LINEAR, as expected
+scan         x4.18   against a predicted x4.03  -> EXACTLY QUADRATIC
+builds+use   x3.01   against x1.97 builds       -> per-build cost x1.53
+```
+
+⭐ **THE SCAN IS CONFIRMED QUADRATIC BY PREDICTION, NOT BY FITTING.** 65×64 → 130×129
+is ×4.03 of work; the measurement is ×4.18. That is the strongest form this
+campaign has produced for any shape claim — a number predicted from the loop
+bounds before the run, then met.
+
+## ⛔ Which changes what the spatial index is worth
+
+An earlier entry priced it at **8%** and said "not the first thing to build". True
+at 130. But it is the only term growing **quadratically**, so its share grows with
+population while everything else's shrinks:
+
+```text
+              scan share of Decide
+  65 bodies          7%
+ 130 bodies         10%
+ 260 bodies         ~25%   (extrapolated from a CONFIRMED n², not a fitted slope)
+```
+
+⇒ The index is not urgent, and it is the one piece whose value **compounds**. The
+attention budget caps a linear term; the index caps the quadratic one. They are
+not competing for the same milliseconds.
+
+## The residual is per-unit cost, and its mechanism is still unconfirmed
+
+`builds+use` grows ×3.01 while the number of builds grows ×1.97 — per-build cost
+rises ×1.53 with population, at a **constant 14.4 builds per actor**. Same
+signature as the pre-fix measurement (×1.85), now isolated from `WorldMemory`.
+
+⚠ **Cache is the leading explanation and it is NOT established.** An earlier
+`perf stat` over the whole process put IPC essentially flat (1.29 → 1.27), which
+argues against stalls — but that was process-wide, dominated by startup and
+rendering, and cannot speak for one phase. Separating "more instructions" from
+"the same instructions stalling" inside `Decide` needs per-phase counters this
+instrument does not have.
+
+⇒ Recorded as an open shape, not a diagnosis. At 130 bodies `Decide` is 0.23
+ms/tick and projects to ~0.45 ms at 200, so nothing here is urgent enough to
+justify guessing.
