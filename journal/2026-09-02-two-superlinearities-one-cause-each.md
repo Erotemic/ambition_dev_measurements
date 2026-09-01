@@ -125,3 +125,40 @@ instrument does not have.
 ⇒ Recorded as an open shape, not a diagnosis. At 130 bodies `Decide` is 0.23
 ms/tick and projects to ~0.45 ms at 200, so nothing here is urgent enough to
 justify guessing.
+
+## Addendum: the sizes, and why "cache pressure" is now a weaker story
+
+```text
+PerceivedActor       80 bytes   built ~1,900x per tick at 130 bodies
+RememberedActor      28
+PerceivedProjectile  24
+PerceivedSolid       20
+WorldView           200
+```
+
+⇒ Each actor's view is `14.4 × 80` ≈ **1.15 KB**. That fits L1 comfortably. The
+peer array it gathers from is `130 × ~120` ≈ 15.6 KB, which also fits L1.
+
+⛔ **So the crude reading of "per-build cost rises because of cache pressure" is
+not supported by the sizes.** Neither working set is large enough to spill.
+Recorded here because that phrase had started appearing as though it were
+established, and it is not.
+
+⭐ **A SHARPER HYPOTHESIS THAT THE SIZES DO FIT.** The number gathered is constant
+(~14.4) but the array gathered FROM doubles with population. Fourteen scattered
+reads across 15.6 KB touch more distinct cache lines and TLB entries than
+fourteen across 7.8 KB, even though both arrays fit. **Gather locality degrades
+as the source grows, at constant gather count** — which is exactly the shape
+measured: builds ×1.97, time ×3.01.
+
+⚠ Still a hypothesis. Confirming it needs per-phase cache-miss counters, which
+this instrument does not have, and the phase is 0.23 ms/tick — too small to
+justify guessing further.
+
+## And the widths are now pinned
+
+`the_perception_structs_do_not_silently_widen` asserts all four. A field added to
+`PerceivedActor` is paid ~1,900 times per tick before anything reads it, so the
+width is a decision that should be made at a failing test rather than inside a
+`#[derive]` nobody re-reads. Poisoned by adding 16 bytes of padding; the assertion
+names the count.
