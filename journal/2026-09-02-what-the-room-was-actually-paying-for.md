@@ -104,20 +104,27 @@ EDGES. `.after(Targeting)` alone has no upper bound."* The census file's own doc
 asserted the opposite, that `.after(phase)` lands a mark "exactly at that phase's
 trailing edge".
 
-Repaired and re-measured, same arm, 3 reps:
+I repaired it, re-measured, and published a correction saying every absolute
+per-phase number was low by ~18%.
+
+**That correction was wrong too, and I withdrew it the same day.** The pre and
+post numbers came from different blocks with different binaries. Run properly —
+both binaries alternating in one session, 5 pairs, first dropped:
 
 ```text
-@130                one-sided   bracketed   shift
-Decide                 0.340      0.405     +19%
-Integrate              0.253      0.298     +18%
-Targeting              0.033      0.050     +52%
+@130                   pre     post    shift
+Decide               0.335    0.336      +0%
+Integrate            0.249    0.251      +1%
+Targeting            0.034    0.034      +1%
 ```
 
-So every absolute per-phase number above is low by roughly this much, and the
-smaller the phase the worse the relative error. **The A/B conclusions survive**
-— both arms carried the same bias, and the three-arm table and the ceiling probe
-are differences measured the same way — but nothing here should be quoted as an
-absolute cost or a share of a frame.
+The raw samples show what fooled me: one 0.394 in the pre block against a
+0.332–0.338 cluster. This workload drifts ~18% between blocks, which is larger
+than most effects worth chasing in it.
+
+The repair stays — a one-sided mark genuinely can bill a successor's work to the
+previous bucket — but it changed nothing measurable here, and no earlier number
+needed correcting.
 
 Worse than one-sided: eleven of the phases are configured with no `.chain()` at
 all, so their buckets are differences between marks nobody sequenced. A serial
@@ -136,3 +143,5 @@ They are named in `SIM_PHASE_UNORDERED` and on the census row now.
 - When you write a rule down for one instrument, grep for every other instrument
   of the same kind. The correct reasoning sat one level down for a week.
 - Before billing phases as a partition, check the schedule actually orders them.
+- Interleave arms in ONE session and drop the first pair. I withdrew two
+  conclusions in one day for want of this, having written the rule down already.
