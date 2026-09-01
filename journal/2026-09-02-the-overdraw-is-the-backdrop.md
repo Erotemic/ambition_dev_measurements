@@ -75,3 +75,44 @@ scale and MSAA separated on real weak-GPU hardware, and it says not to substitut
 software rendering. That still stands — this is a COUNT of world-space area,
 which is the same on any rasteriser, and it says WHERE the drawn area is, not
 what removing it costs in milliseconds on an Iris.
+
+## Addendum: the lever already exists, and here is what each rung buys
+
+`ParallaxBudget::max_layers` is already tiered. Measured in `water_world`,
+`--fit-room`, 1280x720, drawn area in world units:
+
+```text
+tier     layers   total area     parallax  par %  vs potato
+potato        0      631,267            0     0%       1.0x
+low           2    5,932,474    5,301,207    89%       9.4x
+medium        3    9,717,833    9,086,566    94%      15.4x
+high          4   14,564,876   13,933,609    96%      23.1x
+ultra         4   14,564,876   13,933,609    96%      23.1x
+```
+
+```text
+dropping the 4th layer   removes 4,847,043 of 14,564,876  = 33% of ALL drawn area
+dropping to two layers   removes 8,632,402                = 59%
+```
+
+⭐ **THE LAYERS ARE NOT EQUAL, AND THE LAST ONE IS THE BIGGEST.** Steps of
+5.30M / 3.79M / 4.85M — the fourth layer alone is a third of everything the room
+draws. A "just drop one layer" change is not a quarter of the backdrop, it is a
+third of the frame's fill.
+
+⚠ **`high` AND `ultra` ARE IDENTICAL HERE** — both leave `max_layers: None`, so
+the ladder has no parallax rung above `medium`. Whatever Ultra is for, it is not
+more backdrop.
+
+## What it does and does not tell D-RASTER-3
+
+⭐ It prices the third variable. The row records the weak-GPU win as *"both
+DPI/framebuffer cap and MSAA changed together"* — and if the treated arm also
+moved the quality TIER, then parallax layer count moved with it, and the 2.54x
+is three variables, not two. The knobs the row names
+(`AMBITION_MAX_SCALE_FACTOR`, `AMBITION_MSAA`) are tier-independent, so this is a
+question to check rather than a defect found.
+
+⛔ It still does not replace the hardware A/B. Drawn area is a count; what a
+third less fill is worth in milliseconds on an Iris is a timing, and timings on a
+software rasteriser are the substitution `D-RASTER-3` forbids.
