@@ -70,21 +70,77 @@ the hall is not in the perf-history ledger a capture needs a full profiling
                                            rebuild and the disk is at 94%
 ```
 
-## ⚠ A methods note every number above depends on
+## ⛔⛔ A METHODS ERROR THAT UNDERSTATES EVERY ABSOLUTE NUMBER ABOVE
 
-`[census] sim_phases` emits one row per second, and **the last row is not the
-run**. Reading `tail -1` of a 1500-tick run reported `Decide=0.341`; averaging the
-last three windows of the same build reported `0.224 / 0.259 / 0.227`.
+`[census] sim_phases` emits one row per second **plus a `ticks=1` startup row
+whose every phase reads 0.000**. Averaging "the last three windows" of a SHORT
+run averages that zero in.
 
-That is a 46% difference between two readings of the same binary, produced by
-which line you grep.
+At 130 bodies, every steady window reads 0.332–0.352:
 
-⭐ Every figure in these entries is **the last three windows averaged**, and the
-one time a single window was read it looked like a regression that was not there.
-The check that caught it was re-measuring with the stated method, not reasoning
-about why the number had moved — the reasoning available at the time (a warmer
-machine, a longer run) would have explained either direction happily.
+```text
+t=0.272  ticks=1    Decide=0.000     <- startup
+t=1.273  ticks=500  Decide=0.341
+t=2.274  ticks=612  Decide=0.332
+t=3.275  ticks=553  Decide=0.345
+...      steady at ~0.341 for eleven windows
+```
 
-⛔ So: state the statistic beside the number, and when a figure moves
-unexpectedly, first confirm it was taken the same way. A per-second census window
-can land on a GC-ish pause, an asset arrival, or the tail of a burst.
+and a 1200-tick run produces only about three:
+
+```text
+(0.000 + 0.341 + 0.332) / 3 = 0.224
+```
+
+**0.224 is exactly the number published as `Decide` at 130 bodies.** The true
+steady value is **0.341**.
+
+⚠ **AND AN EARLIER ENTRY IN THIS FILE GOT IT BACKWARDS.** Seeing `tail -1` report
+0.341 against a three-window mean of 0.234, it concluded the single window was
+the anomaly and the average was right. The opposite was true, and it was written
+up as a lesson about trusting the stated method. The stated method was the bug.
+
+## What this does and does not invalidate
+
+```text
+ABSOLUTE values from 1200-tick runs   UNDERSTATED, by up to a third
+                                      (one zero among three windows)
+
+A/B deltas and RATIOS                 largely survive: both arms carry the same
+                                      startup zero. ⚠ But NOT exactly — a faster
+                                      arm completes more windows, so it is
+                                      diluted LESS, which makes every measured
+                                      improvement CONSERVATIVE rather than
+                                      inflated.
+
+Anything read from a single steady window   unaffected.
+```
+
+⇒ The direction of every fix stands, and each is understated rather than
+overstated. The absolute per-phase numbers from short runs do not.
+
+## The corrected curve, 6000 ticks, startup window excluded
+
+```text
+bodies   Decide  Integrate  frame p50   µs/body (Decide)
+     9   0.0113     0.0254      0.578        1.3
+    18   0.0251     0.0446      0.670        1.4
+    34   0.0630     0.0733      0.795        1.9
+    66   0.1583     0.1310      1.055        2.4
+   130   0.3410     0.2521      1.662        2.6
+
+slopes 9 -> 130:   Decide 1.27    Integrate 0.86    frame 0.40
+```
+
+Two reps per point, agreeing to within 3%; every point has at least four steady
+windows.
+
+⭐ **`Integrate` IS SUBLINEAR — 0.86.** Cost per body FALLS as the room fills,
+which is what per-tick amortisation looks like: the collision world is rebuilt
+once per tick regardless of how many bodies then sweep against it.
+
+⭐ And the frame is `n^0.40`: **130 bodies cost 2.9x what 9 do**, not 14x.
+
+⚠ These slopes are LOWER than the ones published earlier today (1.50 / 1.03 /
+0.47) — correcting the sampling made the system look better, because the bias
+fell hardest on the low-population points that anchor the left end of the fit.
