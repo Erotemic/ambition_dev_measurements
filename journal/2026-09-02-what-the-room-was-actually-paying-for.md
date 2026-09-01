@@ -95,6 +95,35 @@ looks free. It is not: the view is consumed twice, and the first consumer is
 — for every body whatever its brain. There is no performance-only version of
 this change, which is precisely why ADR 0034 exists.
 
+## A fourth thing I had wrong, found by review
+
+The parent sim-phase marks were installed `.after(phase)` with no upper bound —
+nineteen of them — while the actor-decision marks one level down carried the
+correct reasoning in a comment I had written myself: *"EACH MARK NEEDS BOTH
+EDGES. `.after(Targeting)` alone has no upper bound."* The census file's own doc
+asserted the opposite, that `.after(phase)` lands a mark "exactly at that phase's
+trailing edge".
+
+Repaired and re-measured, same arm, 3 reps:
+
+```text
+@130                one-sided   bracketed   shift
+Decide                 0.340      0.405     +19%
+Integrate              0.253      0.298     +18%
+Targeting              0.033      0.050     +52%
+```
+
+So every absolute per-phase number above is low by roughly this much, and the
+smaller the phase the worse the relative error. **The A/B conclusions survive**
+— both arms carried the same bias, and the three-arm table and the ceiling probe
+are differences measured the same way — but nothing here should be quoted as an
+absolute cost or a share of a frame.
+
+Worse than one-sided: eleven of the phases are configured with no `.chain()` at
+all, so their buckets are differences between marks nobody sequenced. A serial
+partition of unordered work is fiction however carefully the marks are placed.
+They are named in `SIM_PHASE_UNORDERED` and on the census row now.
+
 ## What the next person should not repeat
 
 - Do not quote a hall number as a frame budget without checking which host
@@ -104,3 +133,6 @@ this change, which is precisely why ADR 0034 exists.
 - Do not go looking for a free version of the perception gate. Two consumers.
 - Do not build the spatial index. `Targeting` did not move across three arms
   that changed everything else about what the room was doing.
+- When you write a rule down for one instrument, grep for every other instrument
+  of the same kind. The correct reasoning sat one level down for a week.
+- Before billing phases as a partition, check the schedule actually orders them.
