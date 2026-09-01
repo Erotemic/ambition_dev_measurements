@@ -10,23 +10,33 @@ by semantic layer before changing rendering architecture*. Attributed:
 draw census split by render layer:
 
 ```text
-viewport                  921,600 px
-total sprite area      14,564,876 px   = 15.8x coverage
-  parallax backdrop    13,933,609 px   = 15.1x    96%
-  gameplay world          631,267 px   =  0.7x     4%
+total sprite area      14,564,876 world-units^2
+  parallax backdrop    13,933,609            96%
+  gameplay world          631,267             4%
 
-four backdrop layers  ->  3.8x the viewport EACH
+4 backdrop sprites carry 96% of it; 57 gameplay sprites carry 4%.
 ```
 
-⭐ **THE GAMEPLAY SPRITES DO NOT COVER THE SCREEN ONCE.** 0.7x. Every actor,
-prop, projectile and effect in the room together paints less than one screen. The
-transparent fill is four full-screen panels, each drawn at nearly four times the
-viewport.
+⛔⛔ **WORLD UNITS, NOT PIXELS — AND THE CENSUS SAID SO BEFORE I MISREAD IT.**
+`report_draw_census`'s own doc comment: *"WORLD UNITS, NOT PIXELS, AND THE NAME
+SAYS SO. Turning these into screen pixels needs each sprite's view and that
+view's projection, which is a per-view question this per-world pass has no
+business answering."*
 
-⚠ 15.8x is not the 5.3x the weak-GPU capture reported, and the difference is
-`--fit-room`: framing the whole room makes the camera-relative panels large
-relative to the capture viewport. The RATIO between layers is the finding; the
-absolute multiple belongs to this framing.
+The first version of this entry divided by `1280 x 720` and reported "15.8x
+coverage" and "3.8x the viewport each". **Those numbers were dimensionally
+invalid** and are withdrawn. A world-space area over a pixel count is not a
+multiple of anything.
+
+⭐ What survives is the RATIO, which is what that comment endorses — *"a ratio
+does not care about the unit"*. Four backdrop sprites hold 96% of the drawn area
+and fifty-seven gameplay sprites hold 4%.
+
+⚠ AND EVEN THE RATIO HAS A CAVEAT. Parallax draws on its own render layer, and if
+that camera's projection differs from the gameplay camera's, equal world areas
+are not equal screen areas. The split is a ratio of WORLD-SPACE area by layer;
+converting it to screen coverage needs the per-view projections this pass
+deliberately does not read.
 
 ## ⛔⛔ AND THE DEFAULT CAPTURE OMITS THE BACKDROP ENTIRELY
 
@@ -51,8 +61,8 @@ decided by an environment variable the command line does not mention.
 ## What this means for the rendering campaign
 
 ```text
-cut a backdrop layer      ~3.8x viewport of transparent fill, each
-cut gameplay sprites       0.7x total -- there is nothing there to win
+cut a backdrop layer      ~24% of all drawn area, each (4 layers, 96%)
+cut gameplay sprites       4% total -- there is nothing there to win
 ```
 
 The lever is the backdrop's layer COUNT and its blending, not the actors. That is
@@ -62,6 +72,6 @@ this room is spending.
 
 ⚠ **THIS DOES NOT REPLACE THE HARDWARE A/B.** `D-RASTER-3` asks for framebuffer
 scale and MSAA separated on real weak-GPU hardware, and it says not to substitute
-software rendering. That still stands — this is a COUNT of coverage, which is the
-same on any rasteriser, and it says WHERE the fill is, not what removing it costs
-in milliseconds on an Iris.
+software rendering. That still stands — this is a COUNT of world-space area,
+which is the same on any rasteriser, and it says WHERE the drawn area is, not
+what removing it costs in milliseconds on an Iris.
