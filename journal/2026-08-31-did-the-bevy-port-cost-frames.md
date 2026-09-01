@@ -137,6 +137,46 @@ tooling out-costs the game, naming what it dilutes and what it does not; and
 PipeWire's `pw-data-loop` finally lands in `audio` instead of in the game. The
 three 08-31 summaries have been regenerated in place.
 
+### ✔ VALIDATED EMPIRICALLY — `desktop-perf-run-20260901T003332Z`
+
+The structural tests pin the plan and the profiler's use of it. They cannot show
+that cargo actually stops rebuilding, which is how the defect was found in the
+first place. So: one fresh bounded headless capture, after the fix.
+
+```text
+warm-build.status                      0   (and it was a COLD build: the
+                                            profiling target dir had been swept,
+                                            so it absorbed the entire compile)
+warm build command      env CARGO_INCREMENTAL=0 cargo build …   ← the fix, live
+
+inside the perf capture:
+  the game itself                   88.0%
+  build tooling                      9.4%   ← all of it `cargo`, 0.08% bash
+  profiler (Tracy)                   2.5%
+  native attribution                CLEAN
+
+rustc / lto cgu.* / opt cgu.* / mold threads:   0
+first census row                   wall 5.0s   (was 275s / 36s / 35s)
+frames over the spike threshold        0
+```
+
+⭐ **THE RESIDUAL 9.4% IS `cargo` ITSELF**, not a compile: `run_game.sh` launches
+through `cargo run`, which resolves a now-warm graph and execs the binary. That
+is the irreducible launcher cost the old prose guessed at and the old classifier
+could not distinguish from a real build. There is no codegen or link thread in
+the sample set at all.
+
+⭐ AND THE NATIVE RANKING IS THE GAME AGAIN. Its top symbols are
+`bevy_ecs::schedule::Schedule::run` and friends. Run `20260831T210231Z`'s top six
+were every one of them `rustc`.
+
+⚠ One reporting oddity, NOT introduced by this fix and NOT chased here: this
+bundle is `perf-run`, which keeps DWARF call graphs, so the DSO table sums
+children and prints `216.4% game binary`. A share over 100% is nonsense on its
+face and the next pass on this script should make the `--children` nesting
+explicit or report self time. `timeline-run` records no call graphs and does not
+show it.
+
 ⚠ **Still under-reported: Tracy.** Its cost inside the game binary cannot be
 separated by THREAD, and the table is a thread table — so `profiler (Tracy)`
 reads 0.7% on run 2 while `TracyLayer::on_event` and its

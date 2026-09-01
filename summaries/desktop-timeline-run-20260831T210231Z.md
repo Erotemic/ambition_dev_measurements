@@ -272,22 +272,24 @@ totals. Full series: `schedule_phases.csv`.
    0.0%  audio
 ```
 
-⚠⚠ **92% of the sampled cycles are a COMPILE, more than
-the game's own 7%.** A build ran inside this capture.
+```text
+profiler (Tracy) overhead :  0.1%
+compile inside the capture: 92.4%   (the game itself: 7.5%)
+native attribution        : COMPILE-CONTAMINATED
+```
 
-**The native symbol ranking and the DSO split below are diluted by it and
-must not be quoted.** Everything keyed to game time — `frame_times.csv`,
-`frame_spikes.csv`, `runtime_census.csv`, the image censuses — comes from
-the game's own stderr and is unaffected.
+⚠⚠ **The native profile below is COMPILE-CONTAMINATED and must not be quoted.**
 
-Check `warm-build.status` and the gap between `wall_s` and `game_s` in
-`frame_spikes.csv`: a first frame tens of seconds into the capture is the
-build. If the warm build ran and the launch rebuilt anyway, the two are
-asking cargo for different fingerprints — see the `build_env` rows in
-`run_game.sh --print-plan`.
+⭐ Everything keyed to GAME TIME is unaffected — `frame_times.csv`,
+`frame_spikes.csv`, `runtime_census.csv` and the image censuses come from the
+game's own stderr census, not from `perf` samples.
 
-The profiler cost 0% of sampled cycles. Low enough that the
-measurements below stand on their own.
+**A compile ran inside this capture** — 92% of sampled cycles
+against the game's own 7%. Check `warm-build.status` and the gap
+between `wall_s` and `game_s` in `frame_spikes.csv`: a first frame tens of
+seconds into the capture is the build. If the warm build ran and the launch
+rebuilt anyway, the two are asking cargo for different fingerprints — see the
+`build_env` rows in `run_game.sh --print-plan`.
 
 ## Where the native time went
 
