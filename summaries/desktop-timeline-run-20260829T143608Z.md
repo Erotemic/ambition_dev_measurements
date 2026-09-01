@@ -268,14 +268,22 @@ totals. Full series: `schedule_phases.csv`.
 ## Observer effect (what the profiler itself cost)
 
 ```text
-  86.3%  the game itself
+  86.2%  the game itself
   13.5%  profiler (Tracy)
-   0.1%  audio
-   0.1%  build tooling
+   0.2%  audio
+   0.1%  build launcher (cargo, shell)
 ```
 
-The profiler cost 13% of sampled cycles. Low enough that the
-measurements below stand on their own.
+```text
+profiler (Tracy) overhead : 13.5%
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            :  0.1%   (cargo and shell; NOT a compile)
+the game itself           : 86.2%
+native attribution        : CLEAN
+```
+
+Neither the profiler nor a compile took a share worth correcting for, so
+the native symbol ranking and the DSO split below stand on their own.
 
 ## Where the native time went
 
@@ -287,8 +295,9 @@ measurements below stand on their own.
    0.0%  software rasterizer (CPU emulating a GPU)
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.
@@ -342,6 +351,8 @@ Top native symbols:
 Decode counts only ever rise. A rise with no new room is the same asset
 being decoded again; `image_decodes.csv` names which.
 
+⚠ This bundle predates late-decode marking, so whether any decode landed during gameplay is UNKNOWN here, not zero.
+
 Textures decoded more than once:
 
 ```text
@@ -386,6 +397,8 @@ Textures decoded more than once:
 | `portal_activity.csv` | portal capture rigs and the budget bounding them | yes |
 | `asset_activity.csv` | cumulative decode work and resident images | yes |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
+| `image_arrivals.csv` | images reaching Assets<Image> per census window | no |
+| `world_events.csv` | room loads and session starts/ends, with game time | no |
 | `schedule_census.csv` | registered system counts per sample | yes |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | yes |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | no |

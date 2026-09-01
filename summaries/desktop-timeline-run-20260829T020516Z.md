@@ -83,13 +83,28 @@ time, so a run that enabled the census later has none.
 ## Observer effect (what the profiler itself cost)
 
 ```text
- 100.0%  build tooling
+ 100.0%  build launcher (cargo, shell)
 ```
 
-No profiler threads were sampled, so nothing but `perf` itself was
-observing the game and the frame times in this bundle are the honest ones.
-A `build tooling` share is the launcher's own `cargo` resolving the build;
-it competes for cores but is not attributed to the game.
+```text
+profiler (Tracy) overhead :  0.0%
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            : 100.0%   (cargo and shell; NOT a compile)
+the game itself           :  0.0%
+native attribution        : NOT A PROFILE OF THE GAME
+```
+
+⚠⚠ **The native profile below is NOT A PROFILE OF THE GAME and must not be quoted.**
+
+Only 0.0% of sampled cycles are the game's own threads. Every
+percentage below is a share of a capture the game barely appears in, so there
+is no ranking here to correct — there is nothing to rank. Check that the run
+actually launched and that `perf` followed the child process.
+
+⚠ The game's own census is NOT a way around this. `frame_times.csv`,
+`frame_spikes.csv` and `runtime_census.csv` are recorded by a process the
+profiler is running inside, so they carry the same inflation the native
+profile does. Only RATIOS between them survive.
 
 ## Where the native time went
 
@@ -98,8 +113,9 @@ it competes for cores but is not attributed to the game.
    8.4%  kernel
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.
@@ -151,6 +167,8 @@ UNAVAILABLE — no asset census rows in this bundle.
 | `portal_activity.csv` | portal capture rigs and the budget bounding them | no |
 | `asset_activity.csv` | cumulative decode work and resident images | no |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
+| `image_arrivals.csv` | images reaching Assets<Image> per census window | no |
+| `world_events.csv` | room loads and session starts/ends, with game time | no |
 | `schedule_census.csv` | registered system counts per sample | no |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | no |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | no |

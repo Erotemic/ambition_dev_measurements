@@ -122,13 +122,15 @@ totals. Full series: `schedule_phases.csv`.
 
 ```text
   88.0%  the game itself
-   9.4%  build tooling
+   9.4%  build launcher (cargo, shell)
    2.5%  profiler (Tracy)
 ```
 
 ```text
 profiler (Tracy) overhead :  2.5%
-compile inside the capture:  9.4%   (the game itself: 88.0%)
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            :  9.4%   (cargo and shell; NOT a compile)
+the game itself           : 88.0%
 native attribution        : CLEAN
 ```
 
@@ -142,8 +144,15 @@ the native symbol ranking and the DSO split below stand on their own.
   22.8%  kernel
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+⚠⚠ **These rows sum to 239%, so they are not a breakdown.**
+
+This report was written with `perf report`'s default INCLUSIVE accounting: a
+sample is credited to every shared object on its call stack, so the game
+binary and the kernel it called both own the same cycles.
+
+Read each row as "cycles that passed through here", never as a share of
+the capture, and never subtract one from another. Captures written after
+2026-08-31 pass `--no-children` and do partition; this bundle predates it.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.

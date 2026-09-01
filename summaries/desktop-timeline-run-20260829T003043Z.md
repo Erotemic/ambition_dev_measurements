@@ -102,7 +102,11 @@ Full list: `frame_spikes.csv`.
    5088.4        4       3      1       0      1
 ```
 
-Peak world-rendering cameras: **1** at t=0.5s. Each one draws the world again.
+Peak world-rendering cameras: **1** at t=0.5s.
+
+The world was drawn **once** per frame throughout: one active
+world-rendering camera, no portal capture and no second view. Repeated
+world rendering is not what this run's frame cost is.
 
 Distinct cameras seen, by role:
 
@@ -139,7 +143,7 @@ Full series: `portal_activity.csv`.
 
 Peak offscreen image render targets: **0** (largest dimension 0px) at t=0.5s.
 
-Full series: `render_target_census.csv`.
+Full series: `render_target_census.csv`. ⚠ `cpu_bytes` there is the CPU-side copy an image still holds; a target uploaded and dropped reports 0 and is still costing VRAM.
 
 ## Scene and ECS workload
 
@@ -219,14 +223,22 @@ time, so a run that enabled the census later has none.
 ## Observer effect (what the profiler itself cost)
 
 ```text
-  85.1%  the game itself
+  84.3%  the game itself
   14.3%  profiler (Tracy)
-   0.6%  audio
-   0.0%  build tooling
+   1.4%  audio
+   0.0%  build launcher (cargo, shell)
 ```
 
-The profiler cost 14% of sampled cycles. Low enough that the
-measurements below stand on their own.
+```text
+profiler (Tracy) overhead : 14.3%
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            :  0.0%   (cargo and shell; NOT a compile)
+the game itself           : 84.3%
+native attribution        : CLEAN
+```
+
+Neither the profiler nor a compile took a share worth correcting for, so
+the native symbol ranking and the DSO split below stand on their own.
 
 ## Where the native time went
 
@@ -238,8 +250,9 @@ measurements below stand on their own.
    0.0%  software rasterizer (CPU emulating a GPU)
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.
@@ -293,6 +306,8 @@ Top native symbols:
 Decode counts only ever rise. A rise with no new room is the same asset
 being decoded again; `image_decodes.csv` names which.
 
+⚠ This bundle predates late-decode marking, so whether any decode landed during gameplay is UNKNOWN here, not zero.
+
 Textures decoded more than once:
 
 ```text
@@ -327,6 +342,8 @@ Textures decoded more than once:
 | `portal_activity.csv` | portal capture rigs and the budget bounding them | yes |
 | `asset_activity.csv` | cumulative decode work and resident images | yes |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
+| `image_arrivals.csv` | images reaching Assets<Image> per census window | no |
+| `world_events.csv` | room loads and session starts/ends, with game time | no |
 | `schedule_census.csv` | registered system counts per sample | yes |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | no |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | no |

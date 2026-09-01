@@ -336,14 +336,22 @@ totals. Full series: `schedule_phases.csv`.
 ## Observer effect (what the profiler itself cost)
 
 ```text
-  81.0%  the game itself
+  80.8%  the game itself
   18.7%  profiler (Tracy)
-   0.2%  build tooling
-   0.1%  audio
+   0.2%  build launcher (cargo, shell)
+   0.2%  audio
 ```
 
-The profiler cost 19% of sampled cycles. Low enough that the
-measurements below stand on their own.
+```text
+profiler (Tracy) overhead : 18.7%
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            :  0.2%   (cargo and shell; NOT a compile)
+the game itself           : 80.8%
+native attribution        : CLEAN
+```
+
+Neither the profiler nor a compile took a share worth correcting for, so
+the native symbol ranking and the DSO split below stand on their own.
 
 ## Where the native time went
 
@@ -355,8 +363,9 @@ measurements below stand on their own.
    0.0%  software rasterizer (CPU emulating a GPU)
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.

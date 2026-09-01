@@ -106,7 +106,11 @@ Full list: `frame_spikes.csv`.
      51.0        4       3      1       0      1
 ```
 
-Peak world-rendering cameras: **1** at t=2.1s. Each one draws the world again.
+Peak world-rendering cameras: **1** at t=2.1s.
+
+The world was drawn **once** per frame throughout: one active
+world-rendering camera, no portal capture and no second view. Repeated
+world rendering is not what this run's frame cost is.
 
 Distinct cameras seen, by role:
 
@@ -143,7 +147,7 @@ Full series: `portal_activity.csv`.
 
 Peak offscreen image render targets: **0** (largest dimension 0px) at t=2.1s.
 
-Full series: `render_target_census.csv`.
+Full series: `render_target_census.csv`. ⚠ `cpu_bytes` there is the CPU-side copy an image still holds; a target uploaded and dropped reports 0 and is still costing VRAM.
 
 ## Scene and ECS workload
 
@@ -311,17 +315,30 @@ totals. Full series: `schedule_phases.csv`.
 ## Observer effect (what the profiler itself cost)
 
 ```text
-  71.7%  the game itself
+  71.4%  the game itself
   27.1%  profiler (Tracy)
-   1.1%  build tooling
-   0.1%  audio
+   1.1%  build launcher (cargo, shell)
+   0.4%  audio
 ```
 
-⚠ **The profiler cost 27% of sampled cycles.**
-Tracy's symbol-resolution and compression threads
-compete with the game for the same cores, so **every frame time, zone
-duration, and plugin-build number in this bundle is inflated**, and the
-native symbol table below is largely Tracy's own code.
+```text
+profiler (Tracy) overhead : 27.1%
+codegen inside the capture:  0.0%   (rustc / LLVM / linker threads)
+build launcher            :  1.1%   (cargo and shell; NOT a compile)
+the game itself           : 71.4%
+native attribution        : PROFILER-CONTAMINATED
+```
+
+⚠⚠ **The native profile below is PROFILER-CONTAMINATED and must not be quoted.**
+
+⚠ The game's own census is NOT a way around this. `frame_times.csv`,
+`frame_spikes.csv` and `runtime_census.csv` are recorded by a process the
+profiler is running inside, so they carry the same inflation the native
+profile does. Only RATIOS between them survive.
+
+**Tracy cost 27% of sampled cycles.** Its symbol-resolution and
+compression threads compete with the game for the same cores, so every frame
+time, zone duration and plugin-build number here is inflated too.
 
 Zone RATIOS remain usable — the instrumentation is uniform across systems.
 Absolute per-frame costs are not. For an honest frame time, re-run:
@@ -343,8 +360,9 @@ compare its frame census against this one to size the gap.
    0.0%  software rasterizer (CPU emulating a GPU)
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.
@@ -398,6 +416,8 @@ Top native symbols:
 Decode counts only ever rise. A rise with no new room is the same asset
 being decoded again; `image_decodes.csv` names which.
 
+⚠ This bundle predates late-decode marking, so whether any decode landed during gameplay is UNKNOWN here, not zero.
+
 Textures decoded more than once:
 
 ```text
@@ -432,6 +452,8 @@ Textures decoded more than once:
 | `portal_activity.csv` | portal capture rigs and the budget bounding them | yes |
 | `asset_activity.csv` | cumulative decode work and resident images | yes |
 | `image_decodes.csv` | every notable texture decode, with its path | yes |
+| `image_arrivals.csv` | images reaching Assets<Image> per census window | no |
+| `world_events.csv` | room loads and session starts/ends, with game time | no |
 | `schedule_census.csv` | registered system counts per sample | yes |
 | `schedule_phases.csv` | per-frame milliseconds in each main-schedule phase | yes |
 | `tracy_summary.md / tracy_zones.csv` | per-Bevy-system and per-render-pass zones | yes |

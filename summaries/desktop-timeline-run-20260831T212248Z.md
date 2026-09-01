@@ -227,15 +227,18 @@ totals. Full series: `schedule_phases.csv`.
 ## Observer effect (what the profiler itself cost)
 
 ```text
-  50.6%  build tooling
+  50.5%  compiler / codegen / linker
   48.3%  the game itself
    0.7%  profiler (Tracy)
    0.4%  audio
+   0.1%  build launcher (cargo, shell)
 ```
 
 ```text
 profiler (Tracy) overhead :  0.7%
-compile inside the capture: 50.6%   (the game itself: 48.3%)
+codegen inside the capture: 50.5%   (rustc / LLVM / linker threads)
+build launcher            :  0.1%   (cargo and shell; NOT a compile)
+the game itself           : 48.3%
 native attribution        : COMPILE-CONTAMINATED
 ```
 
@@ -243,14 +246,16 @@ native attribution        : COMPILE-CONTAMINATED
 
 ⭐ Everything keyed to GAME TIME is unaffected — `frame_times.csv`,
 `frame_spikes.csv`, `runtime_census.csv` and the image censuses come from the
-game's own stderr census, not from `perf` samples.
+game's own stderr census, not from `perf` samples, and a compile competes for
+cores mostly before the game starts.
 
-**A compile ran inside this capture** — 51% of sampled cycles
-against the game's own 48%. Check `warm-build.status` and the gap
-between `wall_s` and `game_s` in `frame_spikes.csv`: a first frame tens of
-seconds into the capture is the build. If the warm build ran and the launch
-rebuilt anyway, the two are asking cargo for different fingerprints — see the
-`build_env` rows in `run_game.sh --print-plan`.
+**A compile ran inside this capture** — 50% of sampled cycles in
+rustc, LLVM codegen and linker threads, against the game's own 48%.
+Check `warm-build.status` and the gap between `wall_s` and `game_s` in
+`frame_spikes.csv`: a first frame tens of seconds into the capture is the
+build. If the warm build ran and the launch rebuilt anyway, the two are
+asking cargo for different fingerprints — see the `build_env` rows in
+`run_game.sh --print-plan`.
 
 ## Where the native time went
 
@@ -262,8 +267,9 @@ rebuilt anyway, the two are asking cargo for different fingerprints — see the
    0.0%  software rasterizer (CPU emulating a GPU)
 ```
 
-From `perf-report-by-dso.txt`. If the top bucket is not the game binary,
-ranking game symbols is ranking the wrong machine layer.
+From `perf-report-by-dso.txt`, SELF time (`--no-children`), so the rows
+partition the capture. If the top bucket is not the game binary, ranking
+game symbols is ranking the wrong machine layer.
 
 This split is by SHARED OBJECT, not by thread: statically linked
 profiler, allocator, and runtime code all report as the game binary.
