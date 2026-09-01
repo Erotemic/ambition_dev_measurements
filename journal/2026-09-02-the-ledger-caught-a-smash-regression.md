@@ -64,3 +64,53 @@ Bisect `31cd8218b1ed..88f4ca40e208` on the Smash capture, or accept it as the
 cost of the diagnostics program and re-baseline deliberately. Either is a
 decision; leaving a 24% regression unattributed in a workload with a ledger row
 is not.
+
+## Addendum: two candidates eliminated, the bisect still owed
+
+### Not the geometry change
+
+`parry2d`, `gjk`, `cast_shapes`, `sweep_hit` and `slab_sweep` are **absent from
+the smash capture's symbol report entirely** — in a workload of two fighters
+colliding continuously, which is exactly where the closed form's
+penetrating-start fallback would show if it were hot.
+
+### Not the diagnostics plugins
+
+The phase decomposition pointed at `PostUpdate` (+0.260) and `Update` (+0.241) —
+68% of the regression — and those are where the F1 diagnostics program landed. So
+each of `FpsOverlayPlugin`, `SystemInformationDiagnosticsPlugin`,
+`DiagnosticsOverlayPlugin` and `EcsDiagnosticsPlugin` was made skippable by
+environment, one binary, and measured.
+
+```text
+smash_match_profile --ticks 2000, three interleaved reps
+
+all-on    3.190  3.367  3.160   mean 3.239
+all-off   3.140  3.123  3.110   mean 3.124   -3.5%
+```
+
+⇒ **~0.12 ms of a 3.2 ms frame.** Real, consistent in direction across all three
+reps — and a seventh of the 24% it was proposed to explain.
+
+⛔ **AND THE FIRST VERSION OF THIS TEST WAS RUN ON THE WRONG WORKLOAD.** One
+single-shot pass over the *hall* suggested 1.987 → 1.72 and looked like a 13%
+win; three interleaved reps put all-on at 1.725 and all-off at 1.758, overlapping
+completely. The plugins cost nothing there because `run_headless` is the DIRECT
+SANDBOX composition, which never adds `DevToolsPlugin` — its `PostUpdate` is 0.066
+ms against Smash's 0.845. `smash_match_profile` uses
+`build_visible_app(NoWindow, true)`, the shared host, which does.
+
+⭐ Two lessons in one experiment: n=1 produced a 13% win that repping erased, and
+a workload that does not compose the thing under test cannot falsify it either.
+
+### What is left
+
+```text
+systems  3,218 -> 3,405    of which ~4 are the diagnostics plugins' own
+                            registrations and 7 are today's census marks
+window   31cd8218b1ed..88f4ca40e208   three days, the whole 0.19 program
+```
+
+The bisect is owed. It is ~6 steps over that range with a rebuild each, which is
+hours rather than minutes — but two dead ends are now closed, and neither would
+have been closed by reading.
