@@ -66,3 +66,58 @@ WorldMemory::update               12.89% of the whole process    <- this one
 The first three were proposed from source reading and died on measurement. This
 one was never proposed by anyone; it was found by pointing `perf` at a regime
 nobody had profiled, and it cost a third of the phase in that regime.
+
+## Addendum: the refresh loop, and a guard that was not there
+
+Re-profiling at 4x extent after the membership fix, `WorldMemory::update` is
+**still the top symbol at 9.32%** (down from 12.89%) with `BTreeMap::insert` at
+4.06% beneath it. What is left is the other loop:
+
+```rust
+self.actors.insert(a.id.clone(), RememberedActor { .. });
+```
+
+A body in view this tick was almost certainly in view last tick, so the key is
+already there: the clone allocates a `String`, the insert re-descends the tree,
+and both are discarded against an existing entry. ~14,700 needless allocations
+per tick at `kept` = 113 across 130 actors.
+
+A `get_mut` first, insert only for the genuinely new. One binary, arms selected
+at runtime, three interleaved reps at 4x extent:
+
+```text
+                  Decide ms      frame p50       ticks/s
+insert always       2.502          4.228 ms        233
+lookup first        2.329          4.014 ms        246
+                   -6.9%          -5.1%           +5.6%
+```
+
+⚠ **Modest, and reported as modest.** Three instruments agree on ~5-7%; this is
+not the 34.5% the membership fix bought. It is kept because it is free — no
+behaviour changes, and the allocation it removes is process-wide pressure the
+phase census cannot see.
+
+## ⛔⛔ AND THE POISON DID NOT FIRE
+
+Turning the refresh into a no-op left **all 395 tests green.**
+
+The suite covered `memory_retains_target_after_it_leaves_view` and
+`memory_forgets_after_long_absence` — both about actors that are GONE. An actor
+still standing in plain view had **no test at all**, so the loop being modified
+was uncovered, and only poisoning it revealed that.
+
+What that costs when it breaks: a remembered actor keeps its FIRST-SEEN position
+for as long as it stays visible, and confidence never returns to 1.0 after a dip.
+A pursuing brain walks to where its target used to be while the target is in
+front of it. Nothing panics.
+
+Two guards added, and both poisons now fire:
+
+```text
+refresh becomes a no-op          -> both new tests fail
+refresh position but not confidence -> the confidence test fails
+```
+
+The second is why there are two: the first test alone would pass on a refresh
+that updated position and forgot confidence — which is the half a brain ranks
+its targets by.
