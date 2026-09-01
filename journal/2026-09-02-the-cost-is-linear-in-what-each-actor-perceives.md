@@ -69,3 +69,46 @@ population.** A room of 200 with each fighter attending to 16 costs about what
 130 attending to 14 costs today; a room of 200 where everyone sees everyone is
 the 10x case, and it arrives through density long before it arrives through
 headcount.
+
+## Addendum: decomposed, and the caveat is closed
+
+The three-arm probe, run at both extents off one binary:
+
+```text
+       kept   builds+use     scan   brain+rest   build share   µs/build
+ 1x    14.4       0.1500   0.0443       0.0410          64%       10.4
+ 4x   113.2       2.7053   0.0402       0.0715          96%       23.9
+
+kept ×7.85    builds ×18.0    brain+rest ×1.7    scan ×0.91
+```
+
+⇒ **Crowding is not brains thinking harder.** The peer-independent brain term
+grows ×1.7 while the peer-dependent term grows ×18, and at 4x it is **96%** of
+the phase. The caveat the entry above left open — that raising the extent makes
+brains see more, so some growth might be cognition — is closed: whatever the
+brains do with a bigger view, it is 4% of the cost.
+
+⭐ **The scan is FLAT (×0.91).** It walks the same 129 peers whatever the extent;
+only how many pass the filter changes. That is a second, independent
+confirmation that the scan is not the expensive half — the first was the 8%
+decomposition at fixed extent.
+
+## ⭐⭐ AND THE CONSTRUCTION TERM IS SUPERLINEAR IN `kept`
+
+```text
+builds ×18.0 against kept ×7.85   ->   slope 1.40
+per-build cost   10.4 µs  ->  23.9 µs
+```
+
+Building 113 `PerceivedActor`s per actor costs **more than twice as much each**
+as building 14. That is the same signature measured independently earlier at
+fixed extent — 86 ns → 160 ns per build as population doubled — and the same
+explanation fits: ~13 KB written per actor per tick instead of ~1.7 KB, touched
+once and discarded.
+
+⇒ **A bounded K does not merely cap a linear cost. It caps a term that grows
+faster than K.** Total `Decide` reads slope 1.13 only because the flat terms
+dilute it at low `kept`; the part a budget actually removes is 1.40.
+
+That is a stronger argument for the attention budget than the entry above made,
+and it comes from the same two runs.
