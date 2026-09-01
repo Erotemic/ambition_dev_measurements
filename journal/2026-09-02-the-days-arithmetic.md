@@ -102,8 +102,15 @@ up as a lesson about trusting the stated method. The stated method was the bug.
 
 ## What this does and does not invalidate
 
+⚠ **AND ONLY THE `sim_phases` ROW WAS AFFECTED.** `[census] frame` has no
+one-frame startup window — its first window at `t=1.265` already holds 526
+frames, so the slow boot frames inside it are diluted rather than dominant, and
+they push the mean UP if anything. **Every `frame p50` figure in these journals
+stands**, including the day's headline of 3.07 -> 1.66 ms at 130 bodies. What
+moved is the per-PHASE column.
+
 ```text
-ABSOLUTE values from 1200-tick runs   UNDERSTATED, by up to a third
+ABSOLUTE per-phase values from 1200-tick runs   UNDERSTATED, by up to a third
                                       (one zero among three windows)
 
 A/B deltas and RATIOS                 largely survive: both arms carry the same
