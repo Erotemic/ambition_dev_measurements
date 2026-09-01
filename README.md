@@ -46,6 +46,19 @@ one bundle and filled a 484 GB disk. Nothing reads it once
 `tracy_zone_report.py` has reduced it to per-window tables; regenerate with
 `tracy-csvexport --unwrap tracy.trace`. A `.removed` note in the bundle says so.
 
+⛔ **THAT PRUNE ONLY EVER RAN FORWARD.** Bundles recorded BEFORE it was added
+kept theirs: on 2026-09-01 `profiles/` was **127 GB**, of which one surviving
+`tracy_zone_instances.csv` was **85 GB**, in a bundle that had never been
+ingested. `scripts/prune_profile_bundles.py` cleans up the historical ones —
+dry run by default, and its keep-list is checked against the filenames
+`profile_bundle_to_history.py` and `profile_bundle_summary.py` actually open, so
+it cannot delete something a row still needs. It took `profiles/` to **128 MB**.
+
+⭐ **KEEP THE DERIVED HALF EVEN WHEN DROPPING THE RAW ONE.** A bundle whose
+`perf.data` is gone can still be re-ingested; a bundle that was DELETED cannot.
+When `sim_phases_ms` was added to the ledger, 13 of 26 rows backfilled and the
+other 12 had no bundle left — numbers that existed once and are simply gone.
+
 ## runtime_frame_cost.jsonl
 
 **Runtime, not compile.** One row per profiling bundle, so a frame time survives
