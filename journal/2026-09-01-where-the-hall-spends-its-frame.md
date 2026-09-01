@@ -61,6 +61,46 @@ WorldPrep.ContactDamage     0.014           ~0.7%
 
 **≈9.3 µs per body per tick, spent BEFORE any body has moved.**
 
+## ⛔⛔ CORRECTION, 2026-09-01: THAT ROW IS NOT `BeforeIntegrate`
+
+**Read the row above as `WorldPrep.prefix_through_BeforeIntegrate`.** Everything
+below it that reasons about "which system inside `BeforeIntegrate`" was reasoning
+about the wrong set, and this correction was pointed out in review, not caught
+here.
+
+A boundary instrument bills *now minus the previous mark*. The first `WorldPrep`
+mark closes **after** `WorldPrepSet::BeforeIntegrate`, and the previous mark is
+the one after `Phase::PlayerInput` — so the bucket spans everything in `WorldPrep`
+from the phase opening through the end of `BeforeIntegrate`. That is not one set.
+`features/mod.rs:274-291` puts the entire actor decision chain inside it:
+
+```text
+ActorDecisionSet::Targeting        ActorDecisionSet::Prepare          |
+ActorDecisionSet::Observe          |  all .in_set(Phase::WorldPrep)
+ActorDecisionSet::StateMaintenance |  and .before(WorldPrepSet::BeforeIntegrate)
+ActorDecisionSet::Decide           |
+ActorDecisionSet::Publish          /
+PlayerInputSet::ControlGate        \  chained after Publish,
+PlayerInputSet::BodyMode           /  also before BeforeIntegrate
+WorldPrepSet::BeforeIntegrate      <- the only part the NAME covers
+```
+
+So the 1.214 ms is **cognition plus gating plus movement prep**, and the split
+between them is unmeasured. 130 actors deciding what to do is at least as
+plausible an owner as anything in the list further down.
+
+⛔ **The instrument's own doc comment names this failure mode** — "a phase added
+there without a line here is simply unattributed; its time lands in whichever
+neighbour closes next". It was written in the same commit that then read the
+bucket as a set. Writing down a failure mode is not the same as checking whether
+you are in it.
+
+A `WorldPrep.ActorDecision` bucket now closes after `PlayerInputSet::BodyMode`,
+installed from the actor monolith because `ambition_dev_tools` cannot name
+`ActorDecisionSet` — the dependency edge runs the other way. The census row says
+`!! WorldPrep.ActorDecision NEVER CLOSED` when that mark is missing, rather than
+letting the neighbouring name quietly widen again.
+
 ## ⛔⛔ TWO THINGS THIS FALSIFIED
 
 **1. It is not the O(n²) body-contact pairing.** `BodyContactSnapshot::field_for`
@@ -83,6 +123,12 @@ natural experiment is in the same run at t=110–115: bodies drop 130 -> 2 while
 41 of `PreUpdate`'s 163 systems and is not what scales.
 
 ## What is NOT known, and it is the next measurement
+
+**⛔ SUPERSEDED BY THE CORRECTION ABOVE — the list below is the wrong set.** It
+enumerates `BeforeIntegrate`'s members, and the 1.2 ms belongs to a span that
+also contains the whole actor decision chain. Kept because these are still real
+`BeforeIntegrate` members and the `sync_sprite_posed_bodies` note below still
+stands on its own; deleted claims leave no trail of what was believed and why.
 
 **Which system inside `BeforeIntegrate` spends the 1.2 ms.** The set holds at
 least five candidates and the census measures the SET, not its members:
@@ -109,9 +155,10 @@ answer without measuring it.**
 
 ## For whoever picks this up
 
-1. **Per-system marks inside `BeforeIntegrate`** are the next step, the same way
-   `install_sim_phase_boundaries` marks the phases. That is one instrumentation
-   round and it ends the guessing.
+1. ~~**Per-system marks inside `BeforeIntegrate`** are the next step.~~ **The
+   boundary was wrong before the members mattered.** `WorldPrep.ActorDecision`
+   splits the actor decision chain off first; only what is LEFT in
+   `BeforeIntegrate` is worth marking per system, and it may be a small number.
 2. **The scaling curve is still owed** (2, 16, 64, 130, 200 bodies). Two points
    cannot separate O(n) from O(n²), and the fix differs: a fat linear constant
    wants profiling one system, a superlinear term wants a spatial structure.
