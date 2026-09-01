@@ -99,3 +99,41 @@ which variable.
 ⚠ It caps by AUTHORED ORDER, not by distance or salience. Deterministic and
 repeatable — the same cap admits the same cast every run — but a capped hall is
 not a smaller hall, it is a different one, and the wobble above is partly that.
+
+## Addendum: Integrate's slope is not algorithmic
+
+`WorldPrepSet::Integrate` holds exactly one system, `integrate_sim_bodies`, so
+there is nothing to split. A count probe asked whether anything its per-body loop
+scans grows with population:
+
+```text
+cap=17   blocks=34  platforms=0  overlay_blocks=0  gate_solids=0  water=0  contact_empty=true
+cap=65   blocks=34  platforms=0  overlay_blocks=0  gate_solids=0  water=0  contact_empty=true
+cap=130  blocks=34  platforms=0  overlay_blocks=0  gate_solids=0  water=0  contact_empty=true
+```
+
+**Constant.** Thirty-four static blocks whatever the population. No moving
+platforms, no overlay solids, no gate solids, no water. And `contact_empty=true`
+at every population — which retires `BodyContactSnapshot::field_for`, the genuine
+O(n²) body pairing, by **direct observation** rather than by the inference used
+in the earlier entry.
+
+⇒ Per-body cost still rises 2.57 → 4.90 µs across 17 → 130 bodies, and **no data
+structure this system reads is bigger at 130 than at 17.** The superlinearity is
+not an algorithm.
+
+Two candidates remain, and this measurement does not separate them:
+
+- **Memory system.** 130 bodies through a twelve-plus-component query with
+  optional/sparse members is a different cache story from 17.
+- **Density.** More bodies in the same room means more of them are genuinely in
+  contact, sweeping and resolving. Work per body rises because the *situation* is
+  busier, not because a list is longer.
+
+⛔ Either way: **no broadphase, no spatial index and no physics engine addresses
+this**, because there is no growing scan for them to accelerate. If it is the
+second candidate it is not a defect at all — it is the room doing more.
+
+⚠ The honest next step is an instruction-retired comparison at two populations,
+not another timing. A wall-clock slope cannot tell "more cache misses per body"
+from "more collisions per body".
