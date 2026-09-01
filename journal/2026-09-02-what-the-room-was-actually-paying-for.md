@@ -1,0 +1,83 @@
+# What the room was actually paying for
+
+**2026-09-01.** The campaign had cut the hall's decision phase from 0.852 to
+0.234 ms/tick without ever answering the question underneath it: *what is that
+work FOR?* Three arms of one room answered it in an afternoon, and two of the
+three things I believed on the way there were wrong.
+
+## The measurement
+
+Same room, same build, same host. Three interleaved reps per arm, medians, 3000
+ticks. The only variable is which brain all 129 authored NPCs get.
+
+```text
+phase                          statues   brutes    smash    smash Δ
+WorldPrep.Decision.Decide        0.340    0.730    0.377      +11%
+WorldPrep.Integrate              0.253    0.332    0.252        0%
+Combat                           0.115    0.232    0.117       +2%
+WorldPrep.Decision.Targeting     0.034    0.036    0.033       -3%
+```
+
+- **statues** — the authored cast. All 129 are `brain_override: "stand_still"`.
+- **brutes** — `ambition::melee_brute_striker`: acts, but reads no world view.
+- **smash** — the `ambition::medium_striker` profile, `template: Smash`, one of
+  the only two arms that CONSUME a world view.
+
+**Building the views is the cost.** The peer-independent remainder is 0.039, so
+88% of the statues' 0.340 is constructing peer lists, views and memory.
+
+**Reading them is nearly free.** 129 brains that genuinely consume a 129-actor
+view cost 11% more and move nothing else.
+
+**Acting is what costs.** The brutes read nothing and cost 115%, with
+`Integrate` +31% and `Combat` +102% behind them.
+
+And `Targeting` — the one quadratic anybody found — is 0.033-0.036 across all
+three arms. A busy room does not spend its time searching.
+
+## The knobs this needed, and the trap in both
+
+`AMBITION_ACTOR_BRAIN_OVERRIDE` forces a preset; `AMBITION_ACTOR_BRAIN_PROFILE`
+forces an autonomous profile. Two knobs and not one because **the preset road
+cannot reach a perception-reading brain**: every preset the catalog names lowers
+to an arm `tick_simple_state_machine` answers, and that function takes no
+`WorldView` argument at all. `Fighter` and `Smash` are reachable only through a
+profile.
+
+Both resolve against **each character's own provider**, and the hall is a
+cross-provider gallery, so a bare name dies on the first `mary_o` character.
+Qualify them.
+
+## Three things I had wrong
+
+**The campaign measured a host that does not roll back.** `--start-room` is not
+a room selector: `cli_direct_entry()` returns true for it, and `--headless`
+branches on that to the direct sandbox instead of the production shared host.
+The sandbox installs no rollback host — no `GgrsSchedule` among 20 schedules —
+and the bundle's own stderr had been saying so on line 24 the whole time. The
+numbers are valid for the simulation systems, which is where the work happened.
+They are not a frame budget.
+
+**Then I costed that discovery wrong.** I read "zero-distance `SyncTestSession`"
+and concluded the shipped host saves and checksums every registered component
+every frame, at 130 bodies. ggrs skips the entire save path at
+`check_distance: 0` — its own comment says *"we can skip all the saving"* — and
+that is what a local session runs at. The type named a capability; the parameter
+decided the cost. Four lines of a dependency I never opened.
+
+**And the obvious optimization does not exist.** `world_view` is a local, not a
+component, so skipping its construction for a brain that cannot receive one
+looks free. It is not: the view is consumed twice, and the first consumer is
+`believed_target`, which writes `PerceptionMemory` — checksummed rollback state
+— for every body whatever its brain. There is no performance-only version of
+this change, which is precisely why ADR 0034 exists.
+
+## What the next person should not repeat
+
+- Do not quote a hall number as a frame budget without checking which host
+  produced it. Read line 24 of the bundle.
+- Do not cost a dependency's work from its type name. Find the guard that
+  decides whether it does the work and read the value it is configured with.
+- Do not go looking for a free version of the perception gate. Two consumers.
+- Do not build the spatial index. `Targeting` did not move across three arms
+  that changed everything else about what the room was doing.
