@@ -87,3 +87,32 @@ And the instrument that found the winner was not the one built for the job. Five
 rounds of phase-boundary census answered *where* with increasing precision and
 could never answer *what* — `WorldPrepSet::Integrate` holds exactly one system,
 so there was nothing left to split. `perf record` answered it in one run.
+
+## Addendum: RON parsing is startup, not per-frame
+
+`ron::parse::Parser` symbols were the second-largest group in the flat profile
+(2.07% for the top one). RON parsed inside the tick loop would be a real defect,
+so the question was worth one measurement — and it was answered by a
+**pre-registered prediction** rather than by reading the code.
+
+If the cost is startup-only, its ABSOLUTE size is constant and its SHARE must
+fall as the run lengthens. Fitting the first two points gives startup ≈ 1.7 s and
+RON ≈ 0.3 s, which predicts **~5.1%** at 3000 ticks:
+
+```text
+ticks   ron share
+  300      16.75%
+ 1500       8.27%
+ 3000       4.41%     predicted 5.1%
+```
+
+⇒ Startup. Not a simulation defect, and **not the sim campaign's problem.**
+
+⭐ Writing the prediction down before the third run is what makes this a test
+rather than a story. A share that merely "went down" would have been read as
+confirmation whatever it did; 4.41 against a predicted 5.1 is a fit, and a
+measured 12% would have falsified it.
+
+⚠ The datum that survives for the ASSET campaign: roughly **0.25–0.38 s of RON
+parsing in startup**, on a headless boot with no renderer. That belongs beside
+the `extract_render_asset<GpuImage>` work, not here.
