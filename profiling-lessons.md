@@ -185,6 +185,73 @@ survives what a TIMING cannot.
 
 ---
 
+## 12. ⛔⛔ The summary statistic can be the bug
+
+`[census] sim_phases` emitted a `ticks=1` startup window whose every phase read
+`0.000` — not because the phases were free, but because almost nothing had run
+between the census opening and its first due time.
+
+The obvious summary of a run is "the last few windows". A 1200-tick capture
+produces about three:
+
+```text
+(0.000 + 0.341 + 0.332) / 3 = 0.224
+```
+
+**0.224 was published as the hall's `Decide` cost against a true 0.341**, and the
+same bias sat under a population curve, a density sweep and three A/B
+decompositions — worst at low populations, where runs are shortest and the zero
+is the largest share of the mean, so every slope came out too STEEP.
+
+⛔⛔ **AND A CORRECTION WENT THE WRONG WAY FIRST.** Seeing `tail -1` report 0.341
+against a three-window mean of 0.234, I concluded the single window was the
+anomaly and wrote it up as a lesson about trusting the stated method. The stated
+method was the bug.
+
+⭐ Fixed at the source (`90c896564`): a window under two ticks is no longer
+emitted, and its time folds into the next one rather than being discarded.
+`ticks=1` was always in the row and three analyses failed to filter on it — **a
+row that cannot be read correctly is worse than a row that is absent, because
+absence is visible.**
+
+⚠ Scope it before applying it: `[census] frame` never had this. Its first window
+already holds hundreds of frames, so boot frames are diluted inside it. Every
+`frame p50` in this repo stands; only the per-phase column moved.
+
+## 13. ⛔⛔ Compare arms in ONE binary, not two builds
+
+Twice in one campaign a conclusion was withdrawn because a baseline came from a
+binary two fixes older than the number subtracted from it. Read an environment
+variable at the call site, branch to the old path or the new one, interleave the
+reps, and delete the switch before committing.
+
+It also removes: different compiler decisions between builds, a different machine
+load an hour apart, and a warm-versus-cold page cache. `Integrate` drifted 4%
+between two runs of the SAME build — a 5% "win" across builds is noise wearing a
+result's clothes.
+
+⚠ Discard the first pair. Early reps ran slow in both arms until the machine
+settled; only reps 3-5 separated cleanly.
+
+⚠ And pick a statistic that holds still. Worst-frame over a burst is BIMODAL —
+the same bound produced 49 ms and 275 ms on consecutive runs — while total spike
+time separated the same arms at 0.3% spread.
+
+## 14. ⛔ Check the UNITS before dividing
+
+`sprite_area` is world units squared. Dividing it by a 1280x720 pixel count and
+reporting "15.8x coverage" is dimensionally invalid, and it was published in a
+journal entry, a queue row and a tool's usage text within twenty minutes.
+
+The census's own doc comment said so: *"WORLD UNITS, NOT PIXELS, AND THE NAME
+SAYS SO. Turning these into screen pixels needs each sprite's view and that
+view's projection."* The ratio survives — *"a ratio does not care about the
+unit"* — the multiple does not.
+
+⚠ Second time that day an instrument's existing comment said the right thing and
+was read past; the first was sizing unsized sprites from their image, which
+`rendering/parallax.rs` explains at the spawn site is wrong.
+
 ## The shape of the desktop hitch, as established on `toothbrush`
 
 Kept here because it is the conclusion the next campaign starts from, and because
