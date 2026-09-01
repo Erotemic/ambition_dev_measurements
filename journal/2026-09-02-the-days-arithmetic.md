@@ -69,3 +69,22 @@ weak-GPU transparent overdraw ~5.3x        separate campaign, needs a GPU
 the hall is not in the perf-history ledger a capture needs a full profiling
                                            rebuild and the disk is at 94%
 ```
+
+## ⚠ A methods note every number above depends on
+
+`[census] sim_phases` emits one row per second, and **the last row is not the
+run**. Reading `tail -1` of a 1500-tick run reported `Decide=0.341`; averaging the
+last three windows of the same build reported `0.224 / 0.259 / 0.227`.
+
+That is a 46% difference between two readings of the same binary, produced by
+which line you grep.
+
+⭐ Every figure in these entries is **the last three windows averaged**, and the
+one time a single window was read it looked like a regression that was not there.
+The check that caught it was re-measuring with the stated method, not reasoning
+about why the number had moved — the reasoning available at the time (a warmer
+machine, a longer run) would have explained either direction happily.
+
+⛔ So: state the statistic beside the number, and when a figure moves
+unexpectedly, first confirm it was taken the same way. A per-second census window
+can land on a GC-ish pause, an asset arrival, or the tail of a burst.
