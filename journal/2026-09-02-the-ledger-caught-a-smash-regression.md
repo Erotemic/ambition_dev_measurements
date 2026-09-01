@@ -114,3 +114,53 @@ window   31cd8218b1ed..88f4ca40e208   three days, the whole 0.19 program
 The bisect is owed. It is ~6 steps over that range with a rebuild each, which is
 hours rather than minutes — but two dead ends are now closed, and neither would
 have been closed by reading.
+
+## Addendum 2: it predates today, and the bisect stops here on instruction
+
+Two commits measured with **one method** (`smash_match_profile --ticks 2000`,
+three reps, no `perf` attached — so these are on a different scale from the
+ledger rows, which all run under `perf record`):
+
+```text
+b20324980   2026-08-31, "The Bevy 0.19 leverage campaign, closed out"
+              3.697  3.377  3.280   mean 3.451
+
+88f4ca40e   2026-09-01, today
+              3.190  3.367  3.160   mean 3.239   -6%
+```
+
+⇒ **Today's work is 6% FASTER than the campaign close-out.** The regression is at
+or before `b20324980` — it did not arrive with today's simulation fixes or with
+the diagnostics review, and those two probes eliminate the last 49 commits of the
+499-commit window.
+
+⛔ **AND THE BISECT STOPS HERE, BECAUSE JON ASKED IT TO.** 2026-08-31, on noticing
+the dips: *"idk if our latest bevy port did this or not (and we should not bisect
+to figure out, we just move forward and optimize)"*. The remaining 450 commits
+span the 0.19 port itself, so continuing means rebuilding two different Bevy
+major versions repeatedly — which is the bisect he declined, at its most
+expensive.
+
+⚠ The attempt also confirmed why: the build at `31cd8218b1ed` (pre-port) did not
+finish in ten minutes, because a different `bevy` version is a cold rebuild of
+the whole dependency graph. With the disk at 94% and one ENOSPC already hit
+today, that is a hazard as well as a delay.
+
+## What the number actually is, and on which scale
+
+```text
+LEDGER SCALE (under perf record, the only cross-day comparison available)
+  2026-08-29  mean 2.956    2026-09-01  mean 3.671    +24%
+
+PROBE SCALE (no perf)
+  2026-08-31  mean 3.451    2026-09-01  mean 3.239     -6%
+```
+
+⚠ **The two scales must not be mixed**, and the Aug-29 commit has no probe-scale
+measurement — its build did not complete. So "+24% since Aug 29" is a
+ledger-scale statement, and "today improved on Aug 31" is a probe-scale one. Both
+are true; neither can be subtracted from the other.
+
+⇒ Recorded, not resolved. `move forward and optimize` is the standing
+instruction, and the hall campaign is what moving forward looked like: the same
+day's work took the hall frame 3.07 → 1.78 ms.
