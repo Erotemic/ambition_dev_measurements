@@ -48,6 +48,29 @@ Both resolve against **each character's own provider**, and the hall is a
 cross-provider gallery, so a bare name dies on the first `mary_o` character.
 Qualify them.
 
+## What the fix would buy, measured rather than argued
+
+A throwaway probe — applied, measured, reverted, never committed — skipped view
+construction and belief maintenance for brains that cannot consume a view, which
+is exactly what ADR 0034's first increment does for a `None` declaration. The
+perception-reading arm is the control, because the probe leaves it untouched:
+
+```text
+Decide, statues   0.340 -> 0.024 ms/tick   -93%
+Decide, smash     0.377 -> 0.387            +3%   (control)
+```
+
+**0.316 ms/tick**, ~17% of the headless hall frame, and the largest sim phase
+becomes a rounding error. The +3% is what licenses the −93%: without it, "we
+rebuilt and the number moved" would explain the whole thing.
+
+It also supersedes the estimated 0.039 peer-independent remainder. With
+construction and belief maintenance both gone, the floor measures **0.024**.
+
+⛔ The probe *is* the checksummed-state change, not a cheaper cousin of it — it
+skips `believed_target`. The number exists so the decision is made against a
+measurement, not so the change is landed quietly.
+
 ## Three things I had wrong
 
 **The campaign measured a host that does not roll back.** `--start-room` is not
