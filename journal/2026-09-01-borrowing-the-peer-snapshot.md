@@ -78,3 +78,30 @@ act on a world containing a duplicate of themselves.
 Poisoned by deleting the filter; the exclusion arm failed and the premise guard
 (a viewer with no row excludes nobody) stayed green, which is what tells the two
 apart. 1206/1206 monolith lib tests pass.
+
+## Addendum: the local seam is now exhausted
+
+A third probe removed the remaining `String` clone in the view walk
+(`id: p.id.clone()` → `String::new()`), the one an `Arc<str>` or a cheap semantic
+id would eliminate for real:
+
+```text
+after the fix                 0.415 ms/tick
+probe C, id clone removed     0.374          -10%
+```
+
+**0.04 ms.** ⛔ So cheap actor identity is *not* worth the churn — and the
+suggestion to reach for `Arc<str>` next is the third candidate this campaign has
+killed by measuring rather than reading, after the O(n²) body-contact pairing and
+the O(n²) `select_actor_targets`.
+
+That 0.04 also explains the earlier asymmetry. Both clones are ~16.8k `String`
+allocations per tick, but `peers_seen_by` cost 0.38 ms and this costs 0.04. The
+strings were never the expensive part: `peers_seen_by` also memcpy'd the whole
+~150-byte `PerceptionPeer` struct 16.8k times into a freshly allocated `Vec` per
+actor. It was the **bulk copy**, not the heap traffic.
+
+⇒ The remaining 0.374 ms is the walk itself — building 129 `PerceivedActor`s per
+actor, 16.8k structs per tick, with a hostility decision each. There is no local
+change left that touches it. It is **O(n²) by construction**, and the next win is
+the bounded representation, not a smaller constant.
