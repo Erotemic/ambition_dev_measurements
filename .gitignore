@@ -1,0 +1,4 @@
+# Raw profile bundles: gigabytes of perf/tracy data, kept beside the ledger they
+# feed so a row can be opened, but never committed. The readable half lives in
+# summaries/ and IS tracked.
+profiles/
