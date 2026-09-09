@@ -16,16 +16,16 @@
     "non_committing_work": "requires_reconcile",
     "compaction_usage": "measured_signals_only_when_runtime_omits_usage"
   },
-  "through": "2026-09-08T02:04:46.693611+00:00",
-  "ledger_rows": 8180,
-  "commits_accounted": 7654,
-  "turns": 238874,
+  "through": "2026-09-09T16:43:34.315410+00:00",
+  "ledger_rows": 9286,
+  "commits_accounted": 8743,
+  "turns": 253282,
   "tokens": {
-    "input": 35552532,
-    "cache_write": 637754290,
-    "cache_read": 97119070362,
-    "output": 183716187,
-    "billable_input": 97792377184
+    "input": 35581336,
+    "cache_write": 663209144,
+    "cache_read": 104836412636,
+    "output": 193598678,
+    "billable_input": 105535203116
   },
   "by_model": {
     "claude-opus-4-8": {
@@ -65,10 +65,10 @@
       "output": 833268
     },
     "claude-opus-5": {
-      "input": 329723,
-      "cache_write": 399519029,
-      "cache_read": 69329596509,
-      "output": 99394934
+      "input": 358527,
+      "cache_write": 424973883,
+      "cache_read": 77046938783,
+      "output": 109277425
     },
     "claude-sonnet-5": {
       "input": 2228,
@@ -109,10 +109,10 @@
   },
   "by_activity": {
     "unlabeled": {
-      "input": 13396114,
-      "cache_write": 509921627,
-      "cache_read": 82567927308,
-      "output": 137955734
+      "input": 13424918,
+      "cache_write": 535376481,
+      "cache_read": 90285269582,
+      "output": 147838225
     },
     "backfill": {
       "input": 21552517,
@@ -141,10 +141,10 @@
   },
   "by_agent": {
     "claude-code": {
-      "input": 8619495,
-      "cache_write": 637754290,
-      "cache_read": 96371738778,
-      "output": 181304743
+      "input": 8648299,
+      "cache_write": 663209144,
+      "cache_read": 104089081052,
+      "output": 191187234
     },
     "codex": {
       "input": 26933037,
@@ -158,12 +158,12 @@
     "web_fetch": 0
   },
   "time": {
-    "wall_clock_s": 9926912.5
+    "wall_clock_s": 10422142.3
   },
   "compaction_signals": {
-    "events": 294,
-    "peak_context_tokens": 216335753,
-    "summary_chars": 5013852
+    "events": 309,
+    "peak_context_tokens": 231278871,
+    "summary_chars": 5259099
   },
   "modeled_post_hoc": "inference_seconds, energy_kwh, carbon_gco2e, usd — derived from the measurements above by `estimate`; not stored here."
 }
