@@ -102,6 +102,39 @@ record the same commit and scenario under Tracy (13.6ms) and without it (1.52ms)
 in two deliberately different comparability groups. Their `provenance.caveats`
 list what the prose could not supply and where it contradicts itself.
 
+## part_flipbook_cost.jsonl — what drawing a character from parts costs
+
+Written by `scripts/measure_part_flipbook_cost.py` (`static`, `runtime`) and
+`scripts/measure_hall_load_parts_ab.py`; read back with
+`measure_part_flipbook_cost.py report`. The readable half is
+**`summaries/part-flipbook-cost.md`**, rewritten from the whole ledger on every
+run. Plan: `docs/planning/engine/mary-o-part-realization.md`.
+
+Three kinds, one envelope (`dev/compile_telemetry_schema.md` §1 plus
+`renderer_commit`):
+
+* `part_flipbook_static` — one row per published sheet per run: frames, page
+  texels and PNG bytes of the sheet and of its part flipbook at every tier, the
+  part count, draws per frame, and the road the game draws it by (`realize`,
+  decided at publish by `part_flipbook.realization_by_cost`). **Machine
+  independent**: a property of the published assets at a commit.
+* `part_flipbook_runtime` — `rigged_sprite_bench` per character and actor count,
+  baked against parts. **Machine dependent**: compare only rows sharing a
+  `comparable_key`.
+* `part_flipbook_hall_load` — an interleaved `capture_scene` A/B of a room with
+  parts on and off: character images, megapixels and decode time by road, the
+  last character insert, frame spikes, wall, RSS. Medians of reps 2..N.
+
+⭐ **First census (2026-10-03): the rigs pay, the shape-recorded procedural
+painters do not.** Of 143 flipbooks, 71 measured costlier than their own baked
+sheet — 63 because their packed part pages hold more texels than the sheet's
+pages, 8 because a frame takes more than 64 draws (the goblins reach 140) — and
+are drawn baked. They draw shapes already turned into the frame, so a limb at
+every angle is a new part; the rigs (director, hunny_horror, noether) store each
+part once and turn it at draw time. ⛔ A tight texel ratio (parts against FULL
+frames, 0.2–0.6 for most) said otherwise: compare against the sheet's PACKED
+pages, which are trimmed too.
+
 ## room_population.jsonl
 
 ⭐⭐⭐ **THE HEADLINE, FOR ANYONE PRICING WORK AGAINST THIS DATA: SMASH IS NOT SLOW, ⛔⛔ **QUALIFIED 2026-08-29 AFTER THE FIRST HARDWARE RUN, AND THE ORIGINAL WORDING OVERSOLD IT.** Everything behind this headline was measured HEADLESS (`NoWindow`, software rasterizer, no GPU). The honest claim is **"the headless CPU side of a Smash match is not slow on this host"** — it does NOT explain a desktop that feels slow, because it never measured real rendering, presentation, VSync or frame pacing. ⭐ The first windowed run on an RTX 3090 (`desktop-timeline-run-20260829T143608Z`) shows exactly the gap: mean **7.77ms**, p99 **12.50ms**, and **24 spikes over 33.4ms with a worst frame of 516ms** across 28,291 frames. ⚠ Read it with three caveats IN the row: Tracy was on and the profiler is **13.5% of cycles**; the tree was dirty; and it is `windowed:default` with ONE player, **not a Smash match**, so it is not comparable to the 4.31ms headless Smash figure. ⇒ what the headless campaign legitimately ruled out stands (sim, system count, rollback, sprite population, entity population); what it could never see is now the whole remaining question. ⛔ AND ONE 'RULED OUT' ITEM IS OVERTURNED BY THAT RUN: *"Smash has exactly one world-rendering camera"* was a HEADLESS fact. The windowed run reports `world_rendering_peak: 3`, `offscreen_peak: 2` and portal capture targets at **2048x512 and 512x2048**.
