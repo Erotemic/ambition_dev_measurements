@@ -157,3 +157,14 @@ Written by `scripts/measure_part_flipbook_cost.py` from the latest rows of `part
 | super_mary_o_tall | parts | 26 | 0.02 | 0.02 | 0.962 | 0.895 | 23 | 1.0 / 1 |
 | super_mary_o | parts | 25 | 0.02 | 0.02 | 1.0 | 1.0 | 25 | 1.0 / 1 |
 
+## Room load, parts against baked (`scripts/measure_hall_load_parts_ab.py`; machine-dependent)
+
+Medians of reps 2..N (rep 1 warms the page cache). `last insert` is when the last character image landed, on the app's clock.
+
+| recorded | key | room | arm | char. images | MP | decode ms | last insert s | live decodes | spikes (worst ms) | wall s | RSS MB |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |
+| 2026-10-04T10:10 | `b4458338ee77` | hall_of_characters | parts | 10.0 | 61.8 | 872.0 | 2.3899999999999997 | 0.0 | 11.5 (419.05) | 7.51 | 1715.75 |
+| 2026-10-04T10:10 | `b4458338ee77` | hall_of_characters | baked | 93.0 | 526.9 | 33358.5 | 2.3975 | 0.0 | 5.0 (129.89999999999998) | 6.234999999999999 | 1812.5 |
+| 2026-10-04T11:45 | `1ba4f82b734a` | hall_of_characters | parts | 10.0 | 61.8 | 934.0 | 2.315 | 0.0 | 11.5 (354.45) | 17.755 | 1691.9 |
+| 2026-10-04T11:45 | `1ba4f82b734a` | hall_of_characters | baked | 93.0 | 526.9 | 34204.5 | 2.5965 | 0.0 | 4.5 (217.7) | 15.524999999999999 | 1804.2 |
+
