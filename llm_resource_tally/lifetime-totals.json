@@ -17,15 +17,15 @@
     "compaction_usage": "measured_signals_only_when_runtime_omits_usage"
   },
   "through": "2026-10-09T11:42:05.887923+00:00",
-  "ledger_rows": 10855,
-  "commits_accounted": 10152,
-  "turns": 300390,
+  "ledger_rows": 11394,
+  "commits_accounted": 10668,
+  "turns": 312724,
   "tokens": {
-    "input": 35720986,
-    "cache_write": 754477143,
-    "cache_read": 118798884782,
-    "output": 228566686,
-    "billable_input": 119589082911
+    "input": 35745784,
+    "cache_write": 772613419,
+    "cache_read": 123103728707,
+    "output": 235880663,
+    "billable_input": 123912087910
   },
   "by_model": {
     "claude-opus-4-8": {
@@ -65,16 +65,16 @@
       "output": 833268
     },
     "claude-opus-5": {
-      "input": 457829,
-      "cache_write": 477798783,
-      "cache_read": 85642234661,
-      "output": 131337735
+      "input": 471529,
+      "cache_write": 487780740,
+      "cache_read": 88537074645,
+      "output": 135856115
     },
     "claude-sonnet-5": {
-      "input": 3860,
-      "cache_write": 6858037,
-      "cache_read": 394800097,
-      "output": 1371664
+      "input": 12304,
+      "cache_write": 12629761,
+      "cache_read": 1526796878,
+      "output": 3604795
     },
     "gpt-5.6-luna": {
       "input": 1746757,
@@ -113,10 +113,10 @@
       "output": 3918
     },
     "claude-opus-5-5": {
-      "input": 34870,
-      "cache_write": 32540168,
-      "cache_read": 4601956745,
-      "output": 11498065
+      "input": 37524,
+      "cache_write": 34922763,
+      "cache_read": 4879963905,
+      "output": 12060531
     },
     "claude-sonnet-5-5": {
       "input": 3780,
@@ -127,10 +127,10 @@
   },
   "by_activity": {
     "unlabeled": {
-      "input": 13564568,
-      "cache_write": 626644480,
-      "cache_read": 104247741728,
-      "output": 182806233
+      "input": 13589366,
+      "cache_write": 644780756,
+      "cache_read": 108552585653,
+      "output": 190120210
     },
     "backfill": {
       "input": 21552517,
@@ -159,10 +159,10 @@
   },
   "by_agent": {
     "claude-code": {
-      "input": 8787949,
-      "cache_write": 754477143,
-      "cache_read": 118051553198,
-      "output": 226155242
+      "input": 8812747,
+      "cache_write": 772613419,
+      "cache_read": 122356397123,
+      "output": 233469219
     },
     "codex": {
       "input": 26933037,
@@ -176,12 +176,12 @@
     "web_fetch": 0
   },
   "time": {
-    "wall_clock_s": 12739175.0
+    "wall_clock_s": 13138952.0
   },
   "compaction_signals": {
-    "events": 452,
-    "peak_context_tokens": 303733930,
-    "summary_chars": 8347244
+    "events": 470,
+    "peak_context_tokens": 314319517,
+    "summary_chars": 8750118
   },
   "modeled_post_hoc": "inference_seconds, energy_kwh, carbon_gco2e, usd — derived from the measurements above by `estimate`; not stored here."
 }
