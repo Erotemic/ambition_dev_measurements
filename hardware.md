@@ -23,6 +23,7 @@ had stopped being true.
 | `aivm-2404` **@toothbrush** | `ec9af5ee…` | a VM guest on `toothbrush` | i9-11900K @ 3.50GHz (same silicon) | 12 | 65.8 GB | none | ⚠ **RETIRED / not currently reachable.** Produced the overnight headless series |
 | `calculex` | `087907b3…` | bare metal, Jon's **laptop** | **i7-7700HQ @ 2.80GHz** (Kaby Lake, 2017) | **8** | 32.4 GB | **Intel HD Graphics 630 (KBL GT2)**, Mesa 23.2.1, Vulkan 1.3 — ⚠ **integrated**; an NVIDIA ICD is listed but `nvidia-smi` fails, so there is no working discrete GPU | **windowed** profiling on slow hardware. Ubuntu 22.04, Wayland |
 | `aivm-2404` **@calculex** | `716a275c…` | a KVM guest **on `calculex`** | i7-7700HQ @ 2.80GHz (same silicon) | **6** of its 8 | **15.6 GB** of its 32.4 | none | agent work as of 2026-08-29; **headless** benchmarks only |
+| `Pixel 5` (`redfin`) | — (an Android phone; key rows by `device.model` + `device.android_release`) | Jon's **phone**, over adb from `toothbrush` | Qualcomm **SM7250** (Snapdragon 765G): 6 cores at 1.80 GHz, 1 at 2.21 GHz, 1 at 2.40 GHz (from `cpufreq`) | 8 | not recorded | Adreno (Vulkan, `vulkan.adreno.so`); clock not readable without root | **Android** play cost, `android-play-ledger.md`. Android 14 (`UP1A.231105.001.B2`) |
 
 ⛔ **THE HEADLESS VM IS NO LONGER THE SAME SILICON AS THE DESK.** The claim this
 file used to lead with — that CPU-bound headless conclusions from the VM held up

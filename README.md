@@ -10,6 +10,8 @@ This is a repo that helps keep measurement bloat out of the main repo
   published number that turned out to be wrong. Read before designing a probe.
 - **`journal/`** — one file per campaign: what was chased, what was retracted, and
   what is still open. `journal/README.md` says how to keep one.
+- **`android-play-ledger.md`** — ⭐ **does the game play better on Jon's phone,
+  run over run?** One table per comparable group, from `android_play_cost.jsonl`.
 
 ## goal_check_cost.jsonl
 
@@ -58,6 +60,19 @@ it cannot delete something a row still needs. It took `profiles/` to **128 MB**.
 `perf.data` is gone can still be re-ingested; a bundle that was DELETED cannot.
 When `sim_phases_ms` was added to the ledger, 13 of 26 rows backfilled and the
 other 12 had no bundle left — numbers that existed once and are simply gone.
+
+## android_play_cost.jsonl — the phone, run over run
+
+One row per `scripts/profile_android.sh` bundle: FPS and frame-time percentiles
+from the game's own `[frame-census]` windows (t >= 30 s), the population at the
+end, CPU clocks and heat, and the simpleperf thread / our-code split. Written by
+`scripts/lib/android_profile_ledger.py append <bundle>` — `profile_android.sh`
+calls it at the end of every run — and read back with its `table` subcommand.
+**The page to read is `android-play-ledger.md`.** Like the desktop ledger, rows
+compare only within one `comparable_key` (phone, Android release, game, boot
+route, autoplay, cargo profile, hub games, profiler setup); a bundle that never
+reached gameplay is refused. Each row names `profiles/<record_id>/` and
+`summaries/<record_id>.md` (the bundle's `android-profile-summary.md`, tracked).
 
 ## runtime_frame_cost.jsonl
 
