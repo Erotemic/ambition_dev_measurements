@@ -17,15 +17,15 @@
     "compaction_usage": "measured_signals_only_when_runtime_omits_usage"
   },
   "through": "2026-10-26T23:26:46.551979+00:00",
-  "ledger_rows": 14151,
-  "commits_accounted": 13152,
-  "turns": 417151,
+  "ledger_rows": 14522,
+  "commits_accounted": 13505,
+  "turns": 435340,
   "tokens": {
-    "input": 43128014,
-    "cache_write": 998857607,
-    "cache_read": 156981803904,
-    "output": 310956363,
-    "billable_input": 158023789525
+    "input": 43425051,
+    "cache_write": 1104769979,
+    "cache_read": 163321300591,
+    "output": 324958272,
+    "billable_input": 164469495621
   },
   "by_model": {
     "claude-opus-4-8": {
@@ -113,10 +113,10 @@
       "output": 3918
     },
     "claude-opus-5-5": {
-      "input": 210898,
-      "cache_write": 237215207,
-      "cache_read": 31620512239,
-      "output": 74367401
+      "input": 247516,
+      "cache_write": 343127579,
+      "cache_read": 37946700510,
+      "output": 88330171
     },
     "claude-sonnet-5-5": {
       "input": 3780,
@@ -137,18 +137,18 @@
       "output": 18221
     },
     "gpt-6.1-sol": {
-      "input": 4885560,
+      "input": 5145979,
       "cache_write": 0,
-      "cache_read": 503083136,
-      "output": 1529659
+      "cache_read": 516391552,
+      "output": 1568798
     }
   },
   "by_activity": {
     "unlabeled": {
-      "input": 20971596,
-      "cache_write": 871024944,
-      "cache_read": 142430660850,
-      "output": 265195910
+      "input": 21268633,
+      "cache_write": 976937316,
+      "cache_read": 148770157537,
+      "output": 279197819
     },
     "backfill": {
       "input": 21552517,
@@ -177,16 +177,16 @@
   },
   "by_agent": {
     "claude-code": {
-      "input": 9018467,
-      "cache_write": 998857607,
-      "cache_read": 155578094720,
-      "output": 306717874
+      "input": 9055085,
+      "cache_write": 1104769979,
+      "cache_read": 161904282991,
+      "output": 320680644
     },
     "codex": {
-      "input": 34109547,
+      "input": 34369966,
       "cache_write": 0,
-      "cache_read": 1403709184,
-      "output": 4238489
+      "cache_read": 1417017600,
+      "output": 4277628
     }
   },
   "server_tool_calls": {
@@ -194,12 +194,12 @@
     "web_fetch": 0
   },
   "time": {
-    "wall_clock_s": 18367133.5
+    "wall_clock_s": 18856936.1
   },
   "compaction_signals": {
-    "events": 718,
-    "peak_context_tokens": 462028421,
-    "summary_chars": 13024810
+    "events": 734,
+    "peak_context_tokens": 473650071,
+    "summary_chars": 13370865
   },
   "modeled_post_hoc": "inference_seconds, energy_kwh, carbon_gco2e, usd — derived from the measurements above by `estimate`; not stored here."
 }
