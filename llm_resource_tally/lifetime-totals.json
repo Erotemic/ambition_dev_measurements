@@ -16,16 +16,16 @@
     "non_committing_work": "requires_reconcile",
     "compaction_usage": "measured_signals_only_when_runtime_omits_usage"
   },
-  "through": "2026-10-28T17:52:36.160469+00:00",
-  "ledger_rows": 14585,
-  "commits_accounted": 13567,
-  "turns": 437493,
+  "through": "2026-10-28T18:34:39.773245+00:00",
+  "ledger_rows": 14588,
+  "commits_accounted": 13570,
+  "turns": 437569,
   "tokens": {
-    "input": 47256952,
+    "input": 47356586,
     "cache_write": 1105319577,
-    "cache_read": 163787484283,
-    "output": 326630875,
-    "billable_input": 164940060812
+    "cache_read": 163809986299,
+    "output": 326681761,
+    "billable_input": 164962662462
   },
   "by_model": {
     "claude-opus-4-8": {
@@ -137,18 +137,18 @@
       "output": 18221
     },
     "gpt-6.1-sol": {
-      "input": 8977674,
+      "input": 9077308,
       "cache_write": 0,
-      "cache_read": 956597376,
-      "output": 3158122
+      "cache_read": 979099392,
+      "output": 3209008
     }
   },
   "by_activity": {
     "unlabeled": {
-      "input": 25100534,
+      "input": 25200168,
       "cache_write": 977486914,
-      "cache_read": 149236341229,
-      "output": 280870422
+      "cache_read": 149258843245,
+      "output": 280921308
     },
     "backfill": {
       "input": 21552517,
@@ -183,10 +183,10 @@
       "output": 320763923
     },
     "codex": {
-      "input": 38201661,
+      "input": 38301295,
       "cache_write": 0,
-      "cache_read": 1857223424,
-      "output": 5866952
+      "cache_read": 1879725440,
+      "output": 5917838
     }
   },
   "server_tool_calls": {
@@ -194,7 +194,7 @@
     "web_fetch": 0
   },
   "time": {
-    "wall_clock_s": 19142278.3
+    "wall_clock_s": 19144749.8
   },
   "compaction_signals": {
     "events": 734,
