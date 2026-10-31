@@ -16,16 +16,16 @@
     "non_committing_work": "requires_reconcile",
     "compaction_usage": "measured_signals_only_when_runtime_omits_usage"
   },
-  "through": "2026-10-31T21:54:24.132127+00:00",
-  "ledger_rows": 15047,
-  "commits_accounted": 13993,
-  "turns": 456794,
+  "through": "2026-10-31T23:22:04.513113+00:00",
+  "ledger_rows": 15061,
+  "commits_accounted": 14002,
+  "turns": 456941,
   "tokens": {
-    "input": 59244123,
-    "cache_write": 1150863307,
-    "cache_read": 169532045698,
-    "output": 341321064,
-    "billable_input": 170742153128
+    "input": 59363038,
+    "cache_write": 1150938903,
+    "cache_read": 169595775264,
+    "output": 341456144,
+    "billable_input": 170806077205
   },
   "by_model": {
     "claude-opus-4-8": {
@@ -113,10 +113,10 @@
       "output": 3918
     },
     "claude-opus-5-5": {
-      "input": 272184,
-      "cache_write": 374735655,
-      "cache_read": 41744473120,
-      "output": 96924788
+      "input": 272266,
+      "cache_write": 374811251,
+      "cache_read": 41773000510,
+      "output": 96984734
     },
     "claude-sonnet-5-5": {
       "input": 3780,
@@ -137,18 +137,18 @@
       "output": 18221
     },
     "gpt-6.1-sol": {
-      "input": 20889026,
+      "input": 21007859,
       "cache_write": 0,
-      "cache_read": 2243025664,
-      "output": 7463793
+      "cache_read": 2278227840,
+      "output": 7538927
     }
   },
   "by_activity": {
     "unlabeled": {
-      "input": 37087705,
-      "cache_write": 1023030644,
-      "cache_read": 154980902644,
-      "output": 295560611
+      "input": 37206620,
+      "cache_write": 1023106240,
+      "cache_read": 155044632210,
+      "output": 295695691
     },
     "backfill": {
       "input": 21552517,
@@ -177,16 +177,16 @@
   },
   "by_agent": {
     "claude-code": {
-      "input": 9131110,
-      "cache_write": 1150863307,
-      "cache_read": 166388393986,
-      "output": 331148441
+      "input": 9131192,
+      "cache_write": 1150938903,
+      "cache_read": 166416921376,
+      "output": 331208387
     },
     "codex": {
-      "input": 50113013,
+      "input": 50231846,
       "cache_write": 0,
-      "cache_read": 3143651712,
-      "output": 10172623
+      "cache_read": 3178853888,
+      "output": 10247757
     }
   },
   "server_tool_calls": {
@@ -194,7 +194,7 @@
     "web_fetch": 0
   },
   "time": {
-    "wall_clock_s": 19862902.4
+    "wall_clock_s": 19868207.9
   },
   "compaction_signals": {
     "events": 749,
