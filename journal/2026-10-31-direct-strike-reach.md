@@ -52,3 +52,59 @@ perception collection as a whole, simulation throughput, or Android FPS.
 Open: repeat `scripts/autoprofile_android.sh` on the Pixel 5. Compare room
 intervals and transition stalls as well as the aggregate FPS. Function-level
 Android attribution still needs the matching unstripped library.
+
+## Busy-room batch
+
+The next Android capture, `android-all-ambition-auto-20261101T013457Z`,
+completed after the APK packaging fix. It reports median 42.79 FPS. The earlier
+capture reports 41.91 FPS. Warmup changed from 40 to 10 seconds and recording
+changed from 120 to 90 seconds. The phone also started cooler. This does not
+isolate the reach-query change.
+
+The next code batch removes repeated work in ordinary engine paths:
+
+- Brains with no perception requirement skip sensor-input construction. Their
+  belief clearing and brain tick remain active.
+- Perception snapshots reuse ID and team strings. An entity index replaces
+  each observer's full scan for its own row. Room grouping remains stable.
+- Crowd construction records liveness for bystanders without building their
+  crowd identity maps.
+- Melee spacing reads strike reach and startup directly from shared move rules.
+- Contact damage and provocation read body components without constructing a
+  mutable body view. Contact damage resolves victims directly.
+- Rigged sprites prepare links between tween frames once. Drawing uses indexed
+  links instead of a full next-frame scan per part.
+- Cloned rigged assets share immutable draw tables, clips, and tween links.
+- Rig binding uses borrowed sheet keys. Direct drawing reuses its pose buffer.
+- The sprite watch parses a publication only when its bytes change. It reads
+  loose files without building all published file records. Manifest comparison
+  uses map lookups instead of nested scans.
+
+The same authored actor population, texture tiers, perception extent, and
+simulation tick rate apply. No Android throughput improvement
+is claimed for this batch before the next phone run.
+
+Two sprite-art tests fail with both the original and changed implementation:
+`mary_os_parts_are_placed_by_her_body_rigs_pose` and
+`the_rows_a_rig_and_the_animator_time_differently_are_these`. The first reports
+the current expressive tall sheet's `ceiling_tech` pose. The second compares rig timing differences with a stored set. These tests were excluded from the
+final crate lane after both baseline failures were reproduced. The existing
+published tween, tier, and draw-envelope checks pass.
+
+Implementation commits: `77a93cfc6` (body work), `e5e59dc4e` (rigged sprites),
+and `3bd289f3c` (publication reads).
+
+Validation:
+
+- The six changed crate suites pass, with the two baseline art failures above
+  excluded from the sprite-sheet run. Their integration tests and doctests run
+  in the same lane.
+- The complete Smash app suite passes, with six existing ignored tests.
+- The live Hall test and its moving-slug control pass.
+- `cargo check -p ambition_app` passes after the final render-cache change.
+- Workspace policy reports five existing pose and velocity writes in the
+  unchanged `crates/ambition_sim_view/src/camera_scenarios.rs`. No waiver was
+  added.
+
+Open: measure the full batch in one Android run. The two art checks and the
+camera-scenario policy failures remain separate work.
