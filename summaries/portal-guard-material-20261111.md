@@ -95,3 +95,98 @@ common material law and custody admission. General kernel and other free-body
 remaining-time continuation, moving-target hurt CCD, full numeric fault
 identity/effects, performance/device gates and full PSIM acceptance remain open.
 The full workspace and feature-union matrix were not run for this packet.
+
+
+## Deflect response charts
+
+Source `16d3d2ff6` keeps the meeting strike and guard maps with the deflect
+message. The response no longer compares distant root positions as though
+they share a chart. The two contact-frame launches use the guard's mapped
+velocity as their baseline, then return through the two root maps. Portal
+surface translation and spin enter the affine velocity conversion at the
+chosen response position. Guard-authored speed units follow guard material;
+hitstop and lockout durations do not scale. Carried run comes from the root
+launch. A shared velocity change does not change the relative response.
+
+The resolver prepares both launches before changing either body, move
+playback, guard count or recoil clocks. A refused launch reports its numeric
+fault and leaves those states unchanged. A contact-map refusal does not enter
+the strike's hit ledger. This does not add stable fault IDs or fault effects.
+
+The contact position remains the existing midpoint estimate of the meeting
+piece centres. This change does not calculate a swept contact time or point,
+add body angular-velocity reception, or complete moving-target hurt/guard CCD.
+Those limits remain part of the open contact and motion work.
+
+Three behavioral checks cover the added laws. A contact-chart matrix carries
+either the strike or guard through half and double scale, both conventions,
+portal translation/spin and a shared velocity change. A real strike-resolver
+case checks rebound, push, clocks and one deflect per strike through scaled
+portals. A refusal case checks that neither body nor guard state changes.
+The existing arbitrary-gravity guard cases also pass.
+
+### Source validation
+
+The following commands passed on one fixed source tree:
+
+```bash
+cargo test -j6 -p ambition_combat -p ambition_characters --lib -- --test-threads=6
+```
+
+```bash
+cargo check -j6 -p ambition_app
+```
+
+```bash
+cargo test -j6 -p ambition_app --test app_it -- shock_warden_shield --test-threads=4
+```
+
+```bash
+cargo test -j6 -p ambition_app --test app_it -- portal_similarity_slice --test-threads=2
+```
+
+```bash
+cargo test -j6 -p ambition_demo_smash_app -- --test-threads=6
+```
+
+```bash
+cargo test -j6 -p ambition_workspace_policy -- --test-threads=6
+```
+
+```bash
+python3 scripts/checks/check_no_warnings.py -p ambition_characters -p ambition_combat -p ambition_app
+```
+
+Results: 828 combat tests passed (three ignored), 546 character tests passed,
+four Warden cases passed, both reverse/replay/render slice cases passed,
+73 Smash tests passed (six ignored), and 35 policy tests passed. The app and
+default all-target warning checks passed. The slice runs real GGRS rewinds
+and a second bit-identical scene replay; it is not a guard-CCD acceptance case.
+
+### Merge validation
+
+After upstream cutscene and host-authority merge `10b07aef7`, these commands
+passed on one fixed tree:
+
+```bash
+cargo check -j6 -p ambition_app
+```
+
+```bash
+cargo test -j6 -p ambition_app --test app_it -- shock_warden_shield --test-threads=4
+```
+
+```bash
+cargo test -j6 -p ambition_app --test app_it -- rollback_schema_baseline --test-threads=4
+```
+
+Results: the app check, four Warden cases and four schema cases passed.
+The broad source checks were not repeated after the merge. A later comment
+edit removes the word "exact" from the contact-position description; it does
+not change behavior. Logs and terminal results are at
+`target/portal-guard-response-gates/`.
+
+No full workspace, feature-union, new GPU or device gate was run. General
+remaining-time continuation, other motion models, moving-target CCD and
+root epochs, physical attachment placement/release, stable numeric fault
+identity/effects, runtime measurements and full PSIM acceptance remain open.
