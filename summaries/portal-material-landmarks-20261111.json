@@ -1,0 +1,209 @@
+{
+  "source": "5db057506",
+  "merge": "f0af28d7c",
+  "owner_libraries": {
+    "command": [
+      "cargo",
+      "test",
+      "-j6",
+      "-p",
+      "ambition_combat",
+      "-p",
+      "ambition_held_items",
+      "-p",
+      "ambition_sim_view",
+      "-p",
+      "ambition_render",
+      "-p",
+      "ambition_abilities",
+      "-p",
+      "ambition_platformer2d_actor_monolith",
+      "--lib"
+    ],
+    "code": 0,
+    "passed": 2202,
+    "ignored": 5,
+    "log": "target/portal-landmarks-owners.log"
+  },
+  "batch": [
+    {
+      "name": "actor",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_actor_monolith",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 40.39563745900523
+    },
+    {
+      "name": "renderer",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_render",
+        "--lib",
+        "a_held_item_visual_is_kept_while_its_holder_holds_it"
+      ],
+      "code": 0,
+      "seconds": 84.46771273203194
+    },
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 13.064024045015685
+    },
+    {
+      "name": "pet",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "a_pet_hand_meets_the_contact_point"
+      ],
+      "code": 0,
+      "seconds": 126.52125496097142
+    },
+    {
+      "name": "slice",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_similarity_slice"
+      ],
+      "code": 0,
+      "seconds": 167.26881300396053
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 373.0302815680043
+    },
+    {
+      "name": "policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 109.16719345800811
+    },
+    {
+      "name": "primeval",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_content",
+        "--lib",
+        "primeval"
+      ],
+      "code": 0,
+      "seconds": 91.89941196801374
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_combat",
+        "-p",
+        "ambition_render",
+        "-p",
+        "ambition_sim_view",
+        "-p",
+        "ambition_abilities"
+      ],
+      "code": 0,
+      "seconds": 85.29149055096786
+    }
+  ],
+  "final": [
+    {
+      "name": "final-actor",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_actor_monolith",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 36.74864725203952
+    },
+    {
+      "name": "final-app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 29.767958602984436
+    },
+    {
+      "name": "final-warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_platformer2d_actor_monolith"
+      ],
+      "code": 0,
+      "seconds": 139.78984750201926
+    }
+  ],
+  "merged_app": {
+    "command": [
+      "cargo",
+      "check",
+      "-j6",
+      "-p",
+      "ambition_app"
+    ],
+    "code": 0,
+    "log": "target/portal-landmarks-gates/merged-app.log"
+  }
+}
