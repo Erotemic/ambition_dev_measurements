@@ -1,0 +1,248 @@
+{
+  "source_commit": "70c9fbf75",
+  "merge_commit": "55864a788",
+  "date": "2026-11-11",
+  "functional_batch": [
+    {
+      "name": "no-portal",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_held_items",
+        "--lib",
+        "--no-default-features"
+      ],
+      "code": 0,
+      "seconds": 9.093552099948283
+    },
+    {
+      "name": "owners",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_portal2d",
+        "-p",
+        "ambition_projectile_combat",
+        "--lib",
+        "--features",
+        "ambition_held_items/portal,ambition_projectile_combat/portal"
+      ],
+      "code": 0,
+      "seconds": 12.652805857011117
+    },
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 18.36864326801151
+    },
+    {
+      "name": "projectiles",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "projectile_portal_transit"
+      ],
+      "code": 0,
+      "seconds": 147.13175440899795
+    },
+    {
+      "name": "slice",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_similarity_slice"
+      ],
+      "code": 0,
+      "seconds": 427.551789338002
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 363.5750352210016
+    },
+    {
+      "name": "policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 102.72388619201956
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_portal2d",
+        "-p",
+        "ambition_projectile_combat"
+      ],
+      "code": 1,
+      "seconds": 74.09033571800683
+    }
+  ],
+  "prepared_pose_warning_fix": [
+    {
+      "name": "held",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_held_items",
+        "--lib",
+        "--features",
+        "portal"
+      ],
+      "code": 0,
+      "seconds": 1.4791961690061726
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_portal2d",
+        "-p",
+        "ambition_projectile_combat"
+      ],
+      "code": 0,
+      "seconds": 16.674955244001467
+    }
+  ],
+  "merged_batch": [
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 56.49410001101205
+    },
+    {
+      "name": "schema",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "rollback_schema"
+      ],
+      "code": 0,
+      "seconds": 157.5493117259466
+    },
+    {
+      "name": "held-app",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "held_projectile_portal_transit"
+      ],
+      "code": 0,
+      "seconds": 21.380209683964495
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 380.6794032570324
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_portal2d",
+        "-p",
+        "ambition_projectile_combat"
+      ],
+      "code": 0,
+      "seconds": 71.5795377799659
+    }
+  ],
+  "logs": "target/portal-item-motion-gates",
+  "scope": "Selected owner portal features; default all-target warning checks. No full workspace, device or GPU gate.",
+  "open": [
+    "General actor and support-carry continuation",
+    "Moving recipient CCD and terminal effect timing",
+    "Other birth paths and full held geometry",
+    "Bounded numeric law and fault effects",
+    "Controlled portal-free cost, desktop/mobile GPU and resource gates"
+  ],
+  "timing_note": "Slice runtime 426.93 s after righting integration versus 305.60 s before it. Uncontrolled runs; profiling lead only."
+}
