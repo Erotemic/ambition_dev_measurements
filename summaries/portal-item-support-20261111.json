@@ -1,0 +1,213 @@
+{
+  "source": "fcccb3b32",
+  "merge": "2317b79cb",
+  "policy_fix": "01a3c3bf3",
+  "before_merge": [
+    {
+      "name": "owners",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_platformer2d_shared_tangle",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 13.57693407399347
+    },
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 24.357358444016427
+    },
+    {
+      "name": "slice",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_similarity_slice"
+      ],
+      "code": 0,
+      "seconds": 364.7187576320139
+    },
+    {
+      "name": "chain",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_chain_lab"
+      ],
+      "code": 0,
+      "seconds": 68.60404931101948
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 326.04670458100736
+    },
+    {
+      "name": "policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 90.44819202198414
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_platformer2d_shared_tangle"
+      ],
+      "code": 0,
+      "seconds": 62.53793875401607
+    }
+  ],
+  "after_merge": [
+    {
+      "name": "merged-app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 56.05227054498391
+    },
+    {
+      "name": "merged-held",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_held_items",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 15.720807803969365
+    },
+    {
+      "name": "merged-schema",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "rollback_schema_baseline"
+      ],
+      "code": 0,
+      "seconds": 172.646895108046
+    },
+    {
+      "name": "merged-slice",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_similarity_slice"
+      ],
+      "code": 0,
+      "seconds": 308.4143773209653
+    },
+    {
+      "name": "merged-policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 101,
+      "seconds": 85.96102264500223
+    }
+  ],
+  "policy_and_warning_completion": [
+    {
+      "name": "fixed-policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 94.50242315500509
+    },
+    {
+      "name": "merged-warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_held_items"
+      ],
+      "code": 0,
+      "seconds": 58.16713381296722
+    }
+  ],
+  "profiling_lead": {
+    "binary": "target/debug/deps/smash_it-a95bb0ffbe7d40bd",
+    "build_id": "c64af1b23b0f223d2b306a5dd09e813326ad71a3",
+    "event": "cpu-clock",
+    "frequency_hz": 99,
+    "duration_s": 15,
+    "samples": 15792,
+    "symbol_attribution": false,
+    "logs": "target/portal-item-support-gates/perf-smash.log"
+  }
+}
