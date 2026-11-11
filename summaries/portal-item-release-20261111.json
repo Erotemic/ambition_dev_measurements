@@ -1,0 +1,399 @@
+{
+  "source_commit": "a66c9209d",
+  "room_clock_merge": "c49189963",
+  "shared_load_commit": "03a9efeaf",
+  "combined_commit": "dbc086852",
+  "presentation_merge": "df6e93285",
+  "rollback_schema": 458,
+  "stages": {
+    "source": [
+      {
+        "name": "owners",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_platformer2d_core",
+          "-p",
+          "ambition_held_items",
+          "-p",
+          "ambition_platformer2d_items",
+          "-p",
+          "ambition_platformer2d_session",
+          "-p",
+          "ambition_platformer2d_actor_monolith",
+          "--lib",
+          "--",
+          "--test-threads=6"
+        ],
+        "exit_code": 0,
+        "seconds": 53.97480630874634
+      },
+      {
+        "name": "app",
+        "command": [
+          "cargo",
+          "check",
+          "-j6",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 36.89263081550598
+      },
+      {
+        "name": "slice",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "portal_similarity_slice",
+          "--test-threads=2"
+        ],
+        "exit_code": 0,
+        "seconds": 179.67710280418396
+      },
+      {
+        "name": "schema",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "rollback_schema_baseline",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 16.762314081192017
+      },
+      {
+        "name": "held-transit",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "held_projectile_portal_transit",
+          "--test-threads=2"
+        ],
+        "exit_code": 0,
+        "seconds": 14.874863624572754
+      },
+      {
+        "name": "smash",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_demo_smash_app",
+          "--",
+          "--test-threads=6"
+        ],
+        "exit_code": 0,
+        "seconds": 374.4670042991638
+      },
+      {
+        "name": "policy",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_workspace_policy",
+          "--",
+          "--test-threads=6"
+        ],
+        "exit_code": 0,
+        "seconds": 94.29536151885986
+      },
+      {
+        "name": "warnings",
+        "command": [
+          "python3",
+          "scripts/checks/check_no_warnings.py",
+          "-p",
+          "ambition_held_items",
+          "-p",
+          "ambition_platformer2d_core",
+          "-p",
+          "ambition_platformer2d_session",
+          "-p",
+          "ambition_platformer2d_items",
+          "-p",
+          "ambition_content",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 1,
+        "seconds": 70.29335260391235
+      }
+    ],
+    "source_warning_fix": [
+      {
+        "name": "primeval",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_content",
+          "--lib",
+          "--",
+          "primeval",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 147.19135546684265
+      },
+      {
+        "name": "throw-precedence",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_content",
+          "--lib",
+          "--",
+          "throw_precedence_tests",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 1.3729541301727295
+      },
+      {
+        "name": "warnings-final",
+        "command": [
+          "python3",
+          "scripts/checks/check_no_warnings.py",
+          "-p",
+          "ambition_held_items",
+          "-p",
+          "ambition_platformer2d_core",
+          "-p",
+          "ambition_platformer2d_session",
+          "-p",
+          "ambition_platformer2d_items",
+          "-p",
+          "ambition_content",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 5.2237913608551025
+      }
+    ],
+    "room_clock_merge": [
+      {
+        "name": "merged-app",
+        "command": [
+          "cargo",
+          "check",
+          "-j6",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 41.59876847267151
+      },
+      {
+        "name": "merged-javelin",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "a_carried_javelin_leaves_the_scaled_holder_with_its_physical_material",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "seconds": 249.59750604629517
+      },
+      {
+        "name": "merged-schema",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "rollback_schema_baseline",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 16.953577756881714
+      },
+      {
+        "name": "merged-room-hitstop",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "a_hit_in_one_room_does_not_freeze_the_other",
+          "--test-threads=3"
+        ],
+        "exit_code": 0,
+        "seconds": 21.52998971939087
+      }
+    ],
+    "shared_load_fix": [
+      {
+        "name": "sling-owners",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_held_items",
+          "--lib",
+          "--",
+          "--test-threads=6"
+        ],
+        "exit_code": 0,
+        "seconds": 9.060022830963135
+      },
+      {
+        "name": "sling-app",
+        "command": [
+          "cargo",
+          "check",
+          "-j6",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 13.95099401473999
+      },
+      {
+        "name": "sling-primeval",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_content",
+          "--lib",
+          "--",
+          "primeval",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 103.24539160728455
+      },
+      {
+        "name": "sling-warnings",
+        "command": [
+          "python3",
+          "scripts/checks/check_no_warnings.py",
+          "-p",
+          "ambition_held_items",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 65.10150718688965
+      }
+    ],
+    "combined_schema_458": [
+      {
+        "name": "combined-app",
+        "command": [
+          "cargo",
+          "check",
+          "-j6",
+          "-p",
+          "ambition_app"
+        ],
+        "exit_code": 0,
+        "seconds": 13.9766104221344
+      },
+      {
+        "name": "combined-schema",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "rollback_schema_baseline",
+          "--test-threads=4"
+        ],
+        "exit_code": 0,
+        "seconds": 85.01038455963135
+      },
+      {
+        "name": "combined-javelin",
+        "command": [
+          "cargo",
+          "test",
+          "-j6",
+          "-p",
+          "ambition_app",
+          "--test",
+          "app_it",
+          "--",
+          "a_carried_javelin_leaves_the_scaled_holder_with_its_physical_material",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "seconds": 98.81385207176208
+      },
+      {
+        "name": "combined-absence",
+        "command": [
+          "python3",
+          "scripts/checks/check_absence_contracts.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "seconds": 5.065994501113892
+      }
+    ]
+  },
+  "presentation_merge_check": {
+    "command": [
+      "cargo",
+      "check",
+      "-j6",
+      "-p",
+      "ambition_app"
+    ],
+    "exit_code": 0
+  },
+  "limits": [
+    "Full workspace and feature-union checks were not run.",
+    "No new GPU or device capture was made.",
+    "Held hand/wrist placement, held render and attack geometry, durable material history and free-item motion/collision remain open.",
+    "General remaining-time continuation, other movement models, moving-target contact and root epochs, numeric fault identity/effects and performance acceptance remain open."
+  ]
+}
