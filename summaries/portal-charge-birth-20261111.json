@@ -1,0 +1,136 @@
+{
+  "source": "b8788d097",
+  "merge": "ef56f8599",
+  "first_batch": [
+    {
+      "name": "owners",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_combat",
+        "-p",
+        "ambition_projectile_combat",
+        "-p",
+        "ambition_platformer2d_actor_monolith",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 69.84857553499751
+    },
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j6",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 26.68801139999414
+    },
+    {
+      "name": "robot",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "the_robots_fireball_hops"
+      ],
+      "code": 0,
+      "seconds": 210.7053450240055
+    },
+    {
+      "name": "runtime",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_runtime",
+        "--lib",
+        "projectile"
+      ],
+      "code": 101,
+      "seconds": 93.09059354203055,
+      "log": null,
+      "note": "The runtime log was replaced by the corrected-fixture run. The initial failure was the sideways-gravity birth-position assertion; the direction assertion passed."
+    }
+  ],
+  "after_fixture_correction": [
+    {
+      "name": "runtime",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_runtime",
+        "--lib",
+        "projectile"
+      ],
+      "code": 0,
+      "seconds": 13.28709484502906
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 356.71253536996664
+    },
+    {
+      "name": "policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 111.50394214899279
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_combat",
+        "-p",
+        "ambition_projectile_combat",
+        "-p",
+        "ambition_platformer2d_actor_monolith",
+        "-p",
+        "ambition_sim_view"
+      ],
+      "code": 0,
+      "seconds": 31.815414646000136
+    }
+  ],
+  "merged_app": {
+    "command": [
+      "cargo",
+      "check",
+      "-j6",
+      "-p",
+      "ambition_app"
+    ],
+    "code": 0,
+    "log": "target/portal-charge-gates/merged-app.log"
+  }
+}
