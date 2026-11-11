@@ -61,3 +61,21 @@ No authored map or art changed. This packet does not prove moving target hurt
 CCD, general portal continuation, every moving-support response, the complete
 numerical fault effects, feature union and full workspace acceptance or device and
 performance gates. Those requirements remain open in the PSIM plan.
+
+## Timing merge
+
+After room-hitstop merge `a0568d91b`, all 434 owner, 38 runtime projectile and
+19 filtered projectile app cases pass again. Both 80/40 slice cases pass,
+including partial support, persistent scale and parity, reverse travel and
+rewind/replay. Both room-freeze cases pass. The assembled app check and the
+default all-target warning check also pass. The source stayed fixed during
+this run. `target/portal-world-response/hitstop-gates.json` records its exact
+commands and terminal results. These two additional app filters were used:
+
+```bash
+cargo test -j6 -p ambition_app --test app_it -- portal_similarity_slice --test-threads=2
+cargo test -j6 -p ambition_app --test app_it -- a_hit_in_one_room_does_not_freeze_the_other --test-threads=2
+```
+
+Smash and policy were not repeated after this timing merge. Full PSIM,
+feature union, device and performance acceptance remain open.
