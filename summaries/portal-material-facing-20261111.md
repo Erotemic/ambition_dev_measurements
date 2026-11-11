@@ -209,3 +209,27 @@ hurt CCD, guard response velocities, held-item placement/release, complete
 numeric fault identity/effects, device/performance gates and full PSIM
 acceptance remain open. No authored map or art changed. No new GPU or device
 capture was made. The full workspace and feature-union matrix were not run.
+
+
+## Wall and ledge contact facing
+
+`42fe3ccfd` maps the wall normal and ledge inward direction from the control
+frame into canonical material axes before each facing write. Both ledge
+acquisition and continued hanging use this rule. A perpendicular request
+keeps the current facing. The wall check covers half, ordinary and double
+scale under both parities. The ledge check covers acquisition and hanging
+from both sides, under half and double scale, turn and reflection.
+
+These commands passed on the fixed source tree:
+
+```bash
+cargo test -j6 -p ambition_platformer2d_core -p ambition_platformer2d_actor_monolith --lib -- --test-threads=6
+cargo check -j6 -p ambition_app
+cargo test -j6 -p ambition_demo_smash_app -- --test-threads=6
+```
+
+Results: 885 core tests passed (one ignored), 600 actor tests passed, the
+assembled app check passed, and 73 Smash tests passed (six ignored).
+Terminal results and logs are at `target/portal-ledge-facing-gates/`.
+No full workspace, feature-union, GPU or device gate was run for this change.
+The remaining scope above stays open.
