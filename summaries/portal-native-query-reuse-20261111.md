@@ -149,3 +149,11 @@ The prior first-pass source-cell receipt remains a separate experiment.
 Obsolete copied executables from that pass were retired after their text
 metrics were published. This comparison's baseline, final and historical
 control executables remain in ignored target storage.
+
+## Later main integration
+
+Merge `803247457` retains the nearest-interaction change and conductor health
+floor. The assembled app check, 235 boss-owner tests, 4 boss-port tests and
+all 4 schema checks pass with schema 460. The interaction library compiles;
+it contains no tests. This narrow lane does not repeat the earlier portal
+suite. The recorded cost samples still use their frozen source and content.

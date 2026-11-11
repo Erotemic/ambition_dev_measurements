@@ -2148,5 +2148,75 @@
       "seconds": 71.06740145600634
     }
   ],
-  "coverage_fix": "ScopePace is fixed composition code; its installed SystemState is access metadata. Clock values remain canonical. Coverage passes 21 active cases; 2 probes ignored."
+  "coverage_fix": "ScopePace is fixed composition code; its installed SystemState is access metadata. Clock values remain canonical. Coverage passes 21 active cases; 2 probes ignored.",
+  "later_integration_commit": "803247457",
+  "later_integration_validation": [
+    {
+      "name": "app",
+      "command": [
+        "cargo",
+        "check",
+        "-j12",
+        "-p",
+        "ambition_app"
+      ],
+      "code": 0,
+      "seconds": 47.542701219033916
+    },
+    {
+      "name": "boss",
+      "command": [
+        "cargo",
+        "test",
+        "-j12",
+        "-p",
+        "ambition_boss_encounter",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 32.78876394103281
+    },
+    {
+      "name": "boss-port",
+      "command": [
+        "cargo",
+        "test",
+        "-j12",
+        "-p",
+        "ambition_boss_special_port",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 0.5735591039992869
+    },
+    {
+      "name": "interaction",
+      "command": [
+        "cargo",
+        "test",
+        "-j12",
+        "-p",
+        "ambition_platformer2d_interaction",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 60.69840146496426
+    },
+    {
+      "name": "schema",
+      "command": [
+        "cargo",
+        "test",
+        "-j12",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "rollback_schema"
+      ],
+      "code": 0,
+      "seconds": 170.78143816802185
+    }
+  ],
+  "later_integration_scope": "incoming nearest interaction and boss health floor; schema460; interaction library compiles but has0tests; full portal suite was not repeated for this merge"
 }
