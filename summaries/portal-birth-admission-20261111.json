@@ -1,0 +1,126 @@
+{
+  "source": "7dea550b5",
+  "batch": [
+    {
+      "name": "owners",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_projectiles",
+        "-p",
+        "ambition_projectile_combat",
+        "-p",
+        "ambition_platformer2d_actor_monolith",
+        "--lib"
+      ],
+      "code": 0,
+      "seconds": 62.33742205495946
+    },
+    {
+      "name": "slice",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "portal_similarity_slice"
+      ],
+      "code": 0,
+      "seconds": 337.48484077403555
+    },
+    {
+      "name": "robot",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_app",
+        "--test",
+        "app_it",
+        "the_robots_fireball_hops"
+      ],
+      "code": 0,
+      "seconds": 32.55094659002498
+    },
+    {
+      "name": "runtime",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_platformer2d_runtime",
+        "--lib",
+        "projectile"
+      ],
+      "code": 0,
+      "seconds": 53.786224205978215
+    },
+    {
+      "name": "smash",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_demo_smash_app"
+      ],
+      "code": 0,
+      "seconds": 341.2481013580109
+    },
+    {
+      "name": "policy",
+      "command": [
+        "cargo",
+        "test",
+        "-j6",
+        "-p",
+        "ambition_workspace_policy"
+      ],
+      "code": 0,
+      "seconds": 89.71708388096886
+    },
+    {
+      "name": "warnings",
+      "command": [
+        "python3",
+        "scripts/checks/check_no_warnings.py",
+        "-p",
+        "ambition_app",
+        "-p",
+        "ambition_platformer2d_core",
+        "-p",
+        "ambition_projectiles",
+        "-p",
+        "ambition_projectile_combat",
+        "-p",
+        "ambition_held_items",
+        "-p",
+        "ambition_platformer2d_actor_monolith"
+      ],
+      "code": 0,
+      "seconds": 62.86834898497909
+    }
+  ],
+  "app": {
+    "command": [
+      "cargo",
+      "check",
+      "-j6",
+      "-p",
+      "ambition_app"
+    ],
+    "code": 0,
+    "log": "target/portal-birth-admission-app.log"
+  }
+}
