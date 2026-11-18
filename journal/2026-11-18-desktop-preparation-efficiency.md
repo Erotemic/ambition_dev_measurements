@@ -104,6 +104,12 @@ Seven reported files are byte-identical to that baseline. The runtime manifest
 has later port additions, but its reported camera dependency also predates this
 work. The full verdict is in `validation-policy-and-smash.log`.
 
+The final merge `2336b87802` also includes incoming native hit reception work.
+`cargo check -p ambition_app` passes on that merge. The combat library passes
+842 tests, with three existing ignored tests. The damage library passes
+52 tests. The runtime captures and timings identify `0772afb205` in their
+metadata; the final assembled check covers the later merge.
+
 This lane does not cover the complete workspace matrix, all opt-in features,
 doctests, external consumers, Android, web, or a new desktop hardware capture.
 
