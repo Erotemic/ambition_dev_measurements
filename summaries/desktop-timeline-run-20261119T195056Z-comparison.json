@@ -1,0 +1,133 @@
+{
+  "20261119T140515Z": {
+    "entry": 40.815,
+    "interval": [
+      65.815,
+      73.815
+    ],
+    "frame_times.csv": {
+      "samples": 8,
+      "weight": 123,
+      "means": {
+        "mean": 67.22983739837399
+      }
+    },
+    "census_sim_phases.csv": {
+      "samples": 8,
+      "weight": 496,
+      "means": {
+        "Observe": 0.9418346774193548,
+        "PlayerSimulation": 0.4747177419354839,
+        "Combat": 0.5020947580645161,
+        "PlayerInput": 0.32928629032258067,
+        "FeatureViewSync": 1.3489798387096774,
+        "Progression": 0.11578225806451613,
+        "AfterIntegrate": 0.5467822580645162,
+        "GameplayEffects": 0.3578366935483871,
+        "Integrate": 6.3779798387096776,
+        "Targeting": 1.3134475806451613,
+        "FeatureCollection": 0.298304435483871,
+        "Gate": 0.6902762096774194,
+        "RoomTransition": 0.03787701612903226,
+        "FeatureInteraction": 0.03187701612903226,
+        "BeforeIntegrate": 0.10611693548387097,
+        "Cutscene": 0.0673850806451613,
+        "Decide": 0.6894334677419355,
+        "PresentationSync": 0.033375,
+        "EncounterSimulation": 0.011125,
+        "Prepare": 0.02601008064516129,
+        "ContactDamage": 0.018252016129032256,
+        "WorldPrep": 0.12938306451612905,
+        "Publish": 0.014127016129032258,
+        "ResetProcessing": 0.0,
+        "PresentationVisualSync": 0.0,
+        "LdtkRuntimeSpine": 0.0,
+        "Trace": 0.0
+      }
+    },
+    "schedule_phases.csv": {
+      "samples": 8,
+      "weight": 123,
+      "means": {
+        "First": 0.08447154471544716,
+        "PreUpdate": 59.18572357723577,
+        "StateTransition": 0.018739837398373982,
+        "RunFixedMainLoop": 0.07397560975609756,
+        "Update": 3.5646260162601626,
+        "SpawnScene": 0.028390243902439025,
+        "PostUpdate": 2.420146341463415,
+        "Last": 0.7907479674796748,
+        "outside": 1.0650731707317072
+      }
+    },
+    "bodies": [
+      538
+    ]
+  },
+  "20261119T195056Z": {
+    "entry": 41.923,
+    "interval": [
+      66.923,
+      74.923
+    ],
+    "frame_times.csv": {
+      "samples": 8,
+      "weight": 226,
+      "means": {
+        "mean": 36.23991150442478
+      }
+    },
+    "census_sim_phases.csv": {
+      "samples": 8,
+      "weight": 491,
+      "means": {
+        "Observe": 1.0994419551934826,
+        "PlayerSimulation": 0.5966863543788187,
+        "Combat": 0.6575050916496946,
+        "PlayerInput": 0.4092566191446028,
+        "FeatureViewSync": 1.5917881873727087,
+        "Integrate": 2.8225560081466394,
+        "AfterIntegrate": 0.7394704684317719,
+        "Progression": 0.130989816700611,
+        "FeatureInteraction": 0.38935030549898164,
+        "Targeting": 1.6053543788187374,
+        "GameplayEffects": 0.4465315682281059,
+        "Gate": 0.8245213849287168,
+        "RoomTransition": 0.04726069246435845,
+        "BeforeIntegrate": 0.12762525458248472,
+        "Cutscene": 0.07900610997963341,
+        "Decide": 0.8192566191446028,
+        "PresentationSync": 0.03812830957230143,
+        "EncounterSimulation": 0.012881873727087574,
+        "FeatureCollection": 0.010376782077393076,
+        "Prepare": 0.03411405295315682,
+        "WorldPrep": 0.15776578411405295,
+        "ContactDamage": 0.024757637474541752,
+        "Publish": 0.0159959266802444,
+        "LdtkRuntimeSpine": 0.0,
+        "ResetProcessing": 0.0,
+        "PresentationVisualSync": 0.00012423625254582484,
+        "Trace": 0.0
+      }
+    },
+    "schedule_phases.csv": {
+      "samples": 8,
+      "weight": 226,
+      "means": {
+        "First": 0.09281415929203539,
+        "PreUpdate": 28.276398230088496,
+        "StateTransition": 0.021592920353982303,
+        "RunFixedMainLoop": 0.07302654867256637,
+        "Update": 3.9070486725663716,
+        "SpawnScene": 0.03181858407079646,
+        "PostUpdate": 2.2169690265486723,
+        "Last": 0.5052256637168141,
+        "outside": 1.114367256637168
+      }
+    },
+    "bodies": [
+      538
+    ]
+  },
+  "method": "Select 1 Hz rows by wall_s in Hall entry +25 to +33 seconds. Weight frame means by frames and phase means by simulation ticks. Quantiles are not combined."
+}
