@@ -43,6 +43,10 @@ The old VM collector immediately reports a protocol mismatch against this
 executable. That establishes a working connection. The matching 0.14.0 tools
 were then built with one compiler job. The dependency version lookup now uses
 `Cargo.lock`, so an older cached client cannot choose the tool version.
+Installation checks now read the active executables' version reports instead
+of inferring their versions from cached source directories. The dependency
+checker uses that same check. Tests cover matching, old, and mixed tools even
+when the required source directory is already cached.
 
 Changing the linker configuration invalidates cached artifacts. The first
 ordinary build after this change can rebuild dependencies.
@@ -100,7 +104,13 @@ passed 18 unit tests and 56 integration tests, with six existing integration
 tests ignored. These checks cover the ledge optimization before the linker
 change and upstream merge; its source remains unchanged.
 
-All 27 selected profiler, tool-version, and streaming tests passed. The real
+The profiler command lane passed 22 tests. The final version and streaming
+lane passed eight tests. The real
 120-second export also completed with matching event counts. The native
 constructor probe and the relinked application establish that the default
 linker runs the omitted constructors.
+
+`cargo check -p ambition_app --features profile -j 1` passed on the merged
+source with the default linker. The cold check took 19 minutes 25 seconds.
+The temporary read-only diagnostic bind was removed. The VM's Cargo target
+bind remains in place. The full workspace test suite was not run.
