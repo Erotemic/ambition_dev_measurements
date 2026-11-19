@@ -1,0 +1,909 @@
+{
+  "all_36_states_match": true,
+  "cases": [
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "moved": 0,
+      "ms_per_tick": {
+        "before": 0.840908,
+        "after": 0.606457,
+        "speedup": 1.386591299960261
+      },
+      "ms_per_body_phase": {
+        "before": 0.54027,
+        "after": 0.352973,
+        "speedup": 1.53062698846654
+      }
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "moved": 0,
+      "ms_per_tick": {
+        "before": 2.043921,
+        "after": 1.300375,
+        "speedup": 1.5717935210996827
+      },
+      "ms_per_body_phase": {
+        "before": 1.585709,
+        "after": 0.971183,
+        "speedup": 1.6327602521872808
+      }
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "moved": 0,
+      "ms_per_tick": {
+        "before": 7.55469,
+        "after": 4.349097,
+        "speedup": 1.7370709367944654
+      },
+      "ms_per_body_phase": {
+        "before": 6.373197,
+        "after": 3.317163,
+        "speedup": 1.92127941858751
+      }
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "moved": 32,
+      "ms_per_tick": {
+        "before": 0.785862,
+        "after": 0.539167,
+        "speedup": 1.4575484033703843
+      },
+      "ms_per_body_phase": {
+        "before": 0.487214,
+        "after": 0.326436,
+        "speedup": 1.4925253342155889
+      }
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "moved": 128,
+      "ms_per_tick": {
+        "before": 2.193387,
+        "after": 1.333278,
+        "speedup": 1.6451085220036632
+      },
+      "ms_per_body_phase": {
+        "before": 1.747782,
+        "after": 0.994614,
+        "speedup": 1.7572465298095543
+      }
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "moved": 512,
+      "ms_per_tick": {
+        "before": 7.673168,
+        "after": 4.813982,
+        "speedup": 1.5939336707116893
+      },
+      "ms_per_body_phase": {
+        "before": 6.523812,
+        "after": 3.761717,
+        "speedup": 1.7342644329703698
+      }
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "moved": 30,
+      "ms_per_tick": {
+        "before": 0.973478,
+        "after": 0.655869,
+        "speedup": 1.48425676468929
+      },
+      "ms_per_body_phase": {
+        "before": 0.615945,
+        "after": 0.412403,
+        "speedup": 1.493551210830183
+      }
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "moved": 120,
+      "ms_per_tick": {
+        "before": 2.781694,
+        "after": 1.879265,
+        "speedup": 1.4802031645350708
+      },
+      "ms_per_body_phase": {
+        "before": 2.311892,
+        "after": 1.468457,
+        "speedup": 1.5743681973663513
+      }
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "moved": 480,
+      "ms_per_tick": {
+        "before": 16.621465,
+        "after": 10.469427,
+        "speedup": 1.587619360639317
+      },
+      "ms_per_body_phase": {
+        "before": 15.193819,
+        "after": 9.094641,
+        "speedup": 1.67063427792257
+      }
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "moved": 32,
+      "ms_per_tick": {
+        "before": 0.737057,
+        "after": 0.449118,
+        "speedup": 1.6411210416861493
+      },
+      "ms_per_body_phase": {
+        "before": 0.459411,
+        "after": 0.260253,
+        "speedup": 1.7652476628511486
+      }
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "moved": 128,
+      "ms_per_tick": {
+        "before": 2.134082,
+        "after": 1.486093,
+        "speedup": 1.4360352952338782
+      },
+      "ms_per_body_phase": {
+        "before": 1.693354,
+        "after": 1.127686,
+        "speedup": 1.5016183583018679
+      }
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "moved": 512,
+      "ms_per_tick": {
+        "before": 7.817902,
+        "after": 5.094172,
+        "speedup": 1.5346757039220504
+      },
+      "ms_per_body_phase": {
+        "before": 6.517487,
+        "after": 3.948625,
+        "speedup": 1.6505712748108519
+      }
+    }
+  ],
+  "before": [
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 928317,
+      "ns_per_body_phase": 615956,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 840908,
+      "ns_per_body_phase": 540270,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 814840,
+      "ns_per_body_phase": 525441,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 2047303,
+      "ns_per_body_phase": 1585709,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 2041566,
+      "ns_per_body_phase": 1587390,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 2043921,
+      "ns_per_body_phase": 1562873,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 7721233,
+      "ns_per_body_phase": 6527532,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 7254496,
+      "ns_per_body_phase": 6099678,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 7554690,
+      "ns_per_body_phase": 6373197,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 785862,
+      "ns_per_body_phase": 487214,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 758552,
+      "ns_per_body_phase": 472933,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 799084,
+      "ns_per_body_phase": 513811,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 2193387,
+      "ns_per_body_phase": 1747782,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 2125648,
+      "ns_per_body_phase": 1693718,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 2215132,
+      "ns_per_body_phase": 1759255,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 7673168,
+      "ns_per_body_phase": 6523812,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 7907244,
+      "ns_per_body_phase": 6753517,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 7555556,
+      "ns_per_body_phase": 6289452,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 1072764,
+      "ns_per_body_phase": 704027,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 973478,
+      "ns_per_body_phase": 615945,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 829240,
+      "ns_per_body_phase": 525940,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 2771418,
+      "ns_per_body_phase": 2307269,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 2781694,
+      "ns_per_body_phase": 2311892,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 2831284,
+      "ns_per_body_phase": 2333682,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 16621465,
+      "ns_per_body_phase": 15193819,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 16421283,
+      "ns_per_body_phase": 14988431,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 16807457,
+      "ns_per_body_phase": 15367980,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 811411,
+      "ns_per_body_phase": 510354,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 730317,
+      "ns_per_body_phase": 459411,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 737057,
+      "ns_per_body_phase": 459030,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 2134082,
+      "ns_per_body_phase": 1687800,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 2277558,
+      "ns_per_body_phase": 1843431,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 2128387,
+      "ns_per_body_phase": 1693354,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 7735352,
+      "ns_per_body_phase": 6491452,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 8201400,
+      "ns_per_body_phase": 6974545,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 7817902,
+      "ns_per_body_phase": 6517487,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    }
+  ],
+  "after": [
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 585681,
+      "ns_per_body_phase": 346287,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 606457,
+      "ns_per_body_phase": 352973,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 610777,
+      "ns_per_body_phase": 363850,
+      "state_hash": "2232051945305503938",
+      "moved": 0,
+      "distance": "416.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 1339716,
+      "ns_per_body_phase": 971183,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 1300375,
+      "ns_per_body_phase": 973810,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 1215921,
+      "ns_per_body_phase": 895913,
+      "state_hash": "13834636958726218339",
+      "moved": 0,
+      "distance": "1664.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 4558597,
+      "ns_per_body_phase": 3491364,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 4349097,
+      "ns_per_body_phase": 3317163,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Settled",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 4204552,
+      "ns_per_body_phase": 3181565,
+      "state_hash": "109587448984400967",
+      "moved": 0,
+      "distance": "6656.000"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 539167,
+      "ns_per_body_phase": 326436,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 541879,
+      "ns_per_body_phase": 328913,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 532712,
+      "ns_per_body_phase": 318071,
+      "state_hash": "5566601885726254995",
+      "moved": 32,
+      "distance": "4798.579"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 1411495,
+      "ns_per_body_phase": 1036505,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 1291951,
+      "ns_per_body_phase": 961732,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 1333278,
+      "ns_per_body_phase": 994614,
+      "state_hash": "16994992787068623459",
+      "moved": 128,
+      "distance": "19194.318"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 4956460,
+      "ns_per_body_phase": 3876946,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 4813982,
+      "ns_per_body_phase": 3761717,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Roaming",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 4676573,
+      "ns_per_body_phase": 3626431,
+      "state_hash": "9426412786822988049",
+      "moved": 512,
+      "distance": "76777.270"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 713242,
+      "ns_per_body_phase": 446826,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 655869,
+      "ns_per_body_phase": 412403,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 511074,
+      "ns_per_body_phase": 305493,
+      "state_hash": "3105246645087204107",
+      "moved": 30,
+      "distance": "4091.063"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 2186550,
+      "ns_per_body_phase": 1660884,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 1879265,
+      "ns_per_body_phase": 1468457,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 1811069,
+      "ns_per_body_phase": 1441630,
+      "state_hash": "7807315088510046194",
+      "moved": 120,
+      "distance": "16364.252"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 10623121,
+      "ns_per_body_phase": 9208534,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 10469427,
+      "ns_per_body_phase": 9094641,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "Converging",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 9719451,
+      "ns_per_body_phase": 8393576,
+      "state_hash": "1518851708339201590",
+      "moved": 480,
+      "distance": "65457.007"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 0,
+      "ns_per_tick": 426445,
+      "ns_per_body_phase": 254801,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 1,
+      "ns_per_tick": 449118,
+      "ns_per_body_phase": 260253,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 32,
+      "sample": 2,
+      "ns_per_tick": 497953,
+      "ns_per_body_phase": 303873,
+      "state_hash": "7874195189685006790",
+      "moved": 32,
+      "distance": "5148.214"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 0,
+      "ns_per_tick": 1486093,
+      "ns_per_body_phase": 1129736,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 1,
+      "ns_per_tick": 1500098,
+      "ns_per_body_phase": 1127686,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 128,
+      "sample": 2,
+      "ns_per_tick": 1277777,
+      "ns_per_body_phase": 953704,
+      "state_hash": "14112422874577689801",
+      "moved": 128,
+      "distance": "20592.856"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 0,
+      "ns_per_tick": 5109129,
+      "ns_per_body_phase": 4017014,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 1,
+      "ns_per_tick": 5027328,
+      "ns_per_body_phase": 3914057,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    },
+    {
+      "workload": "MovingWall",
+      "bodies": 512,
+      "sample": 2,
+      "ns_per_tick": 5094172,
+      "ns_per_body_phase": 3948625,
+      "state_hash": "7269618786894123067",
+      "moved": 512,
+      "distance": "82371.422"
+    }
+  ]
+}
