@@ -1,0 +1,1416 @@
+{
+  "machine": {
+    "host": "aivm-2404",
+    "machine_id": "716a275cbdcb4fe3889ae543368500f7",
+    "cpu_model": "Intel Core i7-7700HQ CPU @ 2.80GHz",
+    "logical_cpus": 6,
+    "mem_total_kib": 18151468
+  },
+  "source": {
+    "before": "d14c5ae9d13174bbf10ebf6ff79f879d606ef8f8",
+    "after": "1add31e00e5cc6d62810f61d42abe67bff50891e",
+    "before_note": "Baseline plus the identical ignored measurement fixtures. Saved test binaries before production edits.",
+    "after_note": "Final production code and identical fixtures. Three later path-only Spatial trait changes were checked by assembled app compile."
+  },
+  "configuration": {
+    "profile": "dev/test; workspace opt-level 0; external packages opt-level 3",
+    "features": "ambition_combat and ambition_sim_view package defaults, built together",
+    "warmup_updates": 10,
+    "timed_updates": 40,
+    "samples": 3,
+    "all_bodies_move": true,
+    "rendering": false,
+    "netcode": false,
+    "tracy": false,
+    "rustc": "1.98.0 (88d9e12ae 2026-08-18)",
+    "cargo": "1.98.0 (797e8a9bc 2026-08-05)"
+  },
+  "rows": {
+    "target": {
+      "before": [
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 81781,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 86336,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 83531,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 892990,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 907775,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 886779,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 12560681,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 12533951,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 12766098,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 49470540,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 49418473,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 48535455,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 133641,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 66010,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 64516,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 507695,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 620699,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 500381,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 5829594,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 6165251,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 5735769,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 21806666,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 22445728,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 22466784,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 67546,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 69169,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 64823,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 466582,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 531741,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 522615,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 6092705,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 5853132,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 6156459,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 22532069,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 22037979,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 21691433,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 77660,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 84558,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 75149,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 874995,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 853866,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 872125,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 12445201,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 12977095,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 12398537,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 50723221,
+          "output_hash": "17388675456681884393"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 48552765,
+          "output_hash": "17388675456681884393"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 48965647,
+          "output_hash": "17388675456681884393"
+        }
+      ],
+      "after": [
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 74437,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 71638,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 66142,
+          "output_hash": "10764097847274267781"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 295353,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 301075,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 287403,
+          "output_hash": "18138709135492162731"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 1369978,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 1389052,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 1373418,
+          "output_hash": "17169331417748139148"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 2920749,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 3128524,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "mixed",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 2877660,
+          "output_hash": "11027099855130213938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 85541,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 101824,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 91368,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 443073,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 436920,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 453112,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 2194662,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 2334372,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 2230688,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 4923307,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 6827982,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "opposed",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 4908820,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 115239,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 101177,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 100189,
+          "output_hash": "6356803172427125150"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 498630,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 481830,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 465795,
+          "output_hash": "12178305834265660938"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 2332192,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 2354967,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 2662008,
+          "output_hash": "9062703082708568129"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 5513543,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 5780082,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "teams",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 5914219,
+          "output_hash": "15663909762315710996"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 56028,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 58033,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 59380,
+          "output_hash": "15829295862183113441"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 360339,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 248764,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 231983,
+          "output_hash": "18094817430963700279"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 1113949,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 1262509,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 1151500,
+          "output_hash": "13825728461620606345"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 2420604,
+          "output_hash": "17388675456681884393"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 2564950,
+          "output_hash": "17388675456681884393"
+        },
+        {
+          "workload": "neutral",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 2380378,
+          "output_hash": "17388675456681884393"
+        }
+      ]
+    },
+    "views": {
+      "before": [
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 40503,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 41700,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 39585,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 139462,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 128639,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 131223,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 480917,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 502449,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 465979,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 1008770,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 968296,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 986558,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 71254,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 66917,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 64989,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 253638,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 248046,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 267030,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 1012948,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 1005763,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 986158,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 2048933,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 1981409,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 2293540,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 64470,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 62684,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 71165,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 227343,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 239482,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 230933,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 891690,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 926020,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 921030,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 1831480,
+          "output_hash": "14406557685200985544"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 1812926,
+          "output_hash": "14406557685200985544"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 1839298,
+          "output_hash": "14406557685200985544"
+        }
+      ],
+      "after": [
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 41734,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 37683,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 40957,
+          "output_hash": "10336441716660189887"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 148244,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 127027,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 123246,
+          "output_hash": "9917233373136940355"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 511072,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 488426,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 490836,
+          "output_hash": "875015162491932969"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 960325,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 1064346,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "features",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 964340,
+          "output_hash": "8088250728349999789"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 43611,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 46341,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 42201,
+          "output_hash": "37713686788566440"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 161019,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 198300,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 156714,
+          "output_hash": "12964562420078875813"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 615803,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 619066,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 627144,
+          "output_hash": "682901236621447885"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 1475474,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 1257709,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-fallback",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 1280156,
+          "output_hash": "2988276796591058526"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 0,
+          "ns_per_update": 41967,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 1,
+          "ns_per_update": 41856,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 32,
+          "sample": 2,
+          "ns_per_update": 50885,
+          "output_hash": "12300701670387950203"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 0,
+          "ns_per_update": 153858,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 1,
+          "ns_per_update": 145842,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 128,
+          "sample": 2,
+          "ns_per_update": 144530,
+          "output_hash": "8725886566022788522"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 0,
+          "ns_per_update": 577107,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 1,
+          "ns_per_update": 650651,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 512,
+          "sample": 2,
+          "ns_per_update": 584398,
+          "output_hash": "2807637889094176273"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 0,
+          "ns_per_update": 1167218,
+          "output_hash": "14406557685200985544"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 1,
+          "ns_per_update": 1281673,
+          "output_hash": "14406557685200985544"
+        },
+        {
+          "workload": "geometry-published",
+          "bodies": 1024,
+          "sample": 2,
+          "ns_per_update": 1326935,
+          "output_hash": "14406557685200985544"
+        }
+      ]
+    }
+  },
+  "medians": [
+    {
+      "workload": "mixed",
+      "bodies": 32,
+      "before_ms": 0.083531,
+      "after_ms": 0.071638,
+      "speedup": 1.166015243306625
+    },
+    {
+      "workload": "mixed",
+      "bodies": 128,
+      "before_ms": 0.89299,
+      "after_ms": 0.295353,
+      "speedup": 3.0234668346013076
+    },
+    {
+      "workload": "mixed",
+      "bodies": 512,
+      "before_ms": 12.560681,
+      "after_ms": 1.373418,
+      "speedup": 9.145563113342043
+    },
+    {
+      "workload": "mixed",
+      "bodies": 1024,
+      "before_ms": 49.418473,
+      "after_ms": 2.920749,
+      "speedup": 16.919794545851083
+    },
+    {
+      "workload": "opposed",
+      "bodies": 32,
+      "before_ms": 0.06601,
+      "after_ms": 0.091368,
+      "speedup": 0.7224630067419665
+    },
+    {
+      "workload": "opposed",
+      "bodies": 128,
+      "before_ms": 0.507695,
+      "after_ms": 0.443073,
+      "speedup": 1.1458495552651595
+    },
+    {
+      "workload": "opposed",
+      "bodies": 512,
+      "before_ms": 5.829594,
+      "after_ms": 2.230688,
+      "speedup": 2.613361438264787
+    },
+    {
+      "workload": "opposed",
+      "bodies": 1024,
+      "before_ms": 22.445728,
+      "after_ms": 4.923307,
+      "speedup": 4.559075434458992
+    },
+    {
+      "workload": "teams",
+      "bodies": 32,
+      "before_ms": 0.067546,
+      "after_ms": 0.101177,
+      "speedup": 0.6676023206855313
+    },
+    {
+      "workload": "teams",
+      "bodies": 128,
+      "before_ms": 0.522615,
+      "after_ms": 0.48183,
+      "speedup": 1.0846460369839988
+    },
+    {
+      "workload": "teams",
+      "bodies": 512,
+      "before_ms": 6.092705,
+      "after_ms": 2.354967,
+      "speedup": 2.5871721344715235
+    },
+    {
+      "workload": "teams",
+      "bodies": 1024,
+      "before_ms": 22.037979,
+      "after_ms": 5.780082,
+      "speedup": 3.8127450441014505
+    },
+    {
+      "workload": "neutral",
+      "bodies": 32,
+      "before_ms": 0.07766,
+      "after_ms": 0.058033,
+      "speedup": 1.3382041252390882
+    },
+    {
+      "workload": "neutral",
+      "bodies": 128,
+      "before_ms": 0.872125,
+      "after_ms": 0.248764,
+      "speedup": 3.5058328375488412
+    },
+    {
+      "workload": "neutral",
+      "bodies": 512,
+      "before_ms": 12.445201,
+      "after_ms": 1.1515,
+      "speedup": 10.807816760746853
+    },
+    {
+      "workload": "neutral",
+      "bodies": 1024,
+      "before_ms": 48.965647,
+      "after_ms": 2.420604,
+      "speedup": 20.22868961631064
+    },
+    {
+      "workload": "features",
+      "bodies": 32,
+      "before_ms": 0.040503,
+      "after_ms": 0.040957,
+      "speedup": 0.9889152037502746
+    },
+    {
+      "workload": "features",
+      "bodies": 128,
+      "before_ms": 0.131223,
+      "after_ms": 0.127027,
+      "speedup": 1.0330323474536909
+    },
+    {
+      "workload": "features",
+      "bodies": 512,
+      "before_ms": 0.480917,
+      "after_ms": 0.490836,
+      "speedup": 0.9797916208265082
+    },
+    {
+      "workload": "features",
+      "bodies": 1024,
+      "before_ms": 0.986558,
+      "after_ms": 0.96434,
+      "speedup": 1.0230395918452
+    },
+    {
+      "workload": "geometry-fallback",
+      "bodies": 32,
+      "before_ms": 0.066917,
+      "after_ms": 0.043611,
+      "speedup": 1.534406457086515
+    },
+    {
+      "workload": "geometry-fallback",
+      "bodies": 128,
+      "before_ms": 0.253638,
+      "after_ms": 0.161019,
+      "speedup": 1.575205410541613
+    },
+    {
+      "workload": "geometry-fallback",
+      "bodies": 512,
+      "before_ms": 1.005763,
+      "after_ms": 0.619066,
+      "speedup": 1.6246458374389805
+    },
+    {
+      "workload": "geometry-fallback",
+      "bodies": 1024,
+      "before_ms": 2.048933,
+      "after_ms": 1.280156,
+      "speedup": 1.600533841188105
+    },
+    {
+      "workload": "geometry-published",
+      "bodies": 32,
+      "before_ms": 0.06447,
+      "after_ms": 0.041967,
+      "speedup": 1.5362070198012725
+    },
+    {
+      "workload": "geometry-published",
+      "bodies": 128,
+      "before_ms": 0.230933,
+      "after_ms": 0.145842,
+      "speedup": 1.5834464694669574
+    },
+    {
+      "workload": "geometry-published",
+      "bodies": 512,
+      "before_ms": 0.92103,
+      "after_ms": 0.584398,
+      "speedup": 1.5760320877210394
+    },
+    {
+      "workload": "geometry-published",
+      "bodies": 1024,
+      "before_ms": 1.83148,
+      "after_ms": 1.281673,
+      "speedup": 1.4289760336684942
+    }
+  ]
+}
